@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">670598135606</string>
+    <string name="google_api_key" translatable="false">AIzaSyAwqZCrYoLDLr9p4hIDpT8mcVx7jkEQPa4</string>
+    <string name="google_app_id" translatable="false">1:670598135606:android:45abb23f0cb666e125fd97</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAwqZCrYoLDLr9p4hIDpT8mcVx7jkEQPa4</string>
+    <string name="google_storage_bucket" translatable="false">dine-deal-74691.appspot.com</string>
+    <string name="project_id" translatable="false">dine-deal-74691</string>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+</resources>

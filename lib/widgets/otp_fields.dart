@@ -20,15 +20,17 @@ class OTPFields extends StatelessWidget {
           }
         },
         decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: "NunitoSans",
-            ),
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: "NunitoSans",
+          ),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(
               color: black,
-            ))),
+            ),
+          ),
+        ),
         style: Theme.of(context).textTheme.titleLarge,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,

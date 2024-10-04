@@ -2,7 +2,7 @@ import 'package:dine_deal/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

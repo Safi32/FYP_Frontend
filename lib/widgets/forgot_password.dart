@@ -8,10 +8,10 @@ class PasswordResetModal extends StatelessWidget {
   final String fontName;
 
   const PasswordResetModal({
-    Key? key,
+    super.key,
     required this.passwordController,
     required this.fontName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
