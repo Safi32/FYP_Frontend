@@ -31,7 +31,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   MainAuthButton(
                     function: () {
-                      Get.to(() => LoginScreen());
+                      Get.to(() => LoginScreen(),
+                          transition: Transition.native);
                     },
                     text: "Login",
                     textColor: Colors.white,
@@ -42,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   MainAuthButton(
                     function: () {
-                      Get.to(() => SignUp());
+                      Get.to(() => SignUp(), transition: Transition.native);
                     },
                     text: "Signup",
                     textColor: black,

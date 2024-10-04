@@ -16,6 +16,7 @@ class LoginScreen extends StatelessWidget {
   final String fontName = 'NunitoSans';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController otpEmailController = TextEditingController();
 
   final LoginController loginController = Get.put(LoginController());
 
@@ -27,7 +28,7 @@ class LoginScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return EmailInputModal(
           fontName: 'NunitoSans',
-          emailController: emailController,
+          emailController: otpEmailController,
           onContinue: () {
             Navigator.pop(context);
             _userOTP(context);
