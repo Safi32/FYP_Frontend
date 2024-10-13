@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import '../utils/colors.dart';
 
 class OTPFields extends StatelessWidget {
-  const OTPFields({super.key, required this.hintText});
+  const OTPFields({
+    super.key,
+    required this.hintText,
+  });
 
   final String hintText;
 

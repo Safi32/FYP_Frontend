@@ -32,7 +32,6 @@ class LoginController extends GetxController {
         final String token = responseData['token'];
 
         await storage.write(key: 'jwt_token', value: token);
-        // Save user credentials
         await storage.write(key: 'user_email', value: email);
         await storage.write(key: 'user_password', value: password);
 
@@ -50,7 +49,6 @@ class LoginController extends GetxController {
     }
   }
 
-  // Method to save user credentials
   Future<void> saveUserCredentials(String email, String password) async {
     await storage.write(key: 'user_email', value: email);
     await storage.write(key: 'user_password', value: password);
