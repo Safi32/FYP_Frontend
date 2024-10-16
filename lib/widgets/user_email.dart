@@ -1,3 +1,4 @@
+import 'package:dine_deal/controller/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,9 @@ class EmailInputModal extends StatelessWidget {
   final TextEditingController emailController;
   final VoidCallback onContinue;
 
-  const EmailInputModal({
+  final OtpController otpController = Get.put(OtpController());
+
+  EmailInputModal({
     super.key,
     required this.fontName,
     required this.emailController,
@@ -83,15 +86,23 @@ class EmailInputModal extends StatelessWidget {
                                 elevation: 0,
                               ),
                               onPressed: onContinue,
-                              child: Text(
-                                "Continue",
-                                style: TextStyle(
-                                  fontFamily: fontName,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                ),
-                              ),
+                              child: Obx(() {
+                                if (otpController.isLoading.value) {
+                                  return const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  );
+                                } else {
+                                  return Text(
+                                    "Continue",
+                                    style: TextStyle(
+                                      fontFamily: fontName,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                  );
+                                }
+                              }),
                             ),
                           ),
                         ],

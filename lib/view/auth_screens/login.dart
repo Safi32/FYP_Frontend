@@ -1,3 +1,4 @@
+import 'package:dine_deal/controller/otp_controller.dart';
 import 'package:dine_deal/widgets/forgot_password.dart';
 import 'package:dine_deal/widgets/otp.dart';
 import 'package:dine_deal/widgets/save_skip_password.dart';
@@ -21,6 +22,7 @@ class LoginScreen extends StatelessWidget {
   final LoginController loginController = Get.put(LoginController());
 
   void _userEmail(BuildContext context) {
+    final OtpController otpController = Get.put(OtpController());
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -30,8 +32,17 @@ class LoginScreen extends StatelessWidget {
           fontName: 'NunitoSans',
           emailController: otpEmailController,
           onContinue: () {
-            Navigator.pop(context);
-            _userOTP(context);
+            String email = otpEmailController.text.trim();
+            if (email.isNotEmpty) {
+              otpController.sendOtp(email).then((_) {
+                if (otpController.otpSent.value) {
+                  Navigator.pop(context);
+                  _userOTP(context);
+                } else {}
+              });
+            } else {
+              Get.snackbar('Error', 'Please enter an email');
+            }
           },
         );
       },
