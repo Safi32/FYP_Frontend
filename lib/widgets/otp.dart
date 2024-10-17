@@ -1,6 +1,7 @@
+import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/otp_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class UserOTPModal extends StatelessWidget {
   final String fontName;
@@ -83,26 +84,32 @@ class UserOTPModal extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: Get.height * 0.05,
-                        width: Get.width,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            elevation: 0,
-                          ),
-                          onPressed: onContinue,
-                          child: Text(
-                            "Continue",
-                            style: TextStyle(
-                              fontFamily: fontName,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
+                      Button(
+                        title: "Continue",
+                        color: orange,
+                        onPressed: onContinue,
+                        textColor: Colors.white,
                       ),
+                      // SizedBox(
+                      //   height: Get.height * 0.05,
+                      //   width: Get.width,
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.black,
+                      //       elevation: 0,
+                      //     ),
+                      //     onPressed: onContinue,
+                      //     child: Text(
+                      //       "Continue",
+                      //       style: TextStyle(
+                      //         fontFamily: fontName,
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.white,
+                      //         fontSize: 15,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

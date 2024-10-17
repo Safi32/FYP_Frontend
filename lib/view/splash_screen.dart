@@ -1,7 +1,7 @@
+import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/user_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,32 +11,18 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 5), () {
-      Get.off(() => const HomeScreen());
+      Get.off(() => const UserAdmin());
     });
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: orange,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "assets/logo.jpg",
+              "assets/Logo.png",
               height: 150,
               width: 150,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Dine Deal",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: fontName,
-              ),
             ),
           ],
         ),

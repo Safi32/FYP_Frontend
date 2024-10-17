@@ -1,15 +1,17 @@
-import 'package:dine_deal/controller/otp_controller.dart';
+import 'package:dine_deal/view/auth_screens/singup.dart';
+import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/forgot_password.dart';
 import 'package:dine_deal/widgets/otp.dart';
 import 'package:dine_deal/widgets/save_skip_password.dart';
 import 'package:dine_deal/widgets/sign_up_fields.dart';
+import 'package:dine_deal/widgets/social_login.dart';
 import 'package:dine_deal/widgets/user_email.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/login_controller.dart';
+import '../../controller/otp_controller.dart';
 import '../../utils/colors.dart';
-import 'singup.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -38,7 +40,9 @@ class LoginScreen extends StatelessWidget {
                 if (otpController.otpSent.value) {
                   Navigator.pop(context);
                   _userOTP(context);
-                } else {}
+                } else {
+                  Get.snackbar('Error', 'Failed to send OTP');
+                }
               });
             } else {
               Get.snackbar('Error', 'Please enter an email');
@@ -105,182 +109,210 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.arrow_back_rounded,
-                            size: 30,
-                          ),
+        backgroundColor: orange,
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
+                  ),
+                  color: orange,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 30,
+                          color: Colors.white,
                         ),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: fontName,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    SignUpFields(
-                      controller: emailController,
-                      hintText: "example@gmail.com",
-                      tag: "Email",
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: isPasswordVisible,
-                      builder: (context, value, child) {
-                        return SignUpFields(
-                          controller: passwordController,
-                          hintText: "Password",
-                          tag: "Password",
-                          keyboardType: TextInputType.text,
-                          obscureText: !isPasswordVisible.value,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              isPasswordVisible.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
-                            onPressed: () {
-                              isPasswordVisible.value =
-                                  !isPasswordVisible.value;
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _userEmail(context);
-                          },
+                      ),
+                      Expanded(
+                        child: Center(
                           child: Text(
-                            "Forgot Password?",
+                            "Login",
                             style: TextStyle(
-                              color: black,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                               fontFamily: fontName,
+                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Obx(
-                      () {
-                        return loginController.isLoading.value
-                            ? const CircularProgressIndicator()
-                            : SizedBox(
-                                width: Get.width,
-                                height: Get.height * 0.05,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: black,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20),
+                            SignUpFields(
+                              controller: emailController,
+                              hintText: "Enter your email here",
+                              tag: "Email",
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            ValueListenableBuilder(
+                              valueListenable: isPasswordVisible,
+                              builder: (context, value, child) {
+                                return SignUpFields(
+                                  controller: passwordController,
+                                  hintText: "Enter your password here",
+                                  tag: "Password",
+                                  keyboardType: TextInputType.text,
+                                  obscureText: !isPasswordVisible.value,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      isPasswordVisible.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      isPasswordVisible.value =
+                                          !isPasswordVisible.value;
+                                    },
                                   ),
-                                  onPressed: () {
-                                    String email = emailController.text;
-                                    String password = passwordController.text;
-                                    loginController.loginUser(email, password);
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    _userEmail(context);
                                   },
                                   child: Text(
-                                    "Login",
+                                    "Forgot Password?",
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      color: black,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
                                       fontFamily: fontName,
                                     ),
                                   ),
                                 ),
-                              );
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                    Row(
-                      children: <Widget>[
-                        const Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: black,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'or Login with',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: fontName,
-                              fontWeight: FontWeight.bold,
-                              color: black,
+                              ],
                             ),
-                          ),
+                            const SizedBox(height: 20),
+                            Obx(
+                              () {
+                                return loginController.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : Button(
+                                        title: "Login",
+                                        color: orange,
+                                        onPressed: () {},
+                                        textColor: Colors.white,
+                                      );
+                              },
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: <Widget>[
+                                const Expanded(
+                                  child: Divider(
+                                    thickness: 1,
+                                    color: black,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Text(
+                                    'or Login with',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: fontName,
+                                      fontWeight: FontWeight.bold,
+                                      color: black,
+                                    ),
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: Divider(
+                                    thickness: 1,
+                                    color: black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SocialLogin(
+                                  image: "assets/communication.png",
+                                  title: "Login with",
+                                ),
+                                SocialLogin(
+                                  image: "assets/search.png",
+                                  title: "Login with",
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                        const Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => SignUp());
+                  },
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Don't have an account? ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: fontName,
+                        fontWeight: FontWeight.bold,
+                        color: black,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "Signup",
+                          style: TextStyle(
+                            fontFamily: fontName,
+                            fontWeight: FontWeight.bold,
+                            color: orange,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 50),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(() => SignUp());
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            text: "Already have an account? ",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: fontName,
-                              fontWeight: FontWeight.bold,
-                              color: black,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: "Signup",
-                                style: TextStyle(
-                                  fontFamily: fontName,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

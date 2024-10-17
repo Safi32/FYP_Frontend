@@ -1,5 +1,6 @@
+import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'sign_up_fields.dart';
 
@@ -77,28 +78,34 @@ class PasswordResetModal extends StatelessWidget {
                             controller: passwordController,
                             hintText: "Confirm Password",
                           ),
-                          SizedBox(
-                            height: Get.height * 0.06,
-                            width: Get.width,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                elevation: 0,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                "Continue",
-                                style: TextStyle(
-                                  fontFamily: fontName,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
+                          Button(
+                            title: "Continue",
+                            color: orange,
+                            onPressed: () {},
+                            textColor: Colors.white,
                           ),
+                          // SizedBox(
+                          //   height: Get.height * 0.06,
+                          //   width: Get.width,
+                          //   child: ElevatedButton(
+                          //     style: ElevatedButton.styleFrom(
+                          //       backgroundColor: Colors.black,
+                          //       elevation: 0,
+                          //     ),
+                          //     onPressed: () {
+                          //       Navigator.pop(context);
+                          //     },
+                          //     child: Text(
+                          //       "Continue",
+                          //       style: TextStyle(
+                          //         fontFamily: fontName,
+                          //         fontWeight: FontWeight.bold,
+                          //         color: Colors.white,
+                          //         fontSize: 15,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

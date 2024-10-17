@@ -31,14 +31,14 @@ class SignUpFields extends StatelessWidget {
             tag!,
             style: TextStyle(
               fontFamily: fontName,
-              fontSize: 20,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: black,
             ),
           ),
         if (tag != null)
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
         TextFormField(
           controller: controller,
@@ -46,13 +46,12 @@ class SignUpFields extends StatelessWidget {
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.grey.withOpacity(0.4),
+                )),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),
