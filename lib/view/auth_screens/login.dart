@@ -1,3 +1,4 @@
+import 'package:dine_deal/controller/verify_otp_controller.dart';
 import 'package:dine_deal/view/auth_screens/singup.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/forgot_password.dart';
@@ -73,6 +74,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _userOTP(BuildContext context) {
+    final OTPVerificationController otpVerificationController =
+        Get.put(OTPVerificationController());
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -80,9 +83,22 @@ class LoginScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return UserOTPModal(
           fontName: 'NunitoSans',
-          onContinue: () {
-            Navigator.pop(context);
-            _showPasswordResetModal(context);
+          onContinue: () async {
+            String otp = otpVerificationController.getEnteredOtp();
+            bool isVerified = await otpVerificationController.verifyOtp(otp);
+            if (isVerified) {
+              Navigator.pop(context);
+              _showPasswordResetModal(context);
+            } else {
+              Get.snackbar(
+                'Error',
+                otpVerificationController.errorMessage.value,
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.red,
+                colorText: Colors.white,
+                duration: const Duration(seconds: 3),
+              );
+            }
           },
         );
       },
