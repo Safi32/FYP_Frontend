@@ -21,6 +21,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: orange,
         body: Column(
           children: [
@@ -60,6 +61,7 @@ class SignUp extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
                 ),
                 child: SingleChildScrollView(
@@ -100,7 +102,7 @@ class SignUp extends StatelessWidget {
                                   border: Border.all(
                                     color:
                                         controller.selectedPrivacyOption.value
-                                            ? Colors.blue
+                                            ? orange
                                             : Colors.black,
                                   ),
                                 ),
@@ -109,7 +111,7 @@ class SignUp extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     color:
                                         controller.selectedPrivacyOption.value
-                                            ? Colors.blue
+                                            ? orange
                                             : Colors.transparent,
                                   ),
                                   width: 20,
@@ -241,7 +243,7 @@ class SignUp extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: fontName,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: orange,
                                   ),
                                 ),
                               ],

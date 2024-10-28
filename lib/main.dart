@@ -1,4 +1,4 @@
-import 'package:dine_deal/view/splash_screen.dart';
+import 'package:dine_deal/view/user_side/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

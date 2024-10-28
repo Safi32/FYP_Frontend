@@ -1,6 +1,5 @@
 import 'package:dine_deal/controller/verify_otp_controller.dart';
 import 'package:dine_deal/view/auth_screens/singup.dart';
-import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/forgot_password.dart';
 import 'package:dine_deal/widgets/otp.dart';
 import 'package:dine_deal/widgets/save_skip_password.dart';
@@ -125,6 +124,7 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: orange,
         body: Stack(
           children: [
@@ -171,6 +171,7 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                       ),
                     ),
                     child: Padding(
@@ -231,14 +232,38 @@ class LoginScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             Obx(
                               () {
-                                return loginController.isLoading.value
-                                    ? const CircularProgressIndicator()
-                                    : Button(
-                                        title: "Login",
-                                        color: orange,
-                                        onPressed: () {},
-                                        textColor: Colors.white,
-                                      );
+                                return GestureDetector(
+                                  onTap: loginController.isLoading.value
+                                      ? null
+                                      : () {
+                                          loginController.loginUser(
+                                            emailController.text.trim(),
+                                            passwordController.text.trim(),
+                                          );
+                                        },
+                                  child: Container(
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: orange,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: loginController.isLoading.value
+                                        ? const CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                          )
+                                        : const Text(
+                                            "Login",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                  ),
+                                );
                               },
                             ),
                             const SizedBox(height: 30),
@@ -271,9 +296,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -286,7 +309,7 @@ class LoginScreen extends StatelessWidget {
                                   title: "Login with",
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),

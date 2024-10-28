@@ -1,5 +1,5 @@
 import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/view/user_admin.dart';
+import 'package:dine_deal/view/user_side/user_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

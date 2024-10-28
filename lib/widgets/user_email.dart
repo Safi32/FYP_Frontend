@@ -85,34 +85,6 @@ class EmailInputModal extends StatelessWidget {
                             onPressed: onContinue,
                             textColor: Colors.white,
                           ),
-                          // SizedBox(
-                          //   height: Get.height * 0.06,
-                          //   width: Get.width,
-                          //   child: ElevatedButton(
-                          //     style: ElevatedButton.styleFrom(
-                          //       backgroundColor: Colors.black,
-                          //       elevation: 0,
-                          //     ),
-                          //     onPressed: onContinue,
-                          //     child: Obx(() {
-                          //       if (otpController.isLoading.value) {
-                          //         return const CircularProgressIndicator(
-                          //           color: Colors.white,
-                          //         );
-                          //       } else {
-                          //         return Text(
-                          //           "Continue",
-                          //           style: TextStyle(
-                          //             fontFamily: fontName,
-                          //             fontWeight: FontWeight.bold,
-                          //             color: Colors.white,
-                          //             fontSize: 15,
-                          //           ),
-                          //         );
-                          //       }
-                          //     }),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
