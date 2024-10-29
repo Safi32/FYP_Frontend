@@ -1,6 +1,8 @@
 import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/user_side/about_page.dart';
+import 'package:dine_deal/view/user_side/menu_page.dart';
+import 'package:dine_deal/view/user_side/review_page.dart';
 import 'package:dine_deal/widgets/See_all_row.dart';
-import 'package:dine_deal/widgets/about_restaurants.dart';
 import 'package:dine_deal/widgets/deal_type.dart';
 import 'package:dine_deal/widgets/deals_images.dart';
 import 'package:dine_deal/widgets/restaurant_list.dart';
@@ -33,60 +35,42 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
                               "Location",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
                             Container(
                               height: Get.height * 0.05,
                               width: Get.width * 0.12,
                               decoration: const BoxDecoration(
                                   color: Colors.white, shape: BoxShape.circle),
-                              child: Image.asset(
-                                "assets/bell.png",
-                              ),
+                              child: Image.asset("assets/bell.png"),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           children: [
-                            Image.asset(
-                              "assets/location_on.png",
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            Image.asset("assets/location_on.png"),
+                            const SizedBox(width: 5),
                             const Text(
                               "I-14 Islamabad",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                            const Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: Colors.yellow,
-                            ),
+                            const Icon(Icons.keyboard_arrow_down_rounded,
+                                color: Colors.yellow),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
@@ -95,14 +79,12 @@ class HomeScreen extends StatelessWidget {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                   hintText: "Search",
-                                  hintStyle: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  prefixIcon: Image.asset(
-                                    "assets/search (2).png",
-                                  ),
+                                  prefixIcon:
+                                      Image.asset("assets/search (2).png"),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide:
@@ -121,9 +103,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                             SizedBox(
                               height: Get.height * 0.06,
                               width: Get.width * 0.15,
@@ -132,28 +112,22 @@ class HomeScreen extends StatelessWidget {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Image.asset(
-                                  "assets/filter.png",
-                                ),
+                                child: Image.asset("assets/filter.png"),
                               ),
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    SingleChildScrollView(
+                    const SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -168,31 +142,18 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SeeAllRow(
-                      title: "Deal For Today",
-                      seeAll: "See All",
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    DealsImages(
+                    const SizedBox(height: 30),
+                    const SeeAllRow(title: "Deal For Today", seeAll: "See All"),
+                    const SizedBox(height: 20),
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SeeAllRow(
-                      title: "Restaurants Near You",
-                      seeAll: "See All",
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
+                    const SeeAllRow(
+                        title: "Restaurants Near You", seeAll: "See All"),
+                    const SizedBox(height: 20),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -201,54 +162,39 @@ class HomeScreen extends StatelessWidget {
                             spacing: 10,
                             children: [
                               RestaurantList(
-                                onPressed: () {
-                                  Get.to(() => const AboutRestaurants());
-                                },
+                                onPressed: () =>
+                                    Get.to(() => const AboutPage()),
                               ),
                               RestaurantList(
-                                onPressed: () {},
+                                onPressed: () => Get.to(() => const MenuPage()),
                               ),
                               RestaurantList(
-                                onPressed: () {},
+                                onPressed: () =>
+                                    Get.to(() => const ReviewPage()),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SeeAllRow(
-                      title: "Two Persons Deal",
-                      seeAll: "See All",
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    DealsImages(
+                    const SizedBox(height: 10),
+                    const SeeAllRow(
+                        title: "Two Persons Deal", seeAll: "See All"),
+                    const SizedBox(height: 10),
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SeeAllRow(
-                      title: "Family Deal",
-                      seeAll: "See All",
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    DealsImages(
+                    const SizedBox(height: 10),
+                    const SeeAllRow(title: "Family Deal", seeAll: "See All"),
+                    const SizedBox(height: 10),
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),

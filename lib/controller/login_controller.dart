@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dine_deal/view/user_side/home_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +13,7 @@ class LoginController extends GetxController {
   var errorMessage = ''.obs;
 
   Future<void> loginUser(String email, String password) async {
-    const String loginURL = "http://192.168.145.28:3000/login";
+    const String loginURL = "http://192.168.54.165:3000/login";
 
     isLoading.value = true;
     errorMessage.value = '';
@@ -35,7 +36,12 @@ class LoginController extends GetxController {
         await storage.write(key: 'user_email', value: email);
         await storage.write(key: 'user_password', value: password);
 
-        Get.snackbar("Success", "Login Successful");
+        Get.snackbar(
+          "Success",
+          "Login Successful",
+          backgroundColor: Colors.yellow,
+        );
+
         Get.to(() => const HomeScreen());
       } else {
         errorMessage.value = 'Login failed, please check your credentials.';
