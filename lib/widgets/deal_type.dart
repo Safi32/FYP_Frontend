@@ -20,7 +20,7 @@ class DealType extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: orange,
               fontSize: 20,
             ),
