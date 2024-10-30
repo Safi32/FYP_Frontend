@@ -45,32 +45,20 @@ class AboutPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Stack(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 children: [
-                  SizedBox(
+                  Container(
                     height: Get.height * 0.3,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
+                    color: Colors.grey.shade300,
                   ),
-                  const Positioned(
-                    bottom: 10,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Wrap(
-                          spacing: 10,
-                          children: [Window(), Window(), Window()],
-                        ),
-                      ],
-                    ),
+                  Wrap(
+                    spacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: const [Window(), Window(), Window()],
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              // Tabs with highlighting
               Obx(() {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,7 +105,6 @@ class AboutPage extends StatelessWidget {
                   ],
                 );
               }),
-              const SizedBox(height: 20),
             ],
           ),
         ),

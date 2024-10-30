@@ -45,23 +45,17 @@ class ReviewPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      height: Get.height * 0.3,
-                      width: Get.width * 0.8,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Image.asset(
-                          "assets/deal.jpeg",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                  height: Get.height * 0.3,
+                  width: Get.width * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Image.asset(
+                    "assets/deal.jpeg",
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Obx(() {
@@ -110,13 +104,9 @@ class ReviewPage extends StatelessWidget {
                     ],
                   );
                 }),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
                       Expanded(
@@ -128,19 +118,12 @@ class ReviewPage extends StatelessWidget {
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.white),
+                              borderSide: BorderSide.none,
                             ),
                           ),
                         ),
                       ),
+                      const SizedBox(width: 10),
                       Container(
                         height: 50,
                         width: 100,
@@ -158,27 +141,14 @@ class ReviewPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  child: Column(
-                    children: [
-                      ReviewRating(),
-                      SizedBox(
-                        height: 10,
                       ),
-                      ReviewRating(),
                     ],
                   ),
                 ),
+                const SizedBox(height: 20),
+                const ReviewRating(),
+                const SizedBox(height: 10),
+                const ReviewRating(),
               ],
             ),
           ),
