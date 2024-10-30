@@ -1,5 +1,7 @@
 import 'package:dine_deal/controller/tab_controller.dart';
 import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/user_side/reservation_date.dart';
+import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/info_buttons.dart';
 import 'package:dine_deal/widgets/window.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CustomTabController tabController = Get.put(CustomTabController());
-    tabController.updateTab('Menu'); // Set default tab to Menu
+    tabController.updateTab('Menu');
 
     return SafeArea(
       child: Scaffold(
@@ -70,7 +72,6 @@ class MenuPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              // Tabs with highlighting
               Obx(() {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,7 +118,18 @@ class MenuPage extends StatelessWidget {
                   ],
                 );
               }),
-              const SizedBox(height: 20),
+              const Spacer(),
+              SizedBox(
+                width: Get.width * 0.45,
+                child: Button(
+                  title: "Reserve Now",
+                  color: orange,
+                  onPressed: () {
+                    Get.to(() => const ReservationDate());
+                  },
+                  textColor: Colors.white,
+                ),
+              ),
             ],
           ),
         ),

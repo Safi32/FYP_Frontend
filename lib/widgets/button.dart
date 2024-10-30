@@ -28,10 +28,10 @@ class Button extends StatelessWidget {
           elevation: 0,
           backgroundColor: color,
           shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
             side: borderColor != null
                 ? BorderSide(color: borderColor!)
                 : BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: onPressed,

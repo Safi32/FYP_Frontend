@@ -2,8 +2,28 @@ import 'package:get/get.dart';
 
 class CustomTabController extends GetxController {
   var selectedTab = 'About'.obs;
+  var selectedBreakfast = ''.obs;
+  var selectedLunch = ''.obs;
+  var selectedDinner = ''.obs;
+  var selectedHall = ''.obs;
 
   void updateTab(String tab) {
     selectedTab.value = tab;
+  }
+
+  void selectBreakfast(String time) {
+    selectedBreakfast.value = time;
+  }
+
+  void selectLunch(String time) {
+    selectedLunch.value = time;
+  }
+
+  void selectDinner(String time) {
+    selectedDinner.value = time;
+  }
+
+  void selectHall(String hall) {
+    selectedHall.value = hall;
   }
 }

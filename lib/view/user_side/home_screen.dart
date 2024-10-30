@@ -1,7 +1,5 @@
 import 'package:dine_deal/utils/colors.dart';
 import 'package:dine_deal/view/user_side/about_page.dart';
-import 'package:dine_deal/view/user_side/menu_page.dart';
-import 'package:dine_deal/view/user_side/review_page.dart';
 import 'package:dine_deal/widgets/See_all_row.dart';
 import 'package:dine_deal/widgets/deal_type.dart';
 import 'package:dine_deal/widgets/deals_images.dart';
@@ -166,18 +164,19 @@ class HomeScreen extends StatelessWidget {
                                     Get.to(() => const AboutPage()),
                               ),
                               RestaurantList(
-                                onPressed: () => Get.to(() => const MenuPage()),
+                                onPressed: () =>
+                                    Get.to(() => const AboutPage()),
                               ),
                               RestaurantList(
                                 onPressed: () =>
-                                    Get.to(() => const ReviewPage()),
+                                    Get.to(() => const AboutPage()),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     const SeeAllRow(
                         title: "Two Persons Deal", seeAll: "See All"),
                     const SizedBox(height: 10),
