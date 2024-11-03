@@ -181,25 +181,23 @@ class SignUp extends StatelessWidget {
                             : const SizedBox.shrink(),
                       ),
                       const SizedBox(height: 30),
-                      Row(
+                      const Row(
                         children: <Widget>[
-                          const Expanded(
+                          Expanded(
                             child: Divider(thickness: 1, color: black),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              'Or Register with',
+                              'Or',
                               style: TextStyle(
                                 fontSize: 18,
-                                fontFamily: fontName,
                                 fontWeight: FontWeight.bold,
                                 color: black,
                               ),
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Divider(thickness: 1, color: Colors.black),
                           ),
                         ],
@@ -208,15 +206,11 @@ class SignUp extends StatelessWidget {
                         height: 20,
                       ),
                       const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SocialLogin(
-                            image: "assets/communication.png",
-                            title: "Login with",
-                          ),
-                          SocialLogin(
                             image: "assets/search.png",
-                            title: "Login with",
+                            title: "Continue with Google",
                           ),
                         ],
                       ),
@@ -239,7 +233,7 @@ class SignUp extends StatelessWidget {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: "Login",
+                                  text: " Login",
                                   style: TextStyle(
                                     fontFamily: fontName,
                                     fontWeight: FontWeight.bold,

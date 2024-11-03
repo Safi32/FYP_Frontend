@@ -12,6 +12,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Base multiplier for font size scaling relative to screen width
+    double fontSizeMultiplier = screenWidth / 400;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -19,118 +25,130 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(
-                height: Get.height * 0.25,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: orange,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Location",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            Container(
-                              height: Get.height * 0.05,
-                              width: Get.width * 0.12,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: Image.asset("assets/bell.png"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Image.asset("assets/location_on.png"),
-                            const SizedBox(width: 5),
-                            const Text(
-                              "I-14 Islamabad",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            const Icon(Icons.keyboard_arrow_down_rounded,
-                                color: Colors.yellow),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: "Search",
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  prefixIcon:
-                                      Image.asset("assets/search (2).png"),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        const BorderSide(color: Colors.white),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        const BorderSide(color: Colors.white),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        const BorderSide(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              height: Get.height * 0.06,
-                              width: Get.width * 0.15,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Image.asset("assets/filter.png"),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+              // Header Section with Location and Search
+              Container(
+                height: screenHeight * 0.25,
+                decoration: const BoxDecoration(
+                  color: orange,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
                   ),
                 ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Location",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15 * fontSizeMultiplier,
+                            ),
+                          ),
+                          Container(
+                            height: screenHeight * 0.05,
+                            width: screenHeight * 0.05,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(screenWidth * 0.02),
+                              child: Image.asset("assets/bell.png",
+                                  fit: BoxFit.contain),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: Row(
+                        children: [
+                          Icon(Icons.location_on,
+                              color: Colors.white,
+                              size: 18 * fontSizeMultiplier),
+                          SizedBox(width: screenWidth * 0.02),
+                          Text(
+                            "I-14 Islamabad",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15 * fontSizeMultiplier,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Icon(Icons.keyboard_arrow_down_rounded,
+                              color: Colors.yellow),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Search",
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14 * fontSizeMultiplier,
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                prefixIcon: Icon(Icons.search,
+                                    color: Colors.grey,
+                                    size: 18 * fontSizeMultiplier),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: screenWidth * 0.03),
+                          Container(
+                            height: screenHeight * 0.06,
+                            width: screenWidth * 0.13,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(screenWidth * 0.02),
+                              child: Image.asset("assets/filter.png",
+                                  fit: BoxFit.contain),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 10),
+
+              SizedBox(height: screenHeight * 0.02),
+
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(
                   children: [
-                    const SingleChildScrollView(
+                    // Deal Types Section
+                    SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
                           Wrap(
-                            spacing: 10,
+                            spacing: screenWidth * 0.025,
                             children: [
                               DealType(title: "All"),
                               DealType(title: "Deal For Today"),
@@ -140,60 +158,99 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
-                    const SeeAllRow(title: "Deal For Today", seeAll: "See All"),
-                    const SizedBox(height: 20),
-                    const DealsImages(
+
+                    SizedBox(height: screenHeight * 0.03),
+
+                    // Deal For Today Section
+                    SeeAllRow(
+                      title: "Deal For Today",
+                      seeAll: "See All",
+                      fontSize: 18 * fontSizeMultiplier,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    const SizedBox(height: 20),
-                    const SeeAllRow(
-                        title: "Restaurants Near You", seeAll: "See All"),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.02),
+
+                    // Restaurants Near You Section
+                    SeeAllRow(
+                      title: "Restaurants Near You",
+                      seeAll: "See All",
+                      fontSize: 18 * fontSizeMultiplier,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
                           Wrap(
-                            spacing: 10,
+                            spacing: screenWidth * 0.025,
                             children: [
                               RestaurantList(
                                 onPressed: () =>
                                     Get.to(() => const AboutPage()),
+                                // Adjust "4.8 (1K+ Reviews)" text inside the RestaurantList widget
+                                ratingTextStyle: TextStyle(
+                                  fontSize: 14 * fontSizeMultiplier,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                               RestaurantList(
                                 onPressed: () =>
                                     Get.to(() => const AboutPage()),
+                                ratingTextStyle: TextStyle(
+                                  fontSize: 14 * fontSizeMultiplier,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                               RestaurantList(
                                 onPressed: () =>
                                     Get.to(() => const AboutPage()),
+                                ratingTextStyle: TextStyle(
+                                  fontSize: 14 * fontSizeMultiplier,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const SeeAllRow(
-                        title: "Two Persons Deal", seeAll: "See All"),
-                    const SizedBox(height: 10),
-                    const DealsImages(
+                    SizedBox(height: screenHeight * 0.02),
+
+                    // Two Persons Deal Section
+                    SeeAllRow(
+                      title: "Two Persons Deal",
+                      seeAll: "See All",
+                      fontSize: 18 * fontSizeMultiplier,
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    const SizedBox(height: 10),
-                    const SeeAllRow(title: "Family Deal", seeAll: "See All"),
-                    const SizedBox(height: 10),
-                    const DealsImages(
+                    SizedBox(height: screenHeight * 0.01),
+
+                    // Family Deal Section
+                    SeeAllRow(
+                      title: "Family Deal",
+                      seeAll: "See All",
+                      fontSize: 18 * fontSizeMultiplier,
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: screenHeight * 0.03),
                   ],
                 ),
               ),

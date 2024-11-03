@@ -51,7 +51,7 @@ class UserAdmin extends StatelessWidget {
                       color: orange,
                       textColor: Colors.white,
                       onPressed: () {
-                        Get.to(() => const AccoutAccess());
+                        Get.to(() => const AccountAccess());
                       },
                     ),
                   ],

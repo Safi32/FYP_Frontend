@@ -6,23 +6,30 @@ import 'package:dine_deal/widgets/social_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AccoutAccess extends StatelessWidget {
-  const AccoutAccess({super.key});
-
-  final String fontName = "NunitoSans";
+class AccountAccess extends StatelessWidget {
+  const AccountAccess({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Screen dimensions
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double fontSizeMultiplier =
+        screenWidth / 400; // Adjust font size relative to screen width
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
+            // Background Image
             Positioned.fill(
               child: Image.asset(
                 "assets/burger.jpg",
                 fit: BoxFit.cover,
               ),
             ),
+
+            // Back Button
             Positioned(
               top: 10,
               left: 10,
@@ -36,12 +43,14 @@ class AccoutAccess extends StatelessWidget {
                 ),
               ),
             ),
+
+            // Bottom Content
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Center(
                   child: SizedBox(
-                    height: Get.height * 0.45,
+                    height: screenHeight * 0.45,
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -51,123 +60,106 @@ class AccoutAccess extends StatelessWidget {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.05,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Do you have an account?",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: black,
-                                fontSize: 20,
+                                fontSize: 20 * fontSizeMultiplier,
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Column(
-                              children: [
-                                Button(
-                                  title: "Login",
-                                  color: orange,
-                                  onPressed: () {
-                                    Get.to(() => LoginScreen());
-                                  },
-                                  textColor: Colors.white,
+                            SizedBox(height: screenHeight * 0.02),
+
+                            // Login and Register Buttons
+                            Button(
+                              title: "Login",
+                              color: orange,
+                              onPressed: () {
+                                Get.to(() => LoginScreen());
+                              },
+                              textColor: Colors.white,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            Button(
+                              title: "Register",
+                              color: Colors.white,
+                              onPressed: () {
+                                Get.to(() => SignUp());
+                              },
+                              textColor: black,
+                              borderColor: Colors.black.withOpacity(0.3),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+
+                            // Divider with "Register with" text
+                            Row(
+                              children: <Widget>[
+                                const Expanded(
+                                  child: Divider(
+                                    thickness: 1,
+                                    color: black,
+                                  ),
                                 ),
-                                const SizedBox(height: 20),
-                                Button(
-                                  title: "Register",
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    Get.to(() => SignUp());
-                                  },
-                                  textColor: black,
-                                  borderColor: Colors.black.withOpacity(0.3),
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  children: <Widget>[
-                                    const Expanded(
-                                      child: Divider(
-                                        thickness: 1,
-                                        color: black,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Text(
-                                        'Register with',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: fontName,
-                                          fontWeight: FontWeight.bold,
-                                          color: black,
-                                        ),
-                                      ),
-                                    ),
-                                    const Expanded(
-                                      child: Divider(
-                                        thickness: 1,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SocialLogin(
-                                      image: "assets/communication.png",
-                                      title: "Login with",
-                                    ),
-                                    SocialLogin(
-                                      image: "assets/search.png",
-                                      title: "Login with",
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Positioned(
-                                  bottom: 20,
-                                  left: 0,
-                                  right: 0,
-                                  child: Center(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => SignUp());
-                                      },
-                                      child: Text.rich(
-                                        TextSpan(
-                                          text: "or continue as",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: fontName,
-                                            fontWeight: FontWeight.bold,
-                                            color: black,
-                                          ),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: " Guest",
-                                              style: TextStyle(
-                                                fontFamily: fontName,
-                                                fontWeight: FontWeight.bold,
-                                                color: orange,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth * 0.025),
+                                  child: Text(
+                                    'Register with',
+                                    style: TextStyle(
+                                      fontSize: 18 * fontSizeMultiplier,
+                                      fontWeight: FontWeight.bold,
+                                      color: black,
                                     ),
                                   ),
                                 ),
+                                const Expanded(
+                                  child: Divider(
+                                    thickness: 1,
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ],
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SocialLogin(
+                                  image: "assets/search.png",
+                                  title: "Continue with Google",
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => SignUp());
+                              },
+                              child: Text.rich(
+                                TextSpan(
+                                  text: "or continue as",
+                                  style: TextStyle(
+                                    fontSize: 15 * fontSizeMultiplier,
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                  ),
+                                  children: const <TextSpan>[
+                                    TextSpan(
+                                      text: " Guest",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: orange,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),

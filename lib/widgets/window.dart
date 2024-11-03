@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
 class Window extends StatelessWidget {
-  const Window({super.key});
+  const Window({super.key, required this.image});
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 10,
       child: Container(
-        height: 60,
-        width: 60,
+        height: 80,
+        width: 80,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image(
+            image: AssetImage(
+              image,
+            ),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

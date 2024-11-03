@@ -19,7 +19,7 @@ class SignUpController extends GetxController {
     required String password,
     required String confirmPassword,
   }) async {
-    errorMessage.value = ''; // Reset error message on new attempt
+    errorMessage.value = '';
 
     if (password != confirmPassword) {
       errorMessage.value = 'Passwords do not match. Try Again';

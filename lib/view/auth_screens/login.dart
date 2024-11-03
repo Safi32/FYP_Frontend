@@ -120,6 +120,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double fontSizeMultipler = screenWidth / 400;
     final ValueNotifier<bool> isPasswordVisible = ValueNotifier<bool>(false);
 
     return SafeArea(
@@ -131,9 +134,9 @@ class LoginScreen extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05,
+                    vertical: screenHeight * 0.02,
                   ),
                   color: orange,
                   child: Row(
@@ -142,9 +145,9 @@ class LoginScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_rounded,
-                          size: 30,
+                          size: 30 * fontSizeMultipler,
                           color: Colors.white,
                         ),
                       ),
@@ -153,7 +156,7 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             "Login",
                             style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 25 * fontSizeMultipler,
                               fontWeight: FontWeight.bold,
                               fontFamily: fontName,
                               color: Colors.white,
@@ -175,17 +178,23 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05,
+                      ),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 20),
+                            SizedBox(height: screenHeight * 0.02),
                             SignUpFields(
                               controller: emailController,
                               hintText: "Enter your email here",
+                              
                               tag: "Email",
                               keyboardType: TextInputType.emailAddress,
+                              suffixIcon: const Icon(
+                                Icons.email_outlined,
+                              ),
                             ),
                             ValueListenableBuilder(
                               valueListenable: isPasswordVisible,
@@ -199,8 +208,8 @@ class LoginScreen extends StatelessWidget {
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       isPasswordVisible.value
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
                                     ),
                                     onPressed: () {
                                       isPasswordVisible.value =
@@ -210,7 +219,7 @@ class LoginScreen extends StatelessWidget {
                                 );
                               },
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: screenHeight * 0.01),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -229,7 +238,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: screenHeight * 0.02),
                             Obx(
                               () {
                                 return GestureDetector(
@@ -242,7 +251,7 @@ class LoginScreen extends StatelessWidget {
                                           );
                                         },
                                   child: Container(
-                                    height: 50,
+                                    height: 50 * fontSizeMultipler,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: orange,
@@ -254,19 +263,19 @@ class LoginScreen extends StatelessWidget {
                                                 AlwaysStoppedAnimation<Color>(
                                                     Colors.white),
                                           )
-                                        : const Text(
+                                        : Text(
                                             "Login",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 18,
+                                              fontSize: 18 * fontSizeMultipler,
                                             ),
                                           ),
                                   ),
                                 );
                               },
                             ),
-                            const SizedBox(height: 30),
+                            SizedBox(height: screenHeight * 0.03),
                             Row(
                               children: <Widget>[
                                 const Expanded(
@@ -276,12 +285,12 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth * 0.025),
                                   child: Text(
-                                    'or Login with',
+                                    'or',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 18 * fontSizeMultipler,
                                       fontFamily: fontName,
                                       fontWeight: FontWeight.bold,
                                       color: black,
@@ -296,17 +305,13 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: screenHeight * 0.02),
                             const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SocialLogin(
-                                  image: "assets/communication.png",
-                                  title: "Login with",
-                                ),
-                                SocialLogin(
                                   image: "assets/search.png",
-                                  title: "Login with",
+                                  title: "Continue with Google",
                                 ),
                               ],
                             ),
@@ -319,7 +324,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             Positioned(
-              bottom: 20,
+              bottom: screenHeight * 0.02,
               left: 0,
               right: 0,
               child: Center(
@@ -331,7 +336,7 @@ class LoginScreen extends StatelessWidget {
                     TextSpan(
                       text: "Don't have an account? ",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 15 * fontSizeMultipler,
                         fontFamily: fontName,
                         fontWeight: FontWeight.bold,
                         color: black,

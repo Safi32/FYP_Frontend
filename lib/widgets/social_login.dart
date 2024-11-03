@@ -10,11 +10,11 @@ class SocialLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      width: 150,
+      width: 250,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          color: Colors.black.withOpacity(0.3),
+          color: Colors.black.withOpacity(0.1),
         ),
       ),
       child: Row(
@@ -27,7 +27,7 @@ class SocialLogin extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),

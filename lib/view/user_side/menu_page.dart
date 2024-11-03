@@ -56,7 +56,17 @@ class MenuPage extends StatelessWidget {
                   Wrap(
                     spacing: 10,
                     alignment: WrapAlignment.center,
-                    children: const [Window(), Window(), Window()],
+                    children: const [
+                      Window(
+                        image: "assets/about_restaurant.png",
+                      ),
+                      Window(
+                        image: "assets/about_restaurant.png",
+                      ),
+                      Window(
+                        image: "assets/about_restaurant.png",
+                      )
+                    ],
                   ),
                 ],
               ),

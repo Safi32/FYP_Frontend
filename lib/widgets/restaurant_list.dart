@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RestaurantList extends StatelessWidget {
-  const RestaurantList({super.key, required this.onPressed});
+  const RestaurantList(
+      {super.key, required this.onPressed, required TextStyle ratingTextStyle});
 
   final VoidCallback onPressed;
 

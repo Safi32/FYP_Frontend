@@ -2,7 +2,11 @@ import 'package:dine_deal/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class SeeAllRow extends StatelessWidget {
-  const SeeAllRow({super.key, required this.title, required this.seeAll});
+  const SeeAllRow(
+      {super.key,
+      required this.title,
+      required this.seeAll,
+      required double fontSize});
 
   final String title;
   final String seeAll;
