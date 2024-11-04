@@ -1,5 +1,6 @@
 import 'package:dine_deal/controller/tab_controller.dart';
 import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/user_side/payment_screen.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:dine_deal/widgets/date_time_table.dart';
 import 'package:flutter/material.dart';
@@ -129,21 +130,15 @@ class ReservationTable extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: Get.width * 0.45,
+                    width: Get.width * 0.9,
                     child: Button(
-                      title: "Cancel",
-                      color: Colors.white,
-                      onPressed: () {},
-                      textColor: Colors.black,
-                      borderColor: Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    width: Get.width * 0.45,
-                    child: Button(
-                      title: "Reserve Now",
+                      title: "Make Payment",
                       color: orange,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(
+                          () => const PaymentScreen(),
+                        );
+                      },
                       textColor: Colors.white,
                     ),
                   ),

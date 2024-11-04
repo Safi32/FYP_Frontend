@@ -14,8 +14,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    // Base multiplier for font size scaling relative to screen width
     double fontSizeMultiplier = screenWidth / 400;
 
     return SafeArea(

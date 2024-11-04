@@ -14,12 +14,11 @@ class ReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CustomTabController tabController = Get.put(CustomTabController());
-    tabController.updateTab('Review'); // Set default tab to Review
-
+    tabController.updateTab('Review');
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -52,9 +51,14 @@ class ReviewPage extends StatelessWidget {
                     color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Image.asset(
-                    "assets/deal.jpeg",
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: const Image(
+                      image: AssetImage(
+                        "assets/deal.jpeg",
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),

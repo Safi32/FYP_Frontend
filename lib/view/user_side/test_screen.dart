@@ -1,4 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/user_side/about_page.dart';
+import 'package:dine_deal/view/user_side/favourite.dart';
+import 'package:dine_deal/view/user_side/home_screen.dart';
+import 'package:dine_deal/view/user_side/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatefulWidget {
@@ -12,9 +17,10 @@ class _TestScreenState extends State<TestScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const Center(child: Text("Home Screen")),
-    const Center(child: Text("Settings Screen")),
-    const Center(child: Text("Account Screen")),
+    const HomeScreen(),
+    const AboutPage(),
+    const Favorite(),
+    const UserProfile(),
   ];
 
   void _onItemTapped(int index) {
@@ -26,18 +32,23 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Test Screen"),
-      ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
         items: <Widget>[
-          _buildNavItem(Icons.home, _selectedIndex == 0 ? "Home" : ""),
-          _buildNavItem(Icons.settings, _selectedIndex == 1 ? "Settings" : ""),
-          _buildNavItem(Icons.account_circle_rounded,
-              _selectedIndex == 2 ? "Account" : ""),
+          _buildNavItem(
+              imageURL: 'assets/basic-needs.png',
+              label: _selectedIndex == 0 ? "Home" : ""),
+          _buildNavItem(
+              imageURL: 'assets/basic-needs.png',
+              label: _selectedIndex == 1 ? "About" : ""),
+          _buildNavItem(
+              imageURL: 'assets/basic-needs.png',
+              label: _selectedIndex == 2 ? "Favorite" : ""),
+          _buildNavItem(
+              imageURL: 'assets/basic-needs.png',
+              label: _selectedIndex == 3 ? "Profile" : ""),
         ],
-        color: Colors.blue,
+        color: orange,
         buttonBackgroundColor: Colors.white,
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,
@@ -48,11 +59,19 @@ class _TestScreenState extends State<TestScreen> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label) {
+  Widget _buildNavItem(
+      {String? imageURL, required String label, IconData? icon}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 30),
+        if (imageURL != null)
+          Image(
+            image: AssetImage(imageURL),
+            height: 30,
+            width: 30,
+          )
+        else if (icon != null)
+          Icon(icon, size: 30, color: Colors.white),
         const SizedBox(height: 4),
         Text(
           label,

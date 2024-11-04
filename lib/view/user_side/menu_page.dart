@@ -52,11 +52,20 @@ class MenuPage extends StatelessWidget {
                   Container(
                     height: Get.height * 0.3,
                     color: Colors.grey.shade300,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: const Image(
+                        image: AssetImage(
+                          "assets/about_restaurant.png",
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  Wrap(
+                  const Wrap(
                     spacing: 10,
                     alignment: WrapAlignment.center,
-                    children: const [
+                    children: [
                       Window(
                         image: "assets/about_restaurant.png",
                       ),
@@ -64,7 +73,7 @@ class MenuPage extends StatelessWidget {
                         image: "assets/about_restaurant.png",
                       ),
                       Window(
-                        image: "assets/about_restaurant.png",
+                        image: "assets/about_restaurant 2.png",
                       )
                     ],
                   ),
