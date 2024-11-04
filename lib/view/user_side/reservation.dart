@@ -1,14 +1,15 @@
 import 'package:dine_deal/controller/tab_controller.dart';
+import 'package:dine_deal/widgets/past_reservation.dart';
+import 'package:dine_deal/widgets/upcoming_reservations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Favorite extends StatelessWidget {
-  const Favorite({super.key});
+class Reservation extends StatelessWidget {
+  const Reservation({super.key});
 
   @override
   Widget build(BuildContext context) {
     final CustomTabController controller = Get.put(CustomTabController());
-
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -17,7 +18,7 @@ class Favorite extends StatelessWidget {
             children: [
               const Center(
                 child: Text(
-                  "Favourite",
+                  "Reservations",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -46,7 +47,7 @@ class Favorite extends StatelessWidget {
                                     ? Colors.orange
                                     : Colors.grey,
                               ),
-                              child: const Text("Restaurant"),
+                              child: const Text("Upcoming"),
                             );
                           }),
                           const SizedBox(height: 4),
@@ -79,7 +80,7 @@ class Favorite extends StatelessWidget {
                                     ? Colors.grey
                                     : Colors.orange,
                               ),
-                              child: const Text("Deals"),
+                              child: const Text("Past"),
                             );
                           }),
                           const SizedBox(height: 4),
@@ -101,29 +102,9 @@ class Favorite extends StatelessWidget {
               ),
               Expanded(
                 child: Obx(() {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: Image(
-                          key: ValueKey(controller.isRestaurantSelected.value),
-                          image: AssetImage(
-                            controller.isRestaurantSelected.value
-                                ? "assets/fav_table.png"
-                                : "assets/fav_table 2.png",
-                          ),
-                          height: 150,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        controller.isRestaurantSelected.value
-                            ? "No Restaurant in favorite"
-                            : "No Deals in favorite",
-                      ),
-                    ],
-                  );
+                  return controller.isRestaurantSelected.value
+                      ? const UpcomingReservations()
+                      : const PastReservation();
                 }),
               ),
             ],

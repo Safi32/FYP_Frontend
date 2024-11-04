@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/view/user_side/about_page.dart';
 import 'package:dine_deal/view/user_side/favourite.dart';
 import 'package:dine_deal/view/user_side/home_screen.dart';
+import 'package:dine_deal/view/user_side/reservation.dart';
 import 'package:dine_deal/view/user_side/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +18,9 @@ class _TestScreenState extends State<TestScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const AboutPage(),
+    const Reservation(),
     const Favorite(),
-    const UserProfile(),
+    const UserProfile()
   ];
 
   void _onItemTapped(int index) {

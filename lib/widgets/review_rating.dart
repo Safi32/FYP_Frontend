@@ -8,7 +8,7 @@ class ReviewRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Get.height * 0.20,
-      width: Get.width,
+      width: Get.width * 0.85,
       child: Card(
         elevation: 1,
         child: Padding(

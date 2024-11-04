@@ -35,7 +35,7 @@ class MenuPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "Menu Page",
+                        "About Page",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -46,86 +46,98 @@ class MenuPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Container(
-                    height: Get.height * 0.3,
-                    color: Colors.grey.shade300,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        image: AssetImage(
-                          "assets/about_restaurant.png",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const Wrap(
-                    spacing: 10,
-                    alignment: WrapAlignment.center,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Window(
-                        image: "assets/about_restaurant.png",
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Container(
+                            height: Get.height * 0.3,
+                            color: Colors.grey.shade300,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: const Image(
+                                image: AssetImage(
+                                  "assets/about_restaurant.png",
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const Wrap(
+                            spacing: 10,
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Window(
+                                image: "assets/about_restaurant.png",
+                              ),
+                              Window(
+                                image: "assets/about_restaurant 2.png",
+                              ),
+                              Window(
+                                image: "assets/about_restaurant.png",
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                      Window(
-                        image: "assets/about_restaurant.png",
-                      ),
-                      Window(
-                        image: "assets/about_restaurant 2.png",
-                      )
+                      const SizedBox(height: 20),
+                      Obx(() {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InfoButtons(
+                              title: "About",
+                              color: tabController.selectedTab.value == 'About'
+                                  ? orange
+                                  : Colors.white,
+                              textColor:
+                                  tabController.selectedTab.value == 'About'
+                                      ? Colors.white
+                                      : Colors.black,
+                              onPressed: () {
+                                tabController.updateTab('About');
+                                Get.off(() => const AboutPage());
+                              },
+                            ),
+                            InfoButtons(
+                              title: "Menu",
+                              color: tabController.selectedTab.value == 'Menu'
+                                  ? orange
+                                  : Colors.white,
+                              textColor:
+                                  tabController.selectedTab.value == 'Menu'
+                                      ? Colors.white
+                                      : Colors.black,
+                              onPressed: () {
+                                tabController.updateTab('Menu');
+                                Get.off(() => const MenuPage());
+                              },
+                            ),
+                            InfoButtons(
+                              title: "Review",
+                              color: tabController.selectedTab.value == 'Review'
+                                  ? orange
+                                  : Colors.white,
+                              textColor:
+                                  tabController.selectedTab.value == 'Review'
+                                      ? Colors.white
+                                      : Colors.black,
+                              onPressed: () {
+                                tabController.updateTab('Review');
+                                Get.off(() => const ReviewPage());
+                              },
+                            ),
+                          ],
+                        );
+                      }),
+                      const SizedBox(height: 10),
                     ],
                   ),
-                ],
+                ),
               ),
-              const SizedBox(height: 10),
-              Obx(() {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InfoButtons(
-                      title: "About",
-                      color: tabController.selectedTab.value == 'About'
-                          ? orange
-                          : Colors.white,
-                      textColor: tabController.selectedTab.value == 'About'
-                          ? Colors.white
-                          : Colors.black,
-                      onPressed: () {
-                        tabController.updateTab('About');
-                        Get.off(() => const AboutPage());
-                      },
-                    ),
-                    InfoButtons(
-                      title: "Menu",
-                      color: tabController.selectedTab.value == 'Menu'
-                          ? orange
-                          : Colors.white,
-                      textColor: tabController.selectedTab.value == 'Menu'
-                          ? Colors.white
-                          : Colors.black,
-                      onPressed: () {
-                        tabController.updateTab('Menu');
-                        Get.off(() => const MenuPage());
-                      },
-                    ),
-                    InfoButtons(
-                      title: "Review",
-                      color: tabController.selectedTab.value == 'Review'
-                          ? orange
-                          : Colors.white,
-                      textColor: tabController.selectedTab.value == 'Review'
-                          ? Colors.white
-                          : Colors.black,
-                      onPressed: () {
-                        tabController.updateTab('Review');
-                        Get.off(() => const ReviewPage());
-                      },
-                    ),
-                  ],
-                );
-              }),
               const Spacer(),
               SizedBox(
                 width: Get.width * 0.45,

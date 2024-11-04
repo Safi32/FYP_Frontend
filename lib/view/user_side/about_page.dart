@@ -15,7 +15,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CustomTabController tabController = Get.put(CustomTabController());
-    tabController.updateTab('About'); // Set default tab to About
+    tabController.updateTab('About');
 
     return SafeArea(
       child: Scaffold(
