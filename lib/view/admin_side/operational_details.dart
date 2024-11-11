@@ -1,13 +1,11 @@
 import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/view/admin_side/reserveration_policies.dart';
+import 'package:dine_deal/view/admin_side/restaurant_information.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OperationalDetails extends StatelessWidget {
   const OperationalDetails({super.key});
-
-  final String fontName = "NunitoSans";
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,6 @@ class OperationalDetails extends StatelessWidget {
                         "Apply for Partnership",
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: fontName,
                           fontSize: 25,
                         ),
                       ),
@@ -67,14 +64,13 @@ class OperationalDetails extends StatelessWidget {
                         Text(
                           "Operational Details",
                           style: TextStyle(
-                            fontFamily: fontName,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 20),
                         const Text(
-                          "Hours of operation",
+                          "Operational hour",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -102,7 +98,7 @@ class OperationalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         const Text(
-                          "Holiday Hours",
+                          "Minimum price range",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -130,35 +126,7 @@ class OperationalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         const Text(
-                          "Minimum Price Range",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Maximum Media Link",
+                          "Maximum price range",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -189,7 +157,7 @@ class OperationalDetails extends StatelessWidget {
                           title: "Next",
                           color: orange,
                           onPressed: () {
-                            Get.to(() => const ReserverationPolicies());
+                            Get.to(() => const RestaurantInformation());
                           },
                           textColor: Colors.white,
                         ),
@@ -202,7 +170,6 @@ class OperationalDetails extends StatelessWidget {
                               text: "Already have an account? ",
                               style: TextStyle(
                                 fontSize: 15,
-                                fontFamily: fontName,
                                 fontWeight: FontWeight.bold,
                                 color: black,
                               ),
@@ -210,7 +177,6 @@ class OperationalDetails extends StatelessWidget {
                                 TextSpan(
                                   text: "Login",
                                   style: TextStyle(
-                                    fontFamily: fontName,
                                     fontWeight: FontWeight.bold,
                                     color: orange,
                                   ),

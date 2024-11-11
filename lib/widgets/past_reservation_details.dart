@@ -45,7 +45,7 @@ class PastReservationDetails extends StatelessWidget {
     final String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
 
     return SizedBox(
-      height: Get.height * 0.2,
+      height: Get.height * 0.18,
       width: Get.width * 0.9,
       child: Card(
         elevation: 1,
@@ -54,7 +54,7 @@ class PastReservationDetails extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: Column(
             children: [
               ListTile(

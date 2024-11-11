@@ -1,13 +1,11 @@
 import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/view/admin_side/operational_details.dart';
+import 'package:dine_deal/view/admin_side/restaurant_type.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SocialMedia extends StatelessWidget {
   const SocialMedia({super.key});
-
-  final String fontName = "NunitoSans";
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,6 @@ class SocialMedia extends StatelessWidget {
                         "Apply for Partnership",
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: fontName,
                           fontSize: 25,
                         ),
                       ),
@@ -67,7 +64,6 @@ class SocialMedia extends StatelessWidget {
                         Text(
                           "Social Media",
                           style: TextStyle(
-                            fontFamily: fontName,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -189,7 +185,7 @@ class SocialMedia extends StatelessWidget {
                           title: "Next",
                           color: orange,
                           onPressed: () {
-                            Get.to(() => const OperationalDetails());
+                            Get.to(() => const RestaurantType());
                           },
                           textColor: Colors.white,
                         ),
@@ -202,7 +198,6 @@ class SocialMedia extends StatelessWidget {
                               text: "Already have an account? ",
                               style: TextStyle(
                                 fontSize: 15,
-                                fontFamily: fontName,
                                 fontWeight: FontWeight.bold,
                                 color: black,
                               ),
@@ -210,7 +205,6 @@ class SocialMedia extends StatelessWidget {
                                 TextSpan(
                                   text: "Login",
                                   style: TextStyle(
-                                    fontFamily: fontName,
                                     fontWeight: FontWeight.bold,
                                     color: orange,
                                   ),

@@ -1,6 +1,8 @@
 import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/view/admin_side/restaurant_features.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ReserverationPolicies extends StatefulWidget {
   const ReserverationPolicies({super.key});
@@ -10,7 +12,6 @@ class ReserverationPolicies extends StatefulWidget {
 }
 
 class _ReserverationPoliciesState extends State<ReserverationPolicies> {
-  final String fontName = "NunitoSans";
   String? reservationOption = 'Yes';
 
   @override
@@ -37,13 +38,12 @@ class _ReserverationPoliciesState extends State<ReserverationPolicies> {
                       size: 30,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Center(
                       child: Text(
                         "Apply for Partnership",
                         style: TextStyle(
                           color: Colors.white,
-                          fontFamily: fontName,
                           fontSize: 25,
                         ),
                       ),
@@ -68,10 +68,9 @@ class _ReserverationPoliciesState extends State<ReserverationPolicies> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Reservation Policies",
                           style: TextStyle(
-                            fontFamily: fontName,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -118,6 +117,38 @@ class _ReserverationPoliciesState extends State<ReserverationPolicies> {
                             const SizedBox(height: 20),
                             TextFormField(
                               decoration: InputDecoration(
+                                hintText: "Minimum days before reservation",
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "Advance Reservation Period",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Maximum days before reservation",
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.grey.shade300,
@@ -142,18 +173,17 @@ class _ReserverationPoliciesState extends State<ReserverationPolicies> {
                           title: "Next",
                           color: orange,
                           onPressed: () {
-                            // Add your action here
+                            Get.to(() => const RestaurantFeatures());
                           },
                           textColor: Colors.white,
                         ),
                         const SizedBox(height: 10),
-                        Center(
+                        const Center(
                           child: Text.rich(
                             TextSpan(
                               text: "Already have an account? ",
                               style: TextStyle(
                                 fontSize: 15,
-                                fontFamily: fontName,
                                 fontWeight: FontWeight.bold,
                                 color: black,
                               ),
@@ -161,7 +191,6 @@ class _ReserverationPoliciesState extends State<ReserverationPolicies> {
                                 TextSpan(
                                   text: "Login",
                                   style: TextStyle(
-                                    fontFamily: fontName,
                                     fontWeight: FontWeight.bold,
                                     color: orange,
                                   ),

@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   var errorMessage = ''.obs;
 
   Future<void> loginUser(String email, String password) async {
-    const String loginURL = "http://192.168.18.94:3000/login";
+    const String loginURL = "http://192.168.145.28:3000/login";
 
     isLoading.value = true;
     errorMessage.value = '';

@@ -1,3 +1,264 @@
+// import 'package:dine_deal/widgets/sign_up_fields.dart';
+// import 'package:dine_deal/widgets/social_login.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+
+// import '../../controller/signup_controller.dart';
+// import '../../utils/colors.dart';
+// import 'login.dart';
+
+// class SignUp extends StatelessWidget {
+//   SignUp({Key? key}) : super(key: key);
+
+//   final String fontName = 'NunitoSans';
+//   final SignUpController controller = Get.put(SignUpController());
+//   final emailController = TextEditingController(); // Moved email first
+//   final usernameController = TextEditingController();
+//   final passwordController = TextEditingController();
+//   final confirmPasswordController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         resizeToAvoidBottomInset: true,
+//         backgroundColor: orange,
+//         body: Column(
+//           children: [
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+//               child: Row(
+//                 children: [
+//                   GestureDetector(
+//                     onTap: () => Navigator.pop(context),
+//                     child: const Icon(
+//                       Icons.arrow_back_rounded,
+//                       size: 30,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                   Expanded(
+//                     child: Center(
+//                       child: Text(
+//                         "Sign Up",
+//                         style: TextStyle(
+//                           fontSize: 25,
+//                           fontWeight: FontWeight.bold,
+//                           fontFamily: fontName,
+//                           color: Colors.white,
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Expanded(
+//               child: Container(
+//                 width: double.infinity,
+//                 padding: const EdgeInsets.all(16.0),
+//                 decoration: const BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(30),
+//                     topRight: Radius.circular(30),
+//                   ),
+//                 ),
+//                 child: SingleChildScrollView(
+//                   child: Column(
+//                     children: [
+//                       const SizedBox(height: 20),
+//                       SignUpFields(
+//                         controller: emailController,
+//                         hintText: "example@gmail.com",
+//                         tag: "Email",
+//                         keyboardType: TextInputType.emailAddress,
+//                       ),
+//                       SignUpFields(
+//                         controller: usernameController,
+//                         hintText: "Enter your username",
+//                         tag: "Username",
+//                         keyboardType: TextInputType.name,
+//                       ),
+//                       SignUpFields(
+//                         controller: passwordController,
+//                         hintText: "Must be at least 8 characters",
+//                         tag: "Create Password",
+//                       ),
+//                       SignUpFields(
+//                         controller: confirmPasswordController,
+//                         hintText: "Repeat password",
+//                         tag: "Confirm Password",
+//                       ),
+//                       const SizedBox(height: 10),
+//                       Obx(
+//                         () => Row(
+//                           children: [
+//                             GestureDetector(
+//                               onTap: controller.togglePrivacyOption,
+//                               child: Container(
+//                                 decoration: BoxDecoration(
+//                                   shape: BoxShape.circle,
+//                                   border: Border.all(
+//                                     color:
+//                                         controller.selectedPrivacyOption.value
+//                                             ? orange
+//                                             : Colors.black,
+//                                   ),
+//                                 ),
+//                                 child: Container(
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color:
+//                                         controller.selectedPrivacyOption.value
+//                                             ? orange
+//                                             : Colors.transparent,
+//                                   ),
+//                                   width: 20,
+//                                   height: 20,
+//                                 ),
+//                               ),
+//                             ),
+//                             const SizedBox(width: 8),
+//                             Text(
+//                               "I accept the terms and privacy policy",
+//                               style: TextStyle(
+//                                 fontSize: 15,
+//                                 fontFamily: fontName,
+//                                 fontWeight: FontWeight.bold,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                       const SizedBox(height: 20),
+//                       Obx(
+//                         () => SizedBox(
+//                           width: Get.width,
+//                           height: Get.height * 0.06,
+//                           child: ElevatedButton(
+//                             style: ElevatedButton.styleFrom(
+//                               shape: RoundedRectangleBorder(
+//                                 borderRadius: BorderRadius.circular(10),
+//                               ),
+//                               backgroundColor: orange,
+//                             ),
+//                             onPressed: controller.isLoading.value
+//                                 ? null
+//                                 : () async {
+//                                     await controller.signUp(
+//                                       email: emailController.text,
+//                                       username: usernameController.text,
+//                                       password: passwordController.text,
+//                                       confirmPassword:
+//                                           confirmPasswordController.text,
+//                                     );
+//                                   },
+//                             child: controller.isLoading.value
+//                                 ? const CircularProgressIndicator(
+//                                     color: Colors.white,
+//                                   )
+//                                 : Text(
+//                                     "Sign Up",
+//                                     style: TextStyle(
+//                                       fontSize: 20,
+//                                       fontFamily: fontName,
+//                                       color: Colors.white,
+//                                     ),
+//                                   ),
+//                           ),
+//                         ),
+//                       ),
+//                       const SizedBox(height: 10),
+//                       Obx(() {
+//                         if (controller.errorMessage.value.isNotEmpty) {
+//                           Get.snackbar(
+//                             'Error',
+//                             controller.errorMessage.value,
+//                             backgroundColor: Colors.red,
+//                             snackPosition: SnackPosition.TOP,
+//                           );
+//                           controller.errorMessage.value =
+//                               ''; // Clear error after showing
+//                         }
+//                         return SizedBox.shrink();
+//                       }),
+//                       const SizedBox(height: 30),
+//                       const Row(
+//                         children: <Widget>[
+//                           Expanded(
+//                             child: Divider(thickness: 1, color: black),
+//                           ),
+//                           Padding(
+//                             padding: EdgeInsets.symmetric(horizontal: 10.0),
+//                             child: Text(
+//                               'Or',
+//                               style: TextStyle(
+//                                 fontSize: 18,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: black,
+//                               ),
+//                             ),
+//                           ),
+//                           Expanded(
+//                             child: Divider(thickness: 1, color: Colors.black),
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(
+//                         height: 20,
+//                       ),
+//                       const Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           SocialLogin(
+//                             image: "assets/search.png",
+//                             title: "Continue with Google",
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(
+//                         height: 20,
+//                       ),
+//                       Center(
+//                         child: GestureDetector(
+//                           onTap: () {
+//                             Get.to(() => LoginScreen());
+//                           },
+//                           child: Text.rich(
+//                             TextSpan(
+//                               text: "Already have an account ?",
+//                               style: TextStyle(
+//                                 fontSize: 15,
+//                                 fontFamily: fontName,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: black,
+//                               ),
+//                               children: <TextSpan>[
+//                                 TextSpan(
+//                                   text: " Login",
+//                                   style: TextStyle(
+//                                     fontFamily: fontName,
+//                                     fontWeight: FontWeight.bold,
+//                                     color: orange,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 import 'package:dine_deal/widgets/sign_up_fields.dart';
 import 'package:dine_deal/widgets/social_login.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +274,7 @@ class SignUp extends StatelessWidget {
   final String fontName = 'NunitoSans';
   final SignUpController controller = Get.put(SignUpController());
   final emailController = TextEditingController();
-  final phoneNumberController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -25,6 +286,7 @@ class SignUp extends StatelessWidget {
         backgroundColor: orange,
         body: Column(
           children: [
+            // Header Section
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Row(
@@ -53,6 +315,7 @@ class SignUp extends StatelessWidget {
                 ],
               ),
             ),
+            // Form Section
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -75,10 +338,10 @@ class SignUp extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                       ),
                       SignUpFields(
-                        controller: phoneNumberController,
-                        hintText: "0123456789",
-                        tag: "Phone Number",
-                        keyboardType: TextInputType.phone,
+                        controller: usernameController,
+                        hintText: "Enter your username",
+                        tag: "Username",
+                        keyboardType: TextInputType.name,
                       ),
                       SignUpFields(
                         controller: passwordController,
@@ -91,6 +354,7 @@ class SignUp extends StatelessWidget {
                         tag: "Confirm Password",
                       ),
                       const SizedBox(height: 10),
+                      // Privacy Policy Checkbox
                       Obx(
                         () => Row(
                           children: [
@@ -132,6 +396,7 @@ class SignUp extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      // Sign Up Button
                       Obx(
                         () => SizedBox(
                           width: Get.width,
@@ -148,7 +413,7 @@ class SignUp extends StatelessWidget {
                                 : () async {
                                     await controller.signUp(
                                       email: emailController.text,
-                                      phoneNumber: phoneNumberController.text,
+                                      username: usernameController.text,
                                       password: passwordController.text,
                                       confirmPassword:
                                           confirmPasswordController.text,
@@ -169,22 +434,12 @@ class SignUp extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Obx(
-                        () => controller.errorMessage.value.isNotEmpty
-                            ? Text(
-                                controller.errorMessage.value,
-                                style: const TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : const SizedBox.shrink(),
-                      ),
                       const SizedBox(height: 30),
+                      // Divider
                       const Row(
                         children: <Widget>[
                           Expanded(
-                            child: Divider(thickness: 1, color: black),
+                            child: Divider(thickness: 1, color: Colors.black),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -193,7 +448,7 @@ class SignUp extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: black,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -202,10 +457,9 @@ class SignUp extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Row(
+                      const SizedBox(height: 20),
+                      // Social Login Option
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SocialLogin(
@@ -214,9 +468,8 @@ class SignUp extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
+                      // Redirect to Login
                       Center(
                         child: GestureDetector(
                           onTap: () {
@@ -224,12 +477,12 @@ class SignUp extends StatelessWidget {
                           },
                           child: Text.rich(
                             TextSpan(
-                              text: "Already have an account ?",
+                              text: "Already have an account?",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontFamily: fontName,
                                 fontWeight: FontWeight.bold,
-                                color: black,
+                                color: Colors.black,
                               ),
                               children: <TextSpan>[
                                 TextSpan(

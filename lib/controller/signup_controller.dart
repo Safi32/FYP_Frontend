@@ -15,43 +15,75 @@ class SignUpController extends GetxController {
 
   Future<void> signUp({
     required String email,
-    required String phoneNumber,
+    required String username,
     required String password,
     required String confirmPassword,
   }) async {
     errorMessage.value = '';
 
+    // Password match validation
     if (password != confirmPassword) {
       errorMessage.value = 'Passwords do not match. Try Again';
+      showErrorSnackbar(errorMessage.value);
+      return;
+    }
+
+    // Privacy option validation
+    if (!selectedPrivacyOption.value) {
+      errorMessage.value = 'Please accept terms and privacy policy.';
+      showErrorSnackbar(errorMessage.value);
       return;
     }
 
     final body = {
       "email": email,
-      "phoneNumber": phoneNumber,
+      "username": username,
       "password": password,
       "confirmPassword": confirmPassword,
     };
 
     try {
       isLoading(true);
+
       final response = await http.post(
-        Uri.parse("http://192.168.54.165:3000/signup"),
+        Uri.parse("http://192.168.18.94:3000/signup"),
         headers: {"Content-Type": "application/json"},
         body: json.encode(body),
       );
 
-      if (response.statusCode == 201) {
-        Get.snackbar('Success', "User Signed Up Successfully",
-            backgroundColor: Colors.green);
+      if (response.statusCode == 200) {
+        // Show success message
+        showSuccessSnackbar("User Signed Up Successfully");
       } else {
+        // Handle errors returned from the server
         final responseBody = json.decode(response.body);
         errorMessage.value = responseBody['message'] ?? 'Signup failed';
+        showErrorSnackbar(errorMessage.value);
       }
     } catch (e) {
-      errorMessage.value = "Failed to connect to server";
+      errorMessage.value =
+          "Failed to connect to server. Please try again later.";
+      showErrorSnackbar(errorMessage.value);
     } finally {
       isLoading(false);
     }
+  }
+
+  void showErrorSnackbar(String message) {
+    Get.snackbar(
+      'Success',
+      message,
+      backgroundColor: Colors.green,
+      snackPosition: SnackPosition.TOP,
+    );
+  }
+
+  void showSuccessSnackbar(String message) {
+    Get.snackbar(
+      'Error',
+      message,
+      backgroundColor: Colors.red,
+      snackPosition: SnackPosition.TOP,
+    );
   }
 }

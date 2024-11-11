@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dine_deal/utils/colors.dart';
 import 'package:dine_deal/view/admin_side/social_media.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -14,43 +15,42 @@ class PersonalDetails extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: orange,
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Apply for Partnership",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: fontName,
-                          fontSize: 25,
-                        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
-                  )
-                ],
+                    const Expanded(
+                      child: Center(
+                        child: Text(
+                          "Apply for Partnership",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: double.infinity,
+              SizedBox(
+                height: Get.height,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: background,
@@ -64,10 +64,9 @@ class PersonalDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Personal Information",
                           style: TextStyle(
-                            fontFamily: fontName,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -109,23 +108,37 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              const CountryCodePicker(
+                                onChanged: print,
+                                initialSelection: 'US',
+                                favorite: ['+1', 'US'],
+                                showCountryOnly: false,
+                                showOnlyCountryWhenClosed: false,
+                                alignLeft: false,
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                              const VerticalDivider(
+                                color: Colors.grey,
+                                width: 1,
+                                thickness: 1,
                               ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 15),
+                                    border: InputBorder.none,
+                                  ),
+                                  keyboardType: TextInputType.phone,
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -166,6 +179,7 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
+                          maxLines: 3,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -184,7 +198,7 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Spacer(),
+                        const SizedBox(height: 70),
                         Button(
                           title: "Next",
                           color: orange,
@@ -219,16 +233,13 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
