@@ -1,5 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/view/user_side/favourite.dart';
 import 'package:dine_deal/view/user_side/home_screen.dart';
 import 'package:dine_deal/view/user_side/reservation.dart';
@@ -48,7 +48,7 @@ class _TestScreenState extends State<TestScreen> {
               imageURL: 'assets/basic-needs.png',
               label: _selectedIndex == 3 ? "Profile" : ""),
         ],
-        color: orange,
+        color: AppColors.orange,
         buttonBackgroundColor: Colors.white,
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,

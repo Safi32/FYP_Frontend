@@ -1,4 +1,4 @@
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/view/user_side/user_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
       Get.off(() => const UserAdmin());
     });
     return Scaffold(
-      backgroundColor: orange,
+      backgroundColor: AppColors.orange,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

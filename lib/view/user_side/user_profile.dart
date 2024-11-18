@@ -1,6 +1,6 @@
-import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/widgets/card_widgets.dart';
-import 'package:dine_deal/widgets/user_review_card.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/card_widgets.dart';
+import 'package:dine_deal/view/user_side/user_review_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +31,7 @@ class UserProfile extends StatelessWidget {
               const Text(
                 "Safiullah@gmail.com",
                 style: TextStyle(
-                  color: orange,
+                  color: AppColors.orange,
                   fontSize: 15,
                 ),
               ),
@@ -54,7 +54,7 @@ class UserProfile extends StatelessWidget {
                 height: 20,
               ),
               SizedBox(
-                height: Get.height * 0.35 ,
+                height: Get.height * 0.35,
                 width: Get.width * 0.9,
                 child: const Card(
                   elevation: 1,
@@ -104,7 +104,7 @@ class UserProfile extends StatelessWidget {
                           CardWidgets(
                             imageURL: "assets/logout.png",
                             title: "Logout",
-                            color: orange,
+                            color: AppColors.orange,
                             showIcon: false,
                             icon: Icons.arrow_forward_ios_outlined,
                           ),

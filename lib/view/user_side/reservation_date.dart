@@ -1,8 +1,8 @@
 import 'package:dine_deal/controller/reservation_date_controller.dart';
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/date_time_table.dart';
 import 'package:dine_deal/view/user_side/reservation_time.dart';
 import 'package:dine_deal/widgets/button.dart';
-import 'package:dine_deal/widgets/date_time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -54,7 +54,7 @@ class ReservationDate extends StatelessWidget {
                   children: [
                     DateTimeTable(
                       title: "Date",
-                      btnColor: orange,
+                      btnColor: AppColors.orange,
                       textColor: Colors.white,
                     ),
                     DateTimeTable(
@@ -86,7 +86,7 @@ class ReservationDate extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: orange,
+                        color: AppColors.orange,
                         shape: BoxShape.circle,
                       ),
                       selectedTextStyle: TextStyle(
@@ -108,7 +108,7 @@ class ReservationDate extends StatelessWidget {
                 width: Get.width * 0.45,
                 child: Button(
                   title: "Next",
-                  color: orange,
+                  color: AppColors.orange,
                   onPressed: () {
                     Get.to(() => const ReservationTime());
                   },

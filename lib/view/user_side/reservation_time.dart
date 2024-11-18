@@ -1,9 +1,9 @@
 import 'package:dine_deal/controller/tab_controller.dart';
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/date_time_table.dart';
 import 'package:dine_deal/view/user_side/reservation_table.dart';
+import 'package:dine_deal/view/user_side/time.dart';
 import 'package:dine_deal/widgets/button.dart';
-import 'package:dine_deal/widgets/date_time_table.dart';
-import 'package:dine_deal/widgets/time.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -56,7 +56,7 @@ class ReservationTime extends StatelessWidget {
                         textColor: Colors.black),
                     DateTimeTable(
                         title: "Time",
-                        btnColor: orange,
+                        btnColor: AppColors.orange,
                         textColor: Colors.white),
                     DateTimeTable(
                         title: "Table",
@@ -89,7 +89,7 @@ class ReservationTime extends StatelessWidget {
                       child: Obx(() => TimeWidget(
                             color:
                                 controller.selectedBreakfast.value == "09:00 am"
-                                    ? orange
+                                    ? AppColors.orange
                                     : Colors.white,
                             textColor:
                                 controller.selectedBreakfast.value == "09:00 am"
@@ -103,7 +103,7 @@ class ReservationTime extends StatelessWidget {
                       child: Obx(() => TimeWidget(
                             color:
                                 controller.selectedBreakfast.value == "10:00 am"
-                                    ? orange
+                                    ? AppColors.orange
                                     : Colors.white,
                             textColor:
                                 controller.selectedBreakfast.value == "10:00 am"
@@ -117,7 +117,7 @@ class ReservationTime extends StatelessWidget {
                       child: Obx(() => TimeWidget(
                             color:
                                 controller.selectedBreakfast.value == "11:00 am"
-                                    ? orange
+                                    ? AppColors.orange
                                     : Colors.white,
                             textColor:
                                 controller.selectedBreakfast.value == "11:00 am"
@@ -128,17 +128,19 @@ class ReservationTime extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () => controller.selectBreakfast("12:00 pm"),
-                      child: Obx(() => TimeWidget(
-                            color:
-                                controller.selectedBreakfast.value == "12:00 pm"
-                                    ? orange
-                                    : Colors.white,
-                            textColor:
-                                controller.selectedBreakfast.value == "12:00 pm"
-                                    ? Colors.white
-                                    : Colors.black,
-                            title: "12:00 pm",
-                          )),
+                      child: Obx(
+                        () => TimeWidget(
+                          color:
+                              controller.selectedBreakfast.value == "12:00 pm"
+                                  ? AppColors.orange
+                                  : Colors.white,
+                          textColor:
+                              controller.selectedBreakfast.value == "12:00 pm"
+                                  ? Colors.white
+                                  : Colors.black,
+                          title: "12:00 pm",
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -169,7 +171,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "01:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "01:00 pm"
@@ -183,7 +185,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "02:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "02:00 pm"
@@ -197,7 +199,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "03:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "03:00 pm"
@@ -211,7 +213,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "04:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "04:00 pm"
@@ -230,7 +232,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "05:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "05:00 pm"
@@ -245,7 +247,7 @@ class ReservationTime extends StatelessWidget {
                           child: Obx(() => TimeWidget(
                                 color:
                                     controller.selectedLunch.value == "06:00 pm"
-                                        ? orange
+                                        ? AppColors.orange
                                         : Colors.white,
                                 textColor:
                                     controller.selectedLunch.value == "06:00 pm"
@@ -286,7 +288,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "07:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "07:00 pm"
@@ -302,7 +304,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "08:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "08:00 pm"
@@ -318,7 +320,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "09:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "09:00 pm"
@@ -334,7 +336,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "10:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "10:00 pm"
@@ -358,7 +360,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "11:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "11:00 pm"
@@ -374,7 +376,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "12:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "12:00 pm"
@@ -390,7 +392,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "01:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "01:00 pm"
@@ -406,7 +408,7 @@ class ReservationTime extends StatelessWidget {
                             () => TimeWidget(
                               color:
                                   controller.selectedDinner.value == "02:00 pm"
-                                      ? orange
+                                      ? AppColors.orange
                                       : Colors.white,
                               textColor:
                                   controller.selectedDinner.value == "02:00 pm"
@@ -426,7 +428,7 @@ class ReservationTime extends StatelessWidget {
                 width: Get.width * 0.45,
                 child: Button(
                   title: "Next",
-                  color: orange,
+                  color: AppColors.orange,
                   onPressed: () {
                     Get.to(() => const ReservationTable());
                   },

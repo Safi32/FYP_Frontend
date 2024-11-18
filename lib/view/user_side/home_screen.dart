@@ -1,9 +1,9 @@
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/See_all_row.dart';
+import 'package:dine_deal/features/user_side/widgets/deal_type.dart';
+import 'package:dine_deal/features/user_side/widgets/deals_images.dart';
+import 'package:dine_deal/features/user_side/widgets/restaurant_list.dart';
 import 'package:dine_deal/view/user_side/about_page.dart';
-import 'package:dine_deal/widgets/See_all_row.dart';
-import 'package:dine_deal/widgets/deal_type.dart';
-import 'package:dine_deal/widgets/deals_images.dart';
-import 'package:dine_deal/widgets/restaurant_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,11 +23,10 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              // Header Section with Location and Search
               Container(
                 height: screenHeight * 0.25,
                 decoration: const BoxDecoration(
-                  color: orange,
+                  color: AppColors.orange,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
@@ -133,9 +132,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               SizedBox(height: screenHeight * 0.02),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(

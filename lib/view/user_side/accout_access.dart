@@ -1,8 +1,8 @@
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/social_login.dart';
 import 'package:dine_deal/view/auth_screens/login.dart';
 import 'package:dine_deal/view/auth_screens/singup.dart';
 import 'package:dine_deal/widgets/button.dart';
-import 'package:dine_deal/widgets/social_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,25 +11,20 @@ class AccountAccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Screen dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double fontSizeMultiplier =
-        screenWidth / 400; // Adjust font size relative to screen width
+    double fontSizeMultiplier = screenWidth / 400;
 
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            // Background Image
             Positioned.fill(
               child: Image.asset(
                 "assets/burger.jpg",
                 fit: BoxFit.cover,
               ),
             ),
-
-            // Back Button
             Positioned(
               top: 10,
               left: 10,
@@ -43,8 +38,6 @@ class AccountAccess extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Bottom Content
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -70,16 +63,14 @@ class AccountAccess extends StatelessWidget {
                               "Do you have an account?",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: black,
+                                color: AppColors.black,
                                 fontSize: 20 * fontSizeMultiplier,
                               ),
                             ),
                             SizedBox(height: screenHeight * 0.02),
-
-                            // Login and Register Buttons
                             Button(
                               title: "Login",
-                              color: orange,
+                              color: AppColors.orange,
                               onPressed: () {
                                 Get.to(() => LoginScreen());
                               },
@@ -92,18 +83,16 @@ class AccountAccess extends StatelessWidget {
                               onPressed: () {
                                 Get.to(() => SignUp());
                               },
-                              textColor: black,
+                              textColor: AppColors.black,
                               borderColor: Colors.black.withOpacity(0.3),
                             ),
                             SizedBox(height: screenHeight * 0.02),
-
-                            // Divider with "Register with" text
                             Row(
                               children: <Widget>[
                                 const Expanded(
                                   child: Divider(
                                     thickness: 1,
-                                    color: black,
+                                    color: AppColors.black,
                                   ),
                                 ),
                                 Padding(
@@ -114,7 +103,7 @@ class AccountAccess extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 18 * fontSizeMultiplier,
                                       fontWeight: FontWeight.bold,
-                                      color: black,
+                                      color: AppColors.black,
                                     ),
                                   ),
                                 ),
@@ -147,14 +136,14 @@ class AccountAccess extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 15 * fontSizeMultiplier,
                                     fontWeight: FontWeight.bold,
-                                    color: black,
+                                    color: AppColors.black,
                                   ),
                                   children: const <TextSpan>[
                                     TextSpan(
                                       text: " Guest",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: orange,
+                                        color: AppColors.orange,
                                       ),
                                     ),
                                   ],

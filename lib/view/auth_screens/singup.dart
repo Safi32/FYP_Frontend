@@ -259,13 +259,13 @@
 //     );
 //   }
 // }
-import 'package:dine_deal/widgets/sign_up_fields.dart';
-import 'package:dine_deal/widgets/social_login.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/sign_up_fields.dart';
+import 'package:dine_deal/features/user_side/widgets/social_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/signup_controller.dart';
-import '../../utils/colors.dart';
 import 'login.dart';
 
 class SignUp extends StatelessWidget {
@@ -283,10 +283,9 @@ class SignUp extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: orange,
+        backgroundColor: AppColors.orange,
         body: Column(
           children: [
-            // Header Section
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Row(
@@ -366,7 +365,7 @@ class SignUp extends StatelessWidget {
                                   border: Border.all(
                                     color:
                                         controller.selectedPrivacyOption.value
-                                            ? orange
+                                            ? AppColors.orange
                                             : Colors.black,
                                   ),
                                 ),
@@ -375,7 +374,7 @@ class SignUp extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     color:
                                         controller.selectedPrivacyOption.value
-                                            ? orange
+                                            ? AppColors.orange
                                             : Colors.transparent,
                                   ),
                                   width: 20,
@@ -406,7 +405,7 @@ class SignUp extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              backgroundColor: orange,
+                              backgroundColor: AppColors.orange,
                             ),
                             onPressed: controller.isLoading.value
                                 ? null
@@ -459,7 +458,7 @@ class SignUp extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       // Social Login Option
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SocialLogin(
@@ -469,7 +468,6 @@ class SignUp extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      // Redirect to Login
                       Center(
                         child: GestureDetector(
                           onTap: () {
@@ -490,7 +488,7 @@ class SignUp extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: fontName,
                                     fontWeight: FontWeight.bold,
-                                    color: orange,
+                                    color: AppColors.orange,
                                   ),
                                 ),
                               ],

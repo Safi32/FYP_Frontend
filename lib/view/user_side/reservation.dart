@@ -1,6 +1,6 @@
 import 'package:dine_deal/controller/tab_controller.dart';
-import 'package:dine_deal/widgets/past_reservation.dart';
-import 'package:dine_deal/widgets/upcoming_reservations.dart';
+import 'package:dine_deal/features/user_side/widgets/past_reservation.dart';
+import 'package:dine_deal/view/user_side/upcoming_reservations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

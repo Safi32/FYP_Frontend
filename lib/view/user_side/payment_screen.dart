@@ -1,7 +1,7 @@
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/checkbox.dart';
+import 'package:dine_deal/features/user_side/widgets/payment_fields.dart';
 import 'package:dine_deal/widgets/button.dart';
-import 'package:dine_deal/widgets/checkbox.dart';
-import 'package:dine_deal/widgets/payment_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -196,7 +196,7 @@ class PaymentScreen extends StatelessWidget {
                   width: Get.width * 0.8,
                   child: Button(
                     title: "Pay now",
-                    color: orange,
+                    color: AppColors.orange,
                     onPressed: () {
                       Get.to(() => const PaymentScreen());
                     },

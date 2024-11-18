@@ -1,17 +1,17 @@
 import 'package:dine_deal/controller/verify_otp_controller.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/forgot_password.dart';
+import 'package:dine_deal/features/user_side/widgets/otp.dart';
+import 'package:dine_deal/features/user_side/widgets/save_skip_password.dart';
+import 'package:dine_deal/features/user_side/widgets/sign_up_fields.dart';
+import 'package:dine_deal/features/user_side/widgets/social_login.dart';
 import 'package:dine_deal/view/auth_screens/singup.dart';
-import 'package:dine_deal/widgets/forgot_password.dart';
-import 'package:dine_deal/widgets/otp.dart';
-import 'package:dine_deal/widgets/save_skip_password.dart';
-import 'package:dine_deal/widgets/sign_up_fields.dart';
-import 'package:dine_deal/widgets/social_login.dart';
-import 'package:dine_deal/widgets/user_email.dart';
+import 'package:dine_deal/view/user_side/user_email.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/login_controller.dart';
 import '../../controller/otp_controller.dart';
-import '../../utils/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: orange,
+        backgroundColor: AppColors.orange,
         body: Stack(
           children: [
             Column(
@@ -138,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                     horizontal: screenWidth * 0.05,
                     vertical: screenHeight * 0.02,
                   ),
-                  color: orange,
+                  color: AppColors.orange,
                   child: Row(
                     children: [
                       GestureDetector(
@@ -189,7 +189,6 @@ class LoginScreen extends StatelessWidget {
                             SignUpFields(
                               controller: emailController,
                               hintText: "Enter your email here",
-                              
                               tag: "Email",
                               keyboardType: TextInputType.emailAddress,
                               suffixIcon: const Icon(
@@ -230,7 +229,7 @@ class LoginScreen extends StatelessWidget {
                                   child: Text(
                                     "Forgot Password?",
                                     style: TextStyle(
-                                      color: black,
+                                      color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontName,
                                     ),
@@ -254,7 +253,7 @@ class LoginScreen extends StatelessWidget {
                                     height: 50 * fontSizeMultipler,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                      color: orange,
+                                      color: AppColors.orange,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: loginController.isLoading.value
@@ -281,7 +280,7 @@ class LoginScreen extends StatelessWidget {
                                 const Expanded(
                                   child: Divider(
                                     thickness: 1,
-                                    color: black,
+                                    color: AppColors.black,
                                   ),
                                 ),
                                 Padding(
@@ -293,14 +292,14 @@ class LoginScreen extends StatelessWidget {
                                       fontSize: 18 * fontSizeMultipler,
                                       fontFamily: fontName,
                                       fontWeight: FontWeight.bold,
-                                      color: black,
+                                      color: AppColors.black,
                                     ),
                                   ),
                                 ),
                                 const Expanded(
                                   child: Divider(
                                     thickness: 1,
-                                    color: black,
+                                    color: AppColors.black,
                                   ),
                                 ),
                               ],
@@ -339,7 +338,7 @@ class LoginScreen extends StatelessWidget {
                         fontSize: 15 * fontSizeMultipler,
                         fontFamily: fontName,
                         fontWeight: FontWeight.bold,
-                        color: black,
+                        color: AppColors.black,
                       ),
                       children: <TextSpan>[
                         TextSpan(
@@ -347,7 +346,7 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: fontName,
                             fontWeight: FontWeight.bold,
-                            color: orange,
+                            color: AppColors.orange,
                           ),
                         ),
                       ],

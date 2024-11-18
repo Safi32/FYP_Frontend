@@ -1,5 +1,5 @@
-import 'package:dine_deal/utils/colors.dart';
-import 'package:dine_deal/view/admin_side/personal_details.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/personal_details.dart';
 import 'package:dine_deal/view/user_side/accout_access.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class UserAdmin extends StatelessWidget {
                   children: [
                     Button(
                       title: "Be Partner",
-                      color: orange,
+                      color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () {
                         Get.to(() => const PersonalDetails());
@@ -48,7 +48,7 @@ class UserAdmin extends StatelessWidget {
                     ),
                     Button(
                       title: "User",
-                      color: orange,
+                      color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () {
                         Get.to(() => const AccountAccess());

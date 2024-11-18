@@ -1,8 +1,8 @@
 import 'package:dine_deal/controller/tab_controller.dart';
-import 'package:dine_deal/utils/colors.dart';
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/widgets/info_buttons.dart';
+import 'package:dine_deal/view/user_side/window.dart';
 import 'package:dine_deal/widgets/button.dart';
-import 'package:dine_deal/widgets/info_buttons.dart';
-import 'package:dine_deal/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,7 +87,7 @@ class AboutPage extends StatelessWidget {
                       InfoButtons(
                         title: "About",
                         color: tabController.selectedTab.value == 'About'
-                            ? orange
+                            ? AppColors.orange
                             : Colors.white,
                         textColor: tabController.selectedTab.value == 'About'
                             ? Colors.white
@@ -100,7 +100,7 @@ class AboutPage extends StatelessWidget {
                       InfoButtons(
                         title: "Menu",
                         color: tabController.selectedTab.value == 'Menu'
-                            ? orange
+                            ? AppColors.orange
                             : Colors.white,
                         textColor: tabController.selectedTab.value == 'Menu'
                             ? Colors.white
@@ -113,7 +113,7 @@ class AboutPage extends StatelessWidget {
                       InfoButtons(
                         title: "Review",
                         color: tabController.selectedTab.value == 'Review'
-                            ? orange
+                            ? AppColors.orange
                             : Colors.white,
                         textColor: tabController.selectedTab.value == 'Review'
                             ? Colors.white
@@ -271,7 +271,7 @@ class AboutPage extends StatelessWidget {
                   width: Get.width * 0.45,
                   child: Button(
                     title: "Reserve Now",
-                    color: orange,
+                    color: AppColors.orange,
                     onPressed: () {},
                     textColor: Colors.white,
                   ),

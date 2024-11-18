@@ -46,7 +46,7 @@ class SignUpController extends GetxController {
       isLoading(true);
 
       final response = await http.post(
-        Uri.parse("http://192.168.18.94:3000/signup"),
+        Uri.parse("http://192.168.54.165:3000/signup"),
         headers: {"Content-Type": "application/json"},
         body: json.encode(body),
       );
