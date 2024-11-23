@@ -40,7 +40,7 @@ class UserAdmin extends StatelessWidget {
                       color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () {
-                        Get.to(() => const PersonalDetails());
+                        Get.to(() => PersonalDetails());
                       },
                     ),
                     const SizedBox(

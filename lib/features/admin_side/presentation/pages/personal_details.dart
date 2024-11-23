@@ -1,19 +1,23 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/social_media.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PersonalDetails extends StatelessWidget {
-  const PersonalDetails({super.key});
+  PersonalDetails({super.key});
 
+  final ListRestaurantController controller =
+      Get.put(ListRestaurantController());
   final String fontName = "NunitoSans";
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.orange,
         body: SingleChildScrollView(
           child: Column(
@@ -81,6 +85,8 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
+                          onChanged: (value) =>
+                              controller.updateRestaurantField("name", value),
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -130,6 +136,9 @@ class PersonalDetails extends StatelessWidget {
                               ),
                               Expanded(
                                 child: TextFormField(
+                                  onChanged: (value) =>
+                                      controller.updateRestaurantField(
+                                          "phoneNumber", value),
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 15),
@@ -151,6 +160,8 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
+                          onChanged: (value) =>
+                              controller.updateRestaurantField("email", value),
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -179,7 +190,9 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          maxLines: 3,
+                          onChanged: (value) => controller
+                              .updateRestaurantField("address", value),
+                          maxLines: 4,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -203,7 +216,7 @@ class PersonalDetails extends StatelessWidget {
                           title: "Next",
                           color: AppColors.orange,
                           onPressed: () {
-                            Get.to(() => const SocialMedia());
+                            Get.to(() => SocialMedia());
                           },
                           textColor: Colors.white,
                         ),

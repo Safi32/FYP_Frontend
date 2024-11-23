@@ -6,7 +6,7 @@ class AppConstant {
   static const String verifyOtpUri = "/verify";
 
   //Restaurant End-Points
-  static const String listRestaurantUri = "restaurant";
+  static const String listRestaurantUri = "/restaurant";
 
   //Global Headers
   static const String contentType = "Content-Type";

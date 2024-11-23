@@ -1,13 +1,24 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/media_gallery.dart';
+import 'package:dine_deal/features/admin_side/presentation/widgets/restaurant_checkbox.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/restaurant_checkbox.dart';
-
 class RestaurantFeatures extends StatelessWidget {
-  const RestaurantFeatures({super.key});
+  RestaurantFeatures({super.key});
+
+  final ListRestaurantController controller =
+      Get.put(ListRestaurantController());
+
+  final List<String> restaurantInformation = [
+    "Place for pray",
+    "Kids friendly",
+    "Family style",
+    "Parking",
+    "WiFi",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,78 +68,66 @@ class RestaurantFeatures extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 20,
-                          ),
-                          child: Text(
-                            "Restaurant and Features",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        "Restaurant and Features",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                      ],
+                      ),
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
+                        vertical: 10,
                       ),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Area",
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        "Features",
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                      ),
-                      child: Column(
-                        children: [
-                          RestaurantCheckbox(
-                            title: "Place for pray",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Kids Friendly",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Family Style",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Parking",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Wifi",
-                          ),
-                        ],
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: restaurantInformation.length,
+                        itemBuilder: (context, index) {
+                          final feature = restaurantInformation[index];
+                          return Obx(
+                            () => RestaurantCheckbox(
+                              title: feature,
+                              isChecked:
+                                  controller.selectedFeatures.contains(feature),
+                              onChanged: (isSelected) {
+                                controller.toggleFeature(feature, isSelected!);
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
+                        vertical: 10,
                         horizontal: 20,
                       ),
                       child: Button(
                         title: "Next",
                         color: AppColors.orange,
                         onPressed: () {
-                          Get.to(() => const MediaGallery());
+                          Get.to(() => MediaGallery());
                         },
                         textColor: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 10),
                     const Center(
                       child: Text.rich(
                         TextSpan(

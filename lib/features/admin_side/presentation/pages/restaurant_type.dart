@@ -1,4 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/operational_details.dart';
 import 'package:dine_deal/features/admin_side/presentation/widgets/restaurant_checkbox.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -6,7 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RestaurantType extends StatelessWidget {
-  const RestaurantType({super.key});
+  RestaurantType({super.key});
+
+  final ListRestaurantController controller =
+      Get.put(ListRestaurantController());
+
+  final List<String> restaurantTypes = [
+    "Vegan",
+    "Vegetarian",
+    "Flexitarian",
+    "Dessert",
+    "Fast Food",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,63 +69,38 @@ class RestaurantType extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 20,
-                          ),
-                          child: Text(
-                            "Restaurant Type",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
+                        vertical: 20,
                       ),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Area",
-                            style: TextStyle(
-                              fontSize: 15,
+                      child: Text(
+                        "Restaurant Type",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: restaurantTypes.length,
+                        itemBuilder: (context, index) {
+                          final type = restaurantTypes[index];
+                          return Obx(
+                            () => RestaurantCheckbox(
+                              title: type,
+                              isChecked: controller.selectedRestaurantTypes
+                                  .contains(type),
+                              onChanged: (isSelected) {
+                                controller.toggleSelection(
+                                    type, isSelected!, "restaurantType");
+                              },
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                      ),
-                      child: Column(
-                        children: [
-                          RestaurantCheckbox(
-                            title: "Vegan",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Vegetarian",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Flexitarian",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Desert",
-                          ),
-                          RestaurantCheckbox(
-                            title: "Fast Food",
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
@@ -122,7 +109,7 @@ class RestaurantType extends StatelessWidget {
                         title: "Next",
                         color: AppColors.orange,
                         onPressed: () {
-                          Get.to(() => const OperationalDetails());
+                          Get.to(() => OperationalDetails());
                         },
                         textColor: Colors.white,
                       ),
