@@ -1,5 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/personal_details.dart';
+import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/accout_access.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class UserAdmin extends StatelessWidget {
                       color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () {
-                        Get.to(() => PersonalDetails());
+                        Get.to(() => const AdminLogin());
                       },
                     ),
                     const SizedBox(

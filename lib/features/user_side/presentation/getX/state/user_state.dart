@@ -1,4 +1,4 @@
-import 'package:dine_deal/features/user_side/presentation/state/user_entity.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/state/user_entity.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserState extends Equatable {

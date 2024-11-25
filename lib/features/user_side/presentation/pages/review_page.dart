@@ -32,7 +32,7 @@ class ReviewPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "About Page",
+                        "Review Page",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,

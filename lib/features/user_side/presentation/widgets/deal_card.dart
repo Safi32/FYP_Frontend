@@ -2,7 +2,9 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DealCard extends StatelessWidget {
-  const DealCard({super.key});
+  const DealCard({super.key, required this.onPressed});
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +129,7 @@ class DealCard extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         )),
-                    onPressed: () {},
+                    onPressed: onPressed,
                     child: const Text(
                       "Reserve",
                       style: TextStyle(

@@ -145,13 +145,14 @@ class HomeScreen extends StatelessWidget {
                           Wrap(
                             spacing: screenWidth * 0.025,
                             children: [
-                              DealType(title: "All"),
+                              const DealType(title: "All"),
                               GestureDetector(
                                   onTap: () {
                                     Get.to(() => const DealForToday());
                                   },
-                                  child: DealType(title: "Deal For Today")),
-                              DealType(title: "Deal For Family"),
+                                  child:
+                                      const DealType(title: "Deal For Today")),
+                              const DealType(title: "Deal For Family"),
                             ],
                           ),
                         ],
@@ -164,7 +165,7 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 18 * fontSizeMultiplier,
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    DealsImages(
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
@@ -222,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 18 * fontSizeMultiplier,
                     ),
                     SizedBox(height: screenHeight * 0.01),
-                    DealsImages(
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",
@@ -234,7 +235,7 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 18 * fontSizeMultiplier,
                     ),
                     SizedBox(height: screenHeight * 0.01),
-                    DealsImages(
+                    const DealsImages(
                       imageURL1: "assets/fries.png",
                       imageURL2: "assets/pizza_fries.png",
                       imageURL3: "assets/Burger.png",

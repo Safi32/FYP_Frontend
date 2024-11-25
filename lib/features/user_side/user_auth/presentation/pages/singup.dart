@@ -265,7 +265,7 @@ import 'package:dine_deal/features/user_side/presentation/widgets/social_login.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../features/user_side/presentation/getX/controller/signup_controller.dart';
+import '../getX/controller/signup_controller.dart';
 import 'login.dart';
 
 class SignUp extends StatelessWidget {

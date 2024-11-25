@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dine_deal/config/app_config.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/test_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -43,7 +43,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.yellow,
         );
 
-        Get.to(() => const TestScreen());
+        Get.to(() => const BottomBar());
       } else {
         errorMessage.value = 'Login failed, please check your credentials.';
         Get.snackbar('Error', errorMessage.value);

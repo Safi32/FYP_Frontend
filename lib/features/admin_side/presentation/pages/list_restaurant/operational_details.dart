@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/restaurant_information.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/list_restaurant/restaurant_information.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

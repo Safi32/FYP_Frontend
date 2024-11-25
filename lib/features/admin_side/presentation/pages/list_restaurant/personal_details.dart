@@ -1,7 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/social_media.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/list_restaurant/social_media.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -162,6 +162,40 @@ class PersonalDetails extends StatelessWidget {
                         TextFormField(
                           onChanged: (value) =>
                               controller.updateRestaurantField("email", value),
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          "Password",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          onChanged: (value) =>
+                              controller.updateRestaurantField("email", value),
+                          keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -192,7 +226,6 @@ class PersonalDetails extends StatelessWidget {
                         TextFormField(
                           onChanged: (value) => controller
                               .updateRestaurantField("address", value),
-                          maxLines: 4,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -211,7 +244,7 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 70),
+                        const SizedBox(height: 40),
                         Button(
                           title: "Next",
                           color: AppColors.orange,

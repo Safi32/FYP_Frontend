@@ -99,10 +99,14 @@ class DealForToday extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Column(
+                Column(
                   children: [
-                    DealCard(),
-                    DealCard(),
+                    DealCard(
+                      onPressed: () {},
+                    ),
+                    DealCard(
+                      onPressed: () {},
+                    ),
                   ],
                 )
               ],

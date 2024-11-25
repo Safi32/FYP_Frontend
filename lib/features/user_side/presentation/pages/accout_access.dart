@@ -1,7 +1,7 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/social_login.dart';
-import 'package:dine_deal/view/auth_screens/login.dart';
-import 'package:dine_deal/view/auth_screens/singup.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/login.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

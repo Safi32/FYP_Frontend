@@ -6,14 +6,14 @@ import 'package:dine_deal/features/user_side/presentation/pages/reservation.dart
 import 'package:dine_deal/features/user_side/presentation/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 
-class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
 
   @override
   _TestScreenState createState() => _TestScreenState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _TestScreenState extends State<BottomBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [

@@ -1,17 +1,17 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/getX/controller/verify_otp_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/user_email.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/forgot_password.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/otp.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/save_skip_password.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/sign_up_fields.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/social_login.dart';
-import 'package:dine_deal/view/auth_screens/singup.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/getX/controller/verify_otp_controller.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../features/user_side/presentation/getX/controller/login_controller.dart';
-import '../../features/user_side/presentation/getX/controller/otp_controller.dart';
+import '../getX/controller/login_controller.dart';
+import '../getX/controller/otp_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

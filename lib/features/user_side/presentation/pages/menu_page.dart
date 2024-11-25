@@ -3,6 +3,7 @@ import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_co
 import 'package:dine_deal/features/user_side/presentation/pages/reservation_date.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deal_card.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/menu_description.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/window.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class MenuPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "About Page",
+                        "Menu Page",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -132,8 +133,14 @@ class MenuPage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Column(
-                    children: [DealCard()],
+                  Column(
+                    children: [
+                      DealCard(
+                        onPressed: () {
+                          Get.to(() => const MenuDescription());
+                        },
+                      ),
+                    ],
                   )
                 ],
               ),
