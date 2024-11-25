@@ -1,10 +1,10 @@
-import 'package:dine_deal/controller/otp_controller.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/otp_controller.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../features/user_side/widgets/sign_up_fields.dart';
+import '../widgets/sign_up_fields.dart';
 
 class EmailInputModal extends StatelessWidget {
   final String fontName;

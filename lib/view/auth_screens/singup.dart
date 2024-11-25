@@ -260,12 +260,12 @@
 //   }
 // }
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/sign_up_fields.dart';
-import 'package:dine_deal/features/user_side/widgets/social_login.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/sign_up_fields.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/social_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/signup_controller.dart';
+import '../../features/user_side/presentation/getX/controller/signup_controller.dart';
 import 'login.dart';
 
 class SignUp extends StatelessWidget {

@@ -92,21 +92,16 @@ class ListRestaurantController extends GetxController {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      // Extract file extension
       String fileExtension = image.path.split('.').last.toLowerCase();
 
-      // Check for allowed extensions
       if (fileExtension == 'jpeg' ||
           fileExtension == 'jpg' ||
           fileExtension == 'png') {
-        // Add image path and type as metadata
         var pictureData = {
           "type": type,
           "url": image.path,
         };
         (restaurantData["pictures"] as List).add(pictureData);
-
-        // Update selectedImagePath
         selectedImagePath.value = image.path;
 
         update();
@@ -132,59 +127,8 @@ class ListRestaurantController extends GetxController {
     }
   }
 
-  // Future<void> submitRestaurantData() async {
-  //   if (selectedImagePath.value.isEmpty) {
-  //     Get.snackbar("Error", "Please select an image before submitting");
-  //     return;
-  //   }
-
-  //   isLoading.value = true;
-  //   errorMessage.value = "";
-
-  //   try {
-  //     var request = http.MultipartRequest('POST',
-  //         Uri.parse("${AppConfig.baseURL}${AppConstant.listRestaurantUri}"));
-  //     restaurantData.forEach((key, value) {
-  //       if (value != null) {
-  //         if (value is List || value is Map) {
-  //           request.fields[key] = jsonEncode(value);
-  //         } else {
-  //           request.fields[key] = value.toString();
-  //         }
-  //       }
-  //     });
-  //     print("Request fields: ${request.fields}");
-  //     for (var picture in (restaurantData["pictures"] as List)) {
-  //       var path = picture["url"];
-  //       request.files.add(await http.MultipartFile.fromPath(
-  //         'pictures',
-  //         path,
-  //       ));
-  //     }
-
-  //     var response = await request.send();
-
-  //     if (response.statusCode == 200) {
-  //       Get.snackbar("Success", "Restaurant data submitted successfully");
-  //     } else {
-  //       var responseData = await response.stream.bytesToString();
-  //       var errorResponse = jsonDecode(responseData);
-  //       errorMessage.value = errorResponse['message'] ?? "Submission failed";
-  //       Get.snackbar("Error", errorMessage.value);
-  //       print("Error $errorMessage.value");
-  //     }
-  //   } catch (e) {
-  //     errorMessage.value = "An error occurred: $e";
-  //     Get.snackbar("Error", errorMessage.value);
-  //     print("Error $errorMessage.value");
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
   Future<void> submitRestaurantData() async {
     if ((restaurantData["pictures"] as List).isEmpty) {
-      // Check if the pictures list is empty
       Get.snackbar("Error", "Please upload at least one picture");
       return;
     }
@@ -195,6 +139,9 @@ class ListRestaurantController extends GetxController {
     try {
       var request = http.MultipartRequest('POST',
           Uri.parse("${AppConfig.baseURL}${AppConstant.listRestaurantUri}"));
+      print(
+          "API Endpoint: ${AppConfig.baseURL}${AppConstant.listRestaurantUri}");
+
       restaurantData.forEach((key, value) {
         if (value != null) {
           if (value is List || value is Map) {
@@ -204,8 +151,6 @@ class ListRestaurantController extends GetxController {
           }
         }
       });
-
-      // Add picture files to the request
       for (var picture in (restaurantData["pictures"] as List)) {
         var path = picture["url"];
         request.files.add(await http.MultipartFile.fromPath(
@@ -223,10 +168,12 @@ class ListRestaurantController extends GetxController {
         var errorResponse = jsonDecode(responseData);
         errorMessage.value = errorResponse['message'] ?? "Submission failed";
         Get.snackbar("Error", errorMessage.value);
+        print("Error $errorMessage.value");
       }
     } catch (e) {
       errorMessage.value = "An error occurred: $e";
       Get.snackbar("Error", errorMessage.value);
+      print("Error $errorMessage.value");
     } finally {
       isLoading.value = false;
     }

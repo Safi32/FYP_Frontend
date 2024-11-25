@@ -1,8 +1,8 @@
-import 'package:dine_deal/features/user_side/widgets/past_reservation_details.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/reservation_details.dart';
 import 'package:flutter/material.dart';
 
-class PastReservation extends StatelessWidget {
-  const PastReservation({super.key});
+class UpcomingReservations extends StatelessWidget {
+  const UpcomingReservations({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,14 @@ class PastReservation extends StatelessWidget {
             itemCount: upcomingReservations.length,
             itemBuilder: (context, index) {
               return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 15.0),
-                  child: PastReservationDetails(
-                    numberOfPersons: 9,
-                    tableNumber: "4",
-                  ));
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 15.0),
+                child: ReservationDetails(
+                  tableNumber: upcomingReservations[index]['tableNumber'],
+                  numberOfPersons: upcomingReservations[index]
+                      ['numberOfPersons'],
+                ),
+              );
             },
           );
   }

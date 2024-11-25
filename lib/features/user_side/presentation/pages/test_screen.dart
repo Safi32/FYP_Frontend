@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/view/user_side/favourite.dart';
-import 'package:dine_deal/view/user_side/home_screen.dart';
-import 'package:dine_deal/view/user_side/reservation.dart';
-import 'package:dine_deal/view/user_side/user_profile.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/favourite.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/home_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/reservation.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatefulWidget {

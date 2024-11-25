@@ -1,23 +1,20 @@
-import 'package:dine_deal/controller/tab_controller.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/info_buttons.dart';
-import 'package:dine_deal/view/user_side/reservation_date.dart';
-import 'package:dine_deal/view/user_side/window.dart';
-import 'package:dine_deal/widgets/button.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/review_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'about_page.dart';
-import 'review_page.dart';
+import 'menu_page.dart';
 
-class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+class ReviewPage extends StatelessWidget {
+  const ReviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final CustomTabController tabController = Get.put(CustomTabController());
-    tabController.updateTab('Menu');
-
+    tabController.updateTab('Review');
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -50,38 +47,22 @@ class MenuPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Container(
-                            height: Get.height * 0.3,
-                            color: Colors.grey.shade300,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: const Image(
-                                image: AssetImage(
-                                  "assets/about_restaurant.png",
-                                ),
-                                fit: BoxFit.cover,
-                              ),
+                      Container(
+                        height: Get.height * 0.3,
+                        width: Get.width * 0.85,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: const Image(
+                            image: AssetImage(
+                              "assets/deal.jpeg",
                             ),
+                            fit: BoxFit.cover,
                           ),
-                          const Wrap(
-                            spacing: 10,
-                            alignment: WrapAlignment.center,
-                            children: [
-                              Window(
-                                image: "assets/about_restaurant.png",
-                              ),
-                              Window(
-                                image: "assets/about_restaurant 2.png",
-                              ),
-                              Window(
-                                image: "assets/about_restaurant.png",
-                              )
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Obx(() {
@@ -133,21 +114,56 @@ class MenuPage extends StatelessWidget {
                           ],
                         );
                       }),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: "Write a review",
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              height: 50,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: AppColors.orange,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Post",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const ReviewRating(),
                       const SizedBox(height: 10),
+                      const ReviewRating(),
                     ],
                   ),
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                width: Get.width * 0.45,
-                child: Button(
-                  title: "Reserve Now",
-                  color: AppColors.orange,
-                  onPressed: () {
-                    Get.to(() => const ReservationDate());
-                  },
-                  textColor: Colors.white,
                 ),
               ),
             ],

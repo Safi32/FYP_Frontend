@@ -1,7 +1,8 @@
-import 'package:dine_deal/controller/tab_controller.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/info_buttons.dart';
-import 'package:dine_deal/view/user_side/window.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/about_page_description.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/window.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -136,88 +137,94 @@ class AboutPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.33,
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
                           children: [
                             Text(
-                              "Restaurant Type : ",
+                              "Restaurant Information",
                               style: TextStyle(
-                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        AboutPageDescription(
+                          title: "Restaurant Type : ",
+                          subTitle: "Fast Food",
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        AboutPageDescription(
+                          title: "Location : ",
+                          subTitle: "Peshawar Road Golra-Mor",
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        AboutPageDescription(
+                          title: "Operational Hours : ",
+                          subTitle: "09am-03am",
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        AboutPageDescription(
+                          title: "Sitting : ",
+                          subTitle:
+                              "Basement,First Floor, Second Floor, Terrace",
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        AboutPageDescription(
+                          title: "Reservation Policy : ",
+                          subTitle: "Accept Reservations",
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
                             Text(
-                              "Fast Food",
+                              "Social Handles",
                               style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Text(
-                              "Location : ",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Image(
+                              image: AssetImage(
+                                "assets/Facebook.png",
                               ),
                             ),
-                            Text(
-                              "Peshawar Road Golra-mor ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Image(
+                              image: AssetImage(
+                                "assets/TwitterX.png",
                               ),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Price Range : ",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "500-10,000",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Image(
+                              image: AssetImage(
+                                "assets/Instagram.png",
                               ),
                             ),
                           ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Hours of Operations : ",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "10pm - 3am",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        )
                       ],
                     ),
                   ),

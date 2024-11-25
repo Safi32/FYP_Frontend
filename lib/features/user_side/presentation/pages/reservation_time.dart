@@ -1,8 +1,8 @@
-import 'package:dine_deal/controller/tab_controller.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/date_time_table.dart';
-import 'package:dine_deal/view/user_side/reservation_table.dart';
-import 'package:dine_deal/view/user_side/time.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/reservation_table.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/date_time_table.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/time.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

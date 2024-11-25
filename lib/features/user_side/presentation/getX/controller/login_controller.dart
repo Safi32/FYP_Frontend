@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dine_deal/config/app_config.dart';
-import 'package:dine_deal/view/user_side/test_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';

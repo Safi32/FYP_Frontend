@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/checkbox.dart';
-import 'package:dine_deal/features/user_side/widgets/payment_fields.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/checkbox.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/payment_fields.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

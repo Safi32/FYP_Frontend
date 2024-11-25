@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/personal_details.dart';
-import 'package:dine_deal/view/user_side/accout_access.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/accout_access.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

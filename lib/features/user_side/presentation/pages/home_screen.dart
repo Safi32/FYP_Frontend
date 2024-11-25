@@ -1,9 +1,10 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/widgets/See_all_row.dart';
-import 'package:dine_deal/features/user_side/widgets/deal_type.dart';
-import 'package:dine_deal/features/user_side/widgets/deals_images.dart';
-import 'package:dine_deal/features/user_side/widgets/restaurant_list.dart';
-import 'package:dine_deal/view/user_side/about_page.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/deal_for_today.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/deal_type.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/deals_images.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/restaurant_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -137,7 +138,6 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(
                   children: [
-                    // Deal Types Section
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -146,17 +146,18 @@ class HomeScreen extends StatelessWidget {
                             spacing: screenWidth * 0.025,
                             children: [
                               DealType(title: "All"),
-                              DealType(title: "Deal For Today"),
+                              GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => const DealForToday());
+                                  },
+                                  child: DealType(title: "Deal For Today")),
                               DealType(title: "Deal For Family"),
                             ],
                           ),
                         ],
                       ),
                     ),
-
                     SizedBox(height: screenHeight * 0.03),
-
-                    // Deal For Today Section
                     SeeAllRow(
                       title: "Deal For Today",
                       seeAll: "See All",
@@ -169,8 +170,6 @@ class HomeScreen extends StatelessWidget {
                       imageURL3: "assets/Burger.png",
                     ),
                     SizedBox(height: screenHeight * 0.02),
-
-                    // Restaurants Near You Section
                     SeeAllRow(
                       title: "Restaurants Near You",
                       seeAll: "See All",
@@ -187,7 +186,6 @@ class HomeScreen extends StatelessWidget {
                               RestaurantList(
                                 onPressed: () =>
                                     Get.to(() => const AboutPage()),
-                                // Adjust "4.8 (1K+ Reviews)" text inside the RestaurantList widget
                                 ratingTextStyle: TextStyle(
                                   fontSize: 14 * fontSizeMultiplier,
                                   fontWeight: FontWeight.bold,
@@ -218,8 +216,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-
-                    // Two Persons Deal Section
                     SeeAllRow(
                       title: "Two Persons Deal",
                       seeAll: "See All",
@@ -232,8 +228,6 @@ class HomeScreen extends StatelessWidget {
                       imageURL3: "assets/Burger.png",
                     ),
                     SizedBox(height: screenHeight * 0.01),
-
-                    // Family Deal Section
                     SeeAllRow(
                       title: "Family Deal",
                       seeAll: "See All",
