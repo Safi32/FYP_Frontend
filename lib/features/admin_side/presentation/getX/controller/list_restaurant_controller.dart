@@ -16,8 +16,8 @@ class ListRestaurantController extends GetxController {
     "socialMediaLinks": [],
     "restaurantType": [],
     "operationHours": null,
-    "minPriceRange": null,
-    "maxPriceRange": null,
+    "minimumPriceRange": null,
+    "maximumPriceRange": null,
     "restaurantInfo": [],
     "pictures": [],
     "acceptPolicies": null,
@@ -37,6 +37,12 @@ class ListRestaurantController extends GetxController {
   var acceptPolicies = false.obs;
   var reservationOption = 'Yes'.obs;
   var selectedImagePath = ''.obs;
+
+  void toggleAcceptPolicies(bool value) {
+    acceptPolicies.value = value;
+    restaurantData["acceptPolicies"] = value ? "Yes" : "No";
+    update();
+  }
 
   void updateAdditionalInformation(String info) {
     restaurantData["additionalInformation"] = info;
@@ -70,23 +76,6 @@ class ListRestaurantController extends GetxController {
     restaurantData[key] = List<String>.from(selectedList);
     update();
   }
-
-  // Future<void> pickImage(String type) async {
-  //   // Type can be "restaurant_information" or "media_gallery"
-  //   final ImagePicker picker = ImagePicker();
-  //   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-  //   if (image != null) {
-  //     // Add image path and type as metadata
-  //     var pictureData = {
-  //       "type": type,
-  //       "url": image.path,
-  //     };
-  //     (restaurantData["pictures"] as List).add(pictureData);
-  //     update();
-  //   } else {
-  //     Get.snackbar("Error", "No image selected");
-  //   }
-  // }
 
   Future<void> pickImage(String type) async {
     final ImagePicker picker = ImagePicker();
@@ -135,12 +124,15 @@ class ListRestaurantController extends GetxController {
 
     isLoading.value = true;
     errorMessage.value = "";
+    const String restaurantURL =
+        "${AppConfig.baseURL}${AppConstant.listRestaurantUri}";
+    print("API URL: $restaurantURL");
 
     try {
-      var request = http.MultipartRequest('POST',
-          Uri.parse("${AppConfig.baseURL}${AppConstant.listRestaurantUri}"));
-      print(
-          "API Endpoint: ${AppConfig.baseURL}${AppConstant.listRestaurantUri}");
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(restaurantURL),
+      );
 
       restaurantData.forEach((key, value) {
         if (value != null) {
@@ -159,21 +151,23 @@ class ListRestaurantController extends GetxController {
         ));
       }
 
-      var response = await request.send();
+      try {
+        var response = await request.send();
 
-      if (response.statusCode == 200) {
-        Get.snackbar("Success", "Restaurant data submitted successfully");
-      } else {
-        var responseData = await response.stream.bytesToString();
-        var errorResponse = jsonDecode(responseData);
-        errorMessage.value = errorResponse['message'] ?? "Submission failed";
+        if (response.statusCode == 200) {
+          Get.snackbar("Success", "Restaurant data submitted successfully");
+        } else {
+          var responseData = await response.stream.bytesToString();
+          print("Backend Error Response: $responseData"); // Log backend error
+          var errorResponse = jsonDecode(responseData);
+          errorMessage.value = errorResponse['message'] ?? "Submission failed";
+          Get.snackbar("Error", errorMessage.value);
+        }
+      } catch (e) {
+        errorMessage.value = "An error occurred: $e";
         Get.snackbar("Error", errorMessage.value);
-        print("Error $errorMessage.value");
+        print("Error: $errorMessage.value");
       }
-    } catch (e) {
-      errorMessage.value = "An error occurred: $e";
-      Get.snackbar("Error", errorMessage.value);
-      print("Error $errorMessage.value");
     } finally {
       isLoading.value = false;
     }
@@ -192,11 +186,6 @@ class ListRestaurantController extends GetxController {
     } else {
       errorMessage.value = "Invalid field: $key";
     }
-  }
-
-  void toggleAcceptPolicies(bool value) {
-    acceptPolicies.value = value;
-    restaurantData["acceptPolicies"] = value;
   }
 
   void updateReservationOption(String value) {

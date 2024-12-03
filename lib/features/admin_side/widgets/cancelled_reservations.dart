@@ -108,6 +108,22 @@ class CancelledReservations extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              Container(
+                                height: 30,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: AppColors.pink,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Cancelled",
+                                    style: TextStyle(
+                                      color: AppColors.orange,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(

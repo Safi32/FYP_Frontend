@@ -6,15 +6,12 @@ class AppConstant {
   static const String verifyOtpUri = "/verify";
 
   //Restaurant End-Points
-  static const String listRestaurantUri = "/restaurant";
-
-  //Global Headers
-  static const String contentType = "Content-Type";
-  static const String accept = "Accpet";
-  static const String langKey = "Accpet-Language";
-
-  //Shared Preferences Keys
-  static const String authTokenKey = "authToken";
-  static const String isLoggedInKey = "isLogggedIn";
-  static const String userIdKey = "userId";
+  static const String listRestaurantUri = "/listRestaurant";
+  static const String restaurantAdminLogin = "/api/restaurant/login";
+  static const String addDeals = "/api/deals/add";
+  static const String doneReservation = "/api/reservations/:reservationId/done";
+  static const String cancelReservation =
+      "/api/reservations/:reservationId/cancel";
+  static const String seeAllReservation = "/api/reservation";
+  static const String userLogout = "/api/restaurant/logout";
 }

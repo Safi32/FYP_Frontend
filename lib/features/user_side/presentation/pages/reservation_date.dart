@@ -21,7 +21,6 @@ class ReservationDate extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              // Header with back button
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -50,7 +49,7 @@ class ReservationDate extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     DateTimeTable(
                       title: "Date",
@@ -59,6 +58,11 @@ class ReservationDate extends StatelessWidget {
                     ),
                     DateTimeTable(
                       title: "Time",
+                      btnColor: Colors.white,
+                      textColor: Colors.black,
+                    ),
+                    DateTimeTable(
+                      title: "Person",
                       btnColor: Colors.white,
                       textColor: Colors.black,
                     ),

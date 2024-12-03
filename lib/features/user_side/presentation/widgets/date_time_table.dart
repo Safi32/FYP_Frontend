@@ -16,7 +16,7 @@ class DateTimeTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: Get.height * 0.05,
-      width: Get.width * 0.25,
+      width: Get.width * 0.2,
       decoration: BoxDecoration(
         color: btnColor,
         borderRadius: BorderRadius.circular(10),

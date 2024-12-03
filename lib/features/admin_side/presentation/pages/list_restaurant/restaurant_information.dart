@@ -112,40 +112,6 @@ class RestaurantInformation extends StatelessWidget {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          controller.pickImage("restaurant_information");
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 200,
-                          margin: const EdgeInsets.symmetric(vertical: 20),
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey.shade300),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.upload_file, color: Colors.orange),
-                              SizedBox(width: 10),
-                              Text(
-                                "Upload Media",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                     const Spacer(
                       flex: 1,
                     ),

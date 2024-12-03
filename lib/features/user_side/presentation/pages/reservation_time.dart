@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/reservation_table.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/reservation_person.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/date_time_table.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/time.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -59,9 +59,15 @@ class ReservationTime extends StatelessWidget {
                         btnColor: AppColors.orange,
                         textColor: Colors.white),
                     DateTimeTable(
-                        title: "Table",
-                        btnColor: Colors.white,
-                        textColor: Colors.black),
+                      title: "Person",
+                      btnColor: Colors.white,
+                      textColor: Colors.black,
+                    ),
+                    DateTimeTable(
+                      title: "Table",
+                      btnColor: Colors.white,
+                      textColor: Colors.black,
+                    ),
                   ],
                 ),
               ),
@@ -348,7 +354,7 @@ class ReservationTime extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -430,7 +436,7 @@ class ReservationTime extends StatelessWidget {
                   title: "Next",
                   color: AppColors.orange,
                   onPressed: () {
-                    Get.to(() => const ReservationTable());
+                    Get.to(() => const ReservationPerson());
                   },
                   textColor: Colors.white,
                 ),

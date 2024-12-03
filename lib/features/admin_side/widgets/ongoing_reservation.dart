@@ -1,11 +1,10 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 
-class UpcomingReservation extends StatelessWidget {
-  UpcomingReservation({super.key});
+class OngoingReservation extends StatelessWidget {
+  OngoingReservation({super.key});
 
   final List<Map<String, dynamic>> reservations = [
     {
@@ -23,7 +22,6 @@ class UpcomingReservation extends StatelessWidget {
     final now = DateTime.now();
     final formattedDate = DateFormat('dd MMMM').format(now);
     final formattedTime = DateFormat('hh:mm a').format(now);
-
     return reservations.isEmpty
         ? Center(
             child: Column(
@@ -56,7 +54,7 @@ class UpcomingReservation extends StatelessWidget {
                   vertical: 10,
                 ),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.18,
                   child: Card(
                     elevation: 1,
                     color: AppColors.surface,
@@ -66,6 +64,7 @@ class UpcomingReservation extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
                             children: [
@@ -102,18 +101,42 @@ class UpcomingReservation extends StatelessWidget {
                                         Icons.star,
                                         color: AppColors.yellow,
                                       ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      },
+                                      onRatingUpdate: (rating) {},
                                     ),
-                                    const SizedBox(height: 5),
                                   ],
+                                ),
+                              ),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  color: AppColors.baige,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(
+                                  Icons.close,
+                                  color: AppColors.surface,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  color: AppColors.blue,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(
+                                  Icons.done,
+                                  color: AppColors.surface,
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 30,
                           ),
                           Container(
                             height: 30,
@@ -189,32 +212,6 @@ class UpcomingReservation extends StatelessWidget {
                           ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                height: 35,
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Button(
-                                    title: "Reject",
-                                    color: Colors.grey.shade300,
-                                    onPressed: () {},
-                                    textColor: AppColors.black),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                height: 35,
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Button(
-                                    title: "Accept",
-                                    color: AppColors.orange,
-                                    onPressed: () {},
-                                    textColor: AppColors.surface),
-                              ),
-                            ],
                           ),
                         ],
                       ),

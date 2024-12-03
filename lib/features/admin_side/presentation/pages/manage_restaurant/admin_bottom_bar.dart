@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_deal.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_favourite.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_home_screen.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_reservation.dart';
@@ -17,7 +18,8 @@ class _TestScreenState extends State<AdminBottomBar> {
 
   final List<Widget> _pages = [
     const AdminHomeScreen(),
-    const AdminReservation(),
+    AddDealScreen(),
+    AdminReservation(),
     const AdminFavourite(),
   ];
 
@@ -38,10 +40,13 @@ class _TestScreenState extends State<AdminBottomBar> {
               label: _selectedIndex == 0 ? "Home" : ""),
           _buildNavItem(
               imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 1 ? "Reservation" : ""),
+              label: _selectedIndex == 1 ? "Add Menu" : ""),
           _buildNavItem(
               imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 2 ? "Favorite" : ""),
+              label: _selectedIndex == 2 ? "Reservation" : ""),
+          _buildNavItem(
+              imageURL: 'assets/basic-needs.png',
+              label: _selectedIndex == 3 ? "Favorite" : ""),
         ],
         color: AppColors.orange,
         buttonBackgroundColor: Colors.white,
