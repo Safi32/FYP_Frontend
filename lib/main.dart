@@ -1,8 +1,10 @@
+import 'package:dine_deal/binding.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() async {
+  // Get.put(ReservationsController());
   runApp(const MyApp());
 }
 
@@ -11,9 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      initialBinding: InitialBinding(),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

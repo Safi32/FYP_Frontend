@@ -14,7 +14,9 @@ import '../getX/controller/login_controller.dart';
 import '../getX/controller/otp_controller.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  LoginScreen({
+    super.key,
+  });
 
   final String fontName = 'NunitoSans';
   final TextEditingController emailController = TextEditingController();

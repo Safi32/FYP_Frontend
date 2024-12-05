@@ -1,5 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reservation_person.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/date_time_table.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/time.dart';
@@ -12,7 +12,8 @@ class ReservationTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CustomTabController controller = Get.put(CustomTabController());
+    final ReservationsController reservationsController =
+        Get.find<ReservationsController>();
 
     return SafeArea(
       child: Scaffold(
@@ -91,60 +92,68 @@ class ReservationTime extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () => controller.selectBreakfast("09:00 am"),
+                      onTap: () =>
+                          reservationsController.selectedTime("09:00 am"),
                       child: Obx(() => TimeWidget(
-                            color:
-                                controller.selectedBreakfast.value == "09:00 am"
-                                    ? AppColors.orange
-                                    : Colors.white,
+                            color: reservationsController.selectedTime.value ==
+                                    "09:00 am"
+                                ? AppColors.orange
+                                : Colors.white,
                             textColor:
-                                controller.selectedBreakfast.value == "09:00 am"
+                                reservationsController.selectedTime.value ==
+                                        "09:00 am"
                                     ? Colors.white
                                     : Colors.black,
                             title: "09:00 am",
                           )),
                     ),
                     GestureDetector(
-                      onTap: () => controller.selectBreakfast("10:00 am"),
+                      onTap: () =>
+                          reservationsController.selectedTime("10:00 am"),
                       child: Obx(() => TimeWidget(
-                            color:
-                                controller.selectedBreakfast.value == "10:00 am"
-                                    ? AppColors.orange
-                                    : Colors.white,
+                            color: reservationsController.selectedTime.value ==
+                                    "10:00 am"
+                                ? AppColors.orange
+                                : Colors.white,
                             textColor:
-                                controller.selectedBreakfast.value == "10:00 am"
+                                reservationsController.selectedTime.value ==
+                                        "10:00 am"
                                     ? Colors.white
                                     : Colors.black,
                             title: "10:00 am",
                           )),
                     ),
                     GestureDetector(
-                      onTap: () => controller.selectBreakfast("11:00 am"),
+                      onTap: () =>
+                          reservationsController.selectedTime("11:00 am"),
                       child: Obx(() => TimeWidget(
-                            color:
-                                controller.selectedBreakfast.value == "11:00 am"
-                                    ? AppColors.orange
-                                    : Colors.white,
+                            color: reservationsController.selectedTime.value ==
+                                    "11:00 am"
+                                ? AppColors.orange
+                                : Colors.white,
                             textColor:
-                                controller.selectedBreakfast.value == "11:00 am"
+                                reservationsController.selectedTime.value ==
+                                        "11:00 am"
                                     ? Colors.white
                                     : Colors.black,
                             title: "11:00 am",
                           )),
                     ),
                     GestureDetector(
-                      onTap: () => controller.selectBreakfast("12:00 pm"),
+                      onTap: () =>
+                          reservationsController.selectedTime("12:00 am"),
                       child: Obx(
                         () => TimeWidget(
-                          color:
-                              controller.selectedBreakfast.value == "12:00 pm"
-                                  ? AppColors.orange
-                                  : Colors.white,
+                          color: reservationsController.selectedTime.value ==
+                                  "12:00 am"
+                              ? AppColors.orange
+                              : Colors.white,
                           textColor:
-                              controller.selectedBreakfast.value == "12:00 pm"
+                              reservationsController.selectedTime.value ==
+                                      "12:00 am"
                                   ? Colors.white
                                   : Colors.black,
-                          title: "12:00 pm",
+                          title: "12:00 am",
                         ),
                       ),
                     ),
@@ -173,56 +182,68 @@ class ReservationTime extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () => controller.selectLunch("01:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("01:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "01:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "01:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "01:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "01:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "01:00 pm",
                               )),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectLunch("02:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("02:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "02:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "02:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "02:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "02:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "02:00 pm",
                               )),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectLunch("03:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("03:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "03:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "03:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "03:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "03:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "03:00 pm",
                               )),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectLunch("04:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("04:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "04:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "04:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "04:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "04:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "04:00 pm",
@@ -234,14 +255,17 @@ class ReservationTime extends StatelessWidget {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () => controller.selectLunch("05:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("05:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "05:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "05:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "05:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "05:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "05:00 pm",
@@ -249,14 +273,17 @@ class ReservationTime extends StatelessWidget {
                         ),
                         const SizedBox(width: 15),
                         GestureDetector(
-                          onTap: () => controller.selectLunch("06:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("06:00 pm"),
                           child: Obx(() => TimeWidget(
                                 color:
-                                    controller.selectedLunch.value == "06:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "06:00 pm"
                                         ? AppColors.orange
                                         : Colors.white,
                                 textColor:
-                                    controller.selectedLunch.value == "06:00 pm"
+                                    reservationsController.selectedTime.value ==
+                                            "06:00 pm"
                                         ? Colors.white
                                         : Colors.black,
                                 title: "06:00 pm",
@@ -289,15 +316,18 @@ class ReservationTime extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () => controller.selectDinner("07:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("07:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "07:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "07:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "07:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "07:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "07:00 pm",
@@ -305,15 +335,18 @@ class ReservationTime extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("08:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("08:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "08:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "08:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "08:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "08:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "08:00 pm",
@@ -321,15 +354,18 @@ class ReservationTime extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("09:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("09:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "09:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "09:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "09:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "09:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "09:00 pm",
@@ -337,15 +373,18 @@ class ReservationTime extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("10:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("10:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "10:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "10:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "10:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "10:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "10:00 pm",
@@ -361,15 +400,18 @@ class ReservationTime extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () => controller.selectDinner("11:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("11:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "11:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "11:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "11:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "11:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "11:00 pm",
@@ -377,15 +419,18 @@ class ReservationTime extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("12:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("12:00 pm"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "12:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "12:00 pm"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "12:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "12:00 pm"
                                       ? Colors.white
                                       : Colors.black,
                               title: "12:00 pm",
@@ -393,34 +438,40 @@ class ReservationTime extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("01:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("01:00 am"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "01:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "01:00 am"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "01:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "01:00 am"
                                       ? Colors.white
                                       : Colors.black,
-                              title: "01:00 pm",
+                              title: "01:00 am",
                             ),
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => controller.selectDinner("02:00 pm"),
+                          onTap: () =>
+                              reservationsController.selectedTime("02:00 am"),
                           child: Obx(
                             () => TimeWidget(
                               color:
-                                  controller.selectedDinner.value == "02:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "02:00 am"
                                       ? AppColors.orange
                                       : Colors.white,
                               textColor:
-                                  controller.selectedDinner.value == "02:00 pm"
+                                  reservationsController.selectedTime.value ==
+                                          "02:00 am"
                                       ? Colors.white
                                       : Colors.black,
-                              title: "02:00 pm",
+                              title: "02:00 am",
                             ),
                           ),
                         ),

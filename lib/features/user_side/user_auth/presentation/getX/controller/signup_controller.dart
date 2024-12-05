@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dine_deal/config/app_config.dart';
+import 'package:dine_deal/core/constants/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -21,14 +23,12 @@ class SignUpController extends GetxController {
   }) async {
     errorMessage.value = '';
 
-    // Password match validation
     if (password != confirmPassword) {
       errorMessage.value = 'Passwords do not match. Try Again';
       showErrorSnackbar(errorMessage.value);
       return;
     }
 
-    // Privacy option validation
     if (!selectedPrivacyOption.value) {
       errorMessage.value = 'Please accept terms and privacy policy.';
       showErrorSnackbar(errorMessage.value);
@@ -46,16 +46,16 @@ class SignUpController extends GetxController {
       isLoading(true);
 
       final response = await http.post(
-        Uri.parse("http://192.168.54.165:3000/signup"),
+        Uri.parse("${AppConfig.baseURL}${AppConstant.signUpUri}"),
         headers: {"Content-Type": "application/json"},
         body: json.encode(body),
       );
 
       if (response.statusCode == 200) {
-        // Show success message
+        final responseBody = json.decode(response.body);
+
         showSuccessSnackbar("User Signed Up Successfully");
       } else {
-        // Handle errors returned from the server
         final responseBody = json.decode(response.body);
         errorMessage.value = responseBody['message'] ?? 'Signup failed';
         showErrorSnackbar(errorMessage.value);

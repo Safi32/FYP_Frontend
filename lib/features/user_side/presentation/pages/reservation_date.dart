@@ -1,5 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/getX/controller/reservation_date_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reservation_time.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/date_time_table.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -8,13 +8,13 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ReservationDate extends StatelessWidget {
-  const ReservationDate({Key? key}) : super(key: key);
+  ReservationDate({super.key});
+
+  // Get the controller instance
+  final reservationController = Get.find<ReservationsController>();
 
   @override
   Widget build(BuildContext context) {
-    final ReservationDateController controller =
-        Get.put(ReservationDateController());
-
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -46,6 +46,7 @@ class ReservationDate extends StatelessWidget {
                   ],
                 ),
               ),
+              // Tabs
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
@@ -74,47 +75,60 @@ class ReservationDate extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(() => TableCalendar(
-                    focusedDay: controller.selectedDate.value,
-                    firstDay: DateTime.now(),
-                    lastDay: DateTime(2100),
-                    selectedDayPredicate: (day) {
-                      return isSameDay(controller.selectedDate.value, day);
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      controller.updateDate(selectedDay);
-                    },
-                    calendarStyle: const CalendarStyle(
-                      todayTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      selectedDecoration: BoxDecoration(
-                        color: AppColors.orange,
-                        shape: BoxShape.circle,
-                      ),
-                      selectedTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      defaultTextStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      weekendTextStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+              // Calendar
+              Obx(() {
+                return TableCalendar(
+                  focusedDay: reservationController.selectedDate.value,
+                  firstDay: DateTime.now(),
+                  lastDay: DateTime(2100),
+                  selectedDayPredicate: (day) {
+                    return isSameDay(
+                        reservationController.selectedDate.value, day);
+                  },
+                  onDaySelected: (selectedDay, focusedDay) {
+                    reservationController.setSelectedDate(selectedDay);
+                  },
+                  calendarStyle: const CalendarStyle(
+                    todayTextStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )),
+                    selectedDecoration: BoxDecoration(
+                      color: AppColors.orange,
+                      shape: BoxShape.circle,
+                    ),
+                    selectedTextStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    defaultTextStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    weekendTextStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }),
               const Spacer(),
+              // Next Button
               SizedBox(
                 width: Get.width * 0.45,
                 child: Button(
                   title: "Next",
                   color: AppColors.orange,
                   onPressed: () {
-                    Get.to(() => const ReservationTime());
+                    if (reservationController.selectedDate.value != null) {
+                      Get.to(() => ReservationTime());
+                    } else {
+                      Get.snackbar(
+                        "Error",
+                        "Please select a date first.",
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    }
                   },
                   textColor: Colors.white,
                 ),

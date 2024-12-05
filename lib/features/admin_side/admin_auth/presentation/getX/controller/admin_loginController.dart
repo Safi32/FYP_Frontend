@@ -8,20 +8,21 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class AdminLogincontroller extends GetxController {
+class AdminLoginController extends GetxController {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
-
   var isLoading = false.obs;
   var errorMessage = ''.obs;
 
   Future<void> adminLogin(String email, String password) async {
-    const String adminLoginURL =
-        "${AppConfig.baseURL}${AppConstant.restaurantAdminLogin}";
+    const String adminLoginURL = "${AppConfig.baseURL}${AppConstant.loginUri}";
 
     isLoading.value = true;
     errorMessage.value = '';
 
     try {
+      // Log the login attempt
+      print("Attempting login with email: $email");
+
       final response = await http.post(
         Uri.parse(adminLoginURL),
         headers: {'Content-Type': 'application/json'},
@@ -30,25 +31,40 @@ class AdminLogincontroller extends GetxController {
           'password': password,
         }),
       );
-      print(response.body);
+
+      print("Response Status Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
+
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
 
-        final String token = responseData['token'];
+        if (responseData.containsKey('token')) {
+          final String token = responseData['token'];
 
-        await storage.write(key: 'jwt_token', value: token);
-        await storage.write(key: 'user_email', value: email);
-        await storage.write(key: 'user_password', value: password);
+          // Save token in secure storage
+          await storage.write(key: 'jwt_token', value: token);
+          await storage.write(key: 'user_email', value: email);
+          await storage.write(key: 'user_password', value: password);
 
-        Get.snackbar(
-          "Success",
-          "Login Successful",
-          backgroundColor: AppColors.yellow,
-        );
+          // Show success message
+          Get.snackbar(
+            "Success",
+            "Login Successful",
+            backgroundColor: AppColors.yellow,
+          );
 
-        Get.to(() => const AdminBottomBar());
+          // Navigate to Admin Bottom Bar
+          Get.to(() => const AdminBottomBar());
+        } else {
+          errorMessage.value = 'Login failed, token not found in response.';
+          Get.snackbar('Error', errorMessage.value);
+        }
       } else {
-        errorMessage.value = 'Login failed, please check your credentials.';
+        // Check if the response body has an error message
+        String errorBody = response.body.isEmpty
+            ? 'Unknown error'
+            : jsonDecode(response.body)['message'] ?? 'Unknown error';
+        errorMessage.value = 'Login failed: $errorBody';
         Get.snackbar('Error', errorMessage.value);
       }
     } catch (e) {
@@ -59,10 +75,12 @@ class AdminLogincontroller extends GetxController {
     }
   }
 
+  // Fetch token from storage (optional)
   Future<String?> getToken() async {
     return await storage.read(key: 'jwt_token');
   }
 
+  // Logout method
   Future<void> logout() async {
     await storage.delete(key: 'jwt_token');
     Get.offAllNamed("LoginScreen");

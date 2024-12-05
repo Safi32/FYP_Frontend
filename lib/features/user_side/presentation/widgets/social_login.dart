@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SocialLogin extends StatelessWidget {
-  const SocialLogin({super.key, required this.image, required this.title});
+  const SocialLogin({
+    super.key,
+    required this.image,
+    required this.title,
+  });
 
   final String image;
   final String title;

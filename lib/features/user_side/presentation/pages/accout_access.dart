@@ -5,15 +5,28 @@ import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountAccess extends StatelessWidget {
   const AccountAccess({super.key});
+
+  // Method to get the stored role
+  Future<String> _getRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String role = prefs.getString('role') ??
+        ''; // Get the stored role or empty string if not set
+    print("User role: $role"); // Print the role to the console
+    return role;
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double fontSizeMultiplier = screenWidth / 400;
+
+    // Call _getRole() to print the user role
+    _getRole();
 
     return SafeArea(
       child: Scaffold(
