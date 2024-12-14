@@ -331,23 +331,54 @@ class SignUp extends StatelessWidget {
                     children: [
                       const SizedBox(height: 20),
                       SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your email address.";
+                          } else if (!value.contains("@") ||
+                              !value.contains(".")) {
+                            return "Please enter a valid email address";
+                          } else if (!value.endsWith(".com")) {
+                            return "The email address must end with a valid domain, such as '.com'.";
+                          }
+                          return null;
+                        },
                         controller: emailController,
                         hintText: "example@gmail.com",
                         tag: "Email",
                         keyboardType: TextInputType.emailAddress,
                       ),
                       SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length <= 3) {
+                            return "Username must be at least 3 characters long.";
+                          } else if (value.length > 15) {
+                            return "Username cannot exceed 15 characters.";
+                          }
+                          return null;
+                        },
                         controller: usernameController,
                         hintText: "Enter your username",
                         tag: "Username",
                         keyboardType: TextInputType.name,
                       ),
                       SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 6) {
+                            return "Password must contain more than 6 characters";
+                          }
+                          return null;
+                        },
                         controller: passwordController,
                         hintText: "Must be at least 8 characters",
                         tag: "Create Password",
                       ),
                       SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 6) {
+                            return "Password must contain more than 6 characters";
+                          }
+                          return null;
+                        },
                         controller: confirmPasswordController,
                         hintText: "Repeat password",
                         tag: "Confirm Password",

@@ -5,7 +5,6 @@ import 'package:dine_deal/features/user_side/presentation/widgets/sign_up_fields
 import 'package:dine_deal/features/user_side/presentation/widgets/social_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminLogin extends StatelessWidget {
   AdminLogin({super.key});
@@ -17,20 +16,12 @@ class AdminLogin extends StatelessWidget {
   final AdminLoginController adminLogincontroller =
       Get.put(AdminLoginController());
 
-  Future<void> getRole() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? role = prefs.getString('role');
-    print("Role: $role");
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double fontSizeMultipler = screenWidth / 400;
     final ValueNotifier<bool> isPasswordVisible = ValueNotifier<bool>(false);
-
-    getRole();
 
     return SafeArea(
       child: Scaffold(
@@ -94,6 +85,17 @@ class AdminLogin extends StatelessWidget {
                           children: [
                             SizedBox(height: screenHeight * 0.02),
                             SignUpFields(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter your email address.";
+                                } else if (!value.contains("@") ||
+                                    !value.contains(".")) {
+                                  return "Please enter a valid email address";
+                                } else if (!value.endsWith(".com")) {
+                                  return "The email address must end with a valid domain, such as '.com'.";
+                                }
+                                return null;
+                              },
                               controller: emailController,
                               hintText: "Enter your email here",
                               tag: "Email",
@@ -106,6 +108,12 @@ class AdminLogin extends StatelessWidget {
                               valueListenable: isPasswordVisible,
                               builder: (context, value, child) {
                                 return SignUpFields(
+                                  validator: (value) {
+                                    if (value!.isEmpty || value.length < 6) {
+                                      return "Password must contain more than 6 characters";
+                                    }
+                                    return null;
+                                  },
                                   controller: passwordController,
                                   hintText: "Enter your password here",
                                   tag: "Password",

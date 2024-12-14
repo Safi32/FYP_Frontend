@@ -105,7 +105,10 @@ class RestaurantInformation extends StatelessWidget {
                                   .contains(info),
                               onChanged: (isSelected) {
                                 controller.toggleSelection(
-                                    info, isSelected!, "restaurantInfo");
+                                  info,
+                                  isSelected!,
+                                  ("additionalInformation"),
+                                );
                               },
                             ),
                           );

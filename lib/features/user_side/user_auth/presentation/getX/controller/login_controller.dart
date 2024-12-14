@@ -212,7 +212,6 @@ class LoginController extends GetxController {
         }
       } else {
         errorMessage.value = 'Login failed, please check your credentials.';
-        Get.snackbar('Error', errorMessage.value);
       }
     } catch (e) {
       errorMessage.value = 'An error occurred during login: $e';

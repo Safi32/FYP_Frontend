@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() async {
-  // Get.put(ReservationsController());
   runApp(const MyApp());
 }
 

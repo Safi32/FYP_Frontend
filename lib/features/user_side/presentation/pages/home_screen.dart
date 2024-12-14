@@ -1,6 +1,8 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/deal_for_today.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/filter_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deal_type.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deals_images.dart';
@@ -8,8 +10,20 @@ import 'package:dine_deal/features/user_side/presentation/widgets/restaurant_lis
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final restaurantController = Get.find<RestaurantController>();
+  @override
+  void initState() {
+    restaurantController.fetchRestaurants();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +35,6 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -114,17 +127,22 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: screenWidth * 0.03),
-                          Container(
-                            height: screenHeight * 0.06,
-                            width: screenWidth * 0.13,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: Image.asset("assets/filter.png",
-                                  fit: BoxFit.contain),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const FilterScreen());
+                            },
+                            child: Container(
+                              height: screenHeight * 0.06,
+                              width: screenWidth * 0.13,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: Image.asset("assets/filter.png",
+                                    fit: BoxFit.contain),
+                              ),
                             ),
                           ),
                         ],
@@ -181,37 +199,41 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          Wrap(
-                            spacing: screenWidth * 0.025,
-                            children: [
-                              RestaurantList(
-                                onPressed: () =>
-                                    Get.to(() => const AboutPage()),
-                                ratingTextStyle: TextStyle(
-                                  fontSize: 14 * fontSizeMultiplier,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                          Obx(
+                            () => Wrap(
+                              spacing: screenWidth * 0.025,
+                              children: [
+                                RestaurantList(
+                                  onPressed: () =>
+                                      Get.to(() => const AboutPage()),
+                                  restaurantName: restaurantController
+                                      .restaurants.value[0]['restaurantName'],
+                                  ratingTextStyle: TextStyle(
+                                    fontSize: 14 * fontSizeMultiplier,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              RestaurantList(
-                                onPressed: () =>
-                                    Get.to(() => const AboutPage()),
-                                ratingTextStyle: TextStyle(
-                                  fontSize: 14 * fontSizeMultiplier,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              RestaurantList(
-                                onPressed: () =>
-                                    Get.to(() => const AboutPage()),
-                                ratingTextStyle: TextStyle(
-                                  fontSize: 14 * fontSizeMultiplier,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
+                                // RestaurantList(
+                                //   onPressed: () =>
+                                //       Get.to(() => const AboutPage()),
+                                //   ratingTextStyle: TextStyle(
+                                //     fontSize: 14 * fontSizeMultiplier,
+                                //     fontWeight: FontWeight.bold,
+                                //     color: Colors.black,
+                                //   ),
+                                // ),
+                                // RestaurantList(
+                                //   onPressed: () =>
+                                //       Get.to(() => const AboutPage()),
+                                //   ratingTextStyle: TextStyle(
+                                //     fontSize: 14 * fontSizeMultiplier,
+                                //     fontWeight: FontWeight.bold,
+                                //     color: Colors.black,
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

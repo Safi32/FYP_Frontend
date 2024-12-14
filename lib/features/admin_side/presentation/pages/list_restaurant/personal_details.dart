@@ -76,6 +76,7 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
+                        // Restaurant Name
                         const Text(
                           "Restaurant Name",
                           style: TextStyle(
@@ -85,9 +86,10 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          onChanged: (value) =>
-                              controller.updateRestaurantField("name", value),
+                          onChanged: (value) => controller
+                              .updateRestaurantField("restaurantName", value),
                           decoration: InputDecoration(
+                            hintText: "Enter your restaurant name",
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.grey.shade300,
@@ -106,6 +108,7 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
+                        // Phone Number
                         const Text(
                           "Phone Number",
                           style: TextStyle(
@@ -143,6 +146,7 @@ class PersonalDetails extends StatelessWidget {
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 15),
                                     border: InputBorder.none,
+                                    hintText: "Enter your phone number",
                                   ),
                                   keyboardType: TextInputType.phone,
                                 ),
@@ -151,8 +155,9 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
+                        // Email
                         const Text(
-                          "Gmail",
+                          "Email",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -164,6 +169,7 @@ class PersonalDetails extends StatelessWidget {
                               controller.updateRestaurantField("email", value),
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            hintText: "Enter your email",
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.grey.shade300,
@@ -181,9 +187,8 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
+                        // Password
                         const Text(
                           "Password",
                           style: TextStyle(
@@ -193,10 +198,12 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          onChanged: (value) =>
-                              controller.updateRestaurantField("email", value),
+                          onChanged: (value) => controller
+                              .updateRestaurantField("password", value),
                           keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
                           decoration: InputDecoration(
+                            hintText: "Enter your password",
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.grey.shade300,
@@ -215,6 +222,7 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
+                        // Restaurant Address
                         const Text(
                           "Restaurant Address",
                           style: TextStyle(
@@ -224,9 +232,11 @@ class PersonalDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          onChanged: (value) => controller
-                              .updateRestaurantField("address", value),
+                          onChanged: (value) =>
+                              controller.updateRestaurantField(
+                                  "restaurantAddress", value),
                           decoration: InputDecoration(
+                            hintText: "Enter your restaurant address",
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.grey.shade300,
@@ -253,9 +263,7 @@ class PersonalDetails extends StatelessWidget {
                           },
                           textColor: Colors.white,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Center(
                           child: Text.rich(
                             TextSpan(

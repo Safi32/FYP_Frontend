@@ -63,7 +63,10 @@ class UpdateArea extends StatelessWidget {
                   isChecked: controller.selectedRestaurantInfo.contains(info),
                   onChanged: (isSelected) {
                     controller.toggleSelection(
-                        info, isSelected!, "restaurantInfo");
+                      info,
+                      isSelected!,
+                      ("asdasd"),
+                    );
                   },
                 ),
               );

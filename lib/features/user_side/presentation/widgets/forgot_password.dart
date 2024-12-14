@@ -71,10 +71,22 @@ class PasswordResetModal extends StatelessWidget {
                           const SizedBox(height: 20),
                           const SizedBox(height: 10),
                           SignUpFields(
+                            validator: (value) {
+                              if (value!.isEmpty || value.length < 6) {
+                                return "Password must contain more than 6 characters";
+                              }
+                              return null;
+                            },
                             controller: passwordController,
-                            hintText: "Must be at least 8 characters",
+                            hintText: "Must be at least 6 characters",
                           ),
                           SignUpFields(
+                            validator: (value) {
+                              if (value!.isEmpty || value.length < 6) {
+                                return "Password must contain more than 6 characters";
+                              }
+                              return null;
+                            },
                             controller: passwordController,
                             hintText: "Confirm Password",
                           ),

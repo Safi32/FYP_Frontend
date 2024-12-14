@@ -73,6 +73,17 @@ class EmailInputModal extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           SignUpFields(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your email address.";
+                              } else if (!value.contains("@") ||
+                                  !value.contains(".")) {
+                                return "Please enter a valid email address";
+                              } else if (!value.endsWith(".com")) {
+                                return "The email address must end with a valid domain, such as '.com'.";
+                              }
+                              return null;
+                            },
                             controller: emailController,
                             hintText: "example@gmail.com",
                           ),

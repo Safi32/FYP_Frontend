@@ -4,9 +4,13 @@ import 'package:get/get.dart';
 
 class RestaurantList extends StatelessWidget {
   const RestaurantList(
-      {super.key, required this.onPressed, required TextStyle ratingTextStyle});
+      {super.key,
+      required this.onPressed,
+      required TextStyle ratingTextStyle,
+      required this.restaurantName});
 
   final VoidCallback onPressed;
+  final String restaurantName;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +86,7 @@ class RestaurantList extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -94,7 +98,7 @@ class RestaurantList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Cheezious",
+                        restaurantName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

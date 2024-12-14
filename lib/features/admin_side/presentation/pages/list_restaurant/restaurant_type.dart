@@ -94,7 +94,10 @@ class RestaurantType extends StatelessWidget {
                                   .contains(type),
                               onChanged: (isSelected) {
                                 controller.toggleSelection(
-                                    type, isSelected!, "restaurantType");
+                                  type,
+                                  isSelected!,
+                                  ("restaurantType"),
+                                );
                               },
                             ),
                           );
