@@ -149,8 +149,8 @@ import 'dart:convert';
 import 'package:dine_deal/config/app_config.dart';
 import 'package:dine_deal/core/constants/app_constant.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_bottom_bar.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/bottom_bar.dart';
+import 'package:dine_deal/models/login_data_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -160,6 +160,7 @@ class LoginController extends GetxController {
 
   var isLoading = false.obs;
   var errorMessage = ''.obs;
+  var loginData = LoginDataModel().obs;
 
   Future<void> loginUser(String email, String password) async {
     const String loginURL = "${AppConfig.baseURL}${AppConstant.loginUri}";
@@ -178,56 +179,60 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
+        loginData.value = loginDataModelFromMap(response.body);
 
-        if (responseData['token'] != null) {
-          final String token = responseData['token'];
+        final token = loginData.value.data?.token;
+        final userType = loginData.value.data?.user?.userType;
 
-          // Assuming 'role' key is part of the response
-          final String role =
-              responseData['role'] ?? 'user'; // Default to 'user' if not found
+        if (token != null && userType != null) {
+          if (userType == "User") {
+            await storage.write(key: 'jwt_token', value: token);
+            await storage.write(
+                key: 'user_email',
+                value: loginData.value.data?.user?.email ?? "");
+            await storage.write(key: 'user_password', value: password);
 
-          // Save token, user credentials, and role
-          await storage.write(key: 'jwt_token', value: token);
-          await storage.write(key: 'user_email', value: email);
-          await storage.write(key: 'user_password', value: password);
-          await storage.write(key: 'role', value: role);
-
-          // Show success message
-          Get.snackbar(
-            "Success",
-            "Login Successful",
-            backgroundColor: AppColors.yellow,
-          );
-
-          // Navigate based on role
-          if (role == 'admin') {
-            Get.to(() => const AdminBottomBar()); // Navigate to Admin screen
+            Get.snackbar(
+              "Success",
+              "User Login Successful",
+              backgroundColor: AppColors.yellow,
+            );
+            Get.offAll(() => const BottomBar());
           } else {
-            Get.to(() => const BottomBar()); // Navigate to User screen
+            errorMessage.value = "Access Denied: Only User can log in";
+            Get.snackbar(
+              "Error ",
+              errorMessage.value,
+              backgroundColor: AppColors.error,
+            );
           }
         } else {
-          errorMessage.value = 'Unexpected server response.';
-          Get.snackbar('Error', errorMessage.value);
+          throw Exception("Token or User Type is missing in response.");
         }
       } else {
-        errorMessage.value = 'Login failed, please check your credentials.';
+        final errorBody =
+            jsonDecode(response.body)['message'] ?? "Login failed";
+        errorMessage.value = errorBody;
+        Get.snackbar("Error", errorMessage.value);
+        print("Login failed: $errorBody");
       }
     } catch (e) {
-      errorMessage.value = 'An error occurred during login: $e';
-      Get.snackbar('Error', errorMessage.value);
+      errorMessage.value = 'Something went wrong: $e';
+      Get.snackbar("Error", errorMessage.value);
+      print("Exception: $e");
     } finally {
       isLoading.value = false;
     }
   }
 
   Future<String?> getToken() async {
-    // Retrieve the JWT token from secure storage
     return await storage.read(key: 'jwt_token');
   }
 
-  Future<String?> getRole() async {
-    // Retrieve the user's role from secure storage
-    return await storage.read(key: 'role');
+  Future<void> logout() async {
+    await storage.delete(key: 'jwt_token');
+    await storage.delete(key: 'user_email');
+    await storage.delete(key: 'user_password');
+    Get.offAllNamed("LoginScreen");
   }
 }

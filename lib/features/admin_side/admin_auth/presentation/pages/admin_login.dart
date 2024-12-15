@@ -6,15 +6,22 @@ import 'package:dine_deal/features/user_side/presentation/widgets/social_login.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AdminLogin extends StatelessWidget {
+class AdminLogin extends StatefulWidget {
   AdminLogin({super.key});
 
+  @override
+  State<AdminLogin> createState() => _AdminLoginState();
+}
+
+class _AdminLoginState extends State<AdminLogin> {
   final String fontName = 'NunitoSans';
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
 
-  final AdminLoginController adminLogincontroller =
-      Get.put(AdminLoginController());
+  final AdminLoginController adminLoginController =
+      Get.find<AdminLoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -151,14 +158,15 @@ class AdminLogin extends StatelessWidget {
                             Obx(
                               () {
                                 return GestureDetector(
-                                  onTap: adminLogincontroller.isLoading.value
-                                      ? null
-                                      : () {
-                                          adminLogincontroller.adminLogin(
-                                            emailController.text.trim(),
-                                            passwordController.text.trim(),
-                                          );
-                                        },
+                                  onTap: () {
+                                    if (emailController.text == '' ||
+                                        passwordController.text == '') {
+                                      return;
+                                    }
+                                    adminLoginController.adminLogin(
+                                        emailController.text,
+                                        passwordController.text);
+                                  },
                                   child: Container(
                                     height: 50 * fontSizeMultipler,
                                     alignment: Alignment.center,
@@ -166,7 +174,7 @@ class AdminLogin extends StatelessWidget {
                                       color: AppColors.orange,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: adminLogincontroller.isLoading.value
+                                    child: adminLoginController.isLoading.value
                                         ? const CircularProgressIndicator(
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(

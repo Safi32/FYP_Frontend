@@ -1,26 +1,25 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/accout_access.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/list_restaurant/personal_details.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserAdmin extends StatelessWidget {
+class UserAdmin extends StatefulWidget {
   const UserAdmin({super.key});
 
-  final String fontName = "NunitoSans";
-  Future<void> _storeRole(String role) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('role', role);
-    print("Role stored: $role");
-  }
+  @override
+  State<UserAdmin> createState() => _UserAdminState();
+}
 
-  Future<String> _getRole() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String role = prefs.getString('role') ?? '';
-    print("Stored role: $role");
-    return role;
+class _UserAdminState extends State<UserAdmin> {
+  final String fontName = "NunitoSans";
+  Future<void> saveRole(String role, int roleId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_role', role);
+    await prefs.setInt('role_id', roleId);
+    print("Role saved: $role, Role ID: $roleId");
   }
 
   @override
@@ -51,22 +50,23 @@ class UserAdmin extends StatelessWidget {
                       color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () async {
-                        await _storeRole("restaurant");
-                        Get.to(() => AdminLogin());
+                        await saveRole("Admin", 2);
+                        Get.to(() => PersonalDetails());
                       },
                     ),
                     const SizedBox(height: 10),
+                    // User Role Button
                     Button(
                       title: "User",
                       color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () async {
-                        await _storeRole("user");
-                        Get.to(() => const AccountAccess());
+                        await saveRole("User", 1);
+                        Get.to(() => SignUp());
                       },
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

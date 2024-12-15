@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 5), () {
-      Get.off(() => const UserAdmin());
+      Get.off(() => UserAdmin());
     });
     return Scaffold(
       backgroundColor: AppColors.orange,
