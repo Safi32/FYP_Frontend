@@ -1,6 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/deals_images.dart';
 import 'package:flutter/material.dart';
 
 class MenuDescription extends StatelessWidget {
@@ -174,11 +173,11 @@ class MenuDescription extends StatelessWidget {
                           fontSize: 16,
                         ),
                         const SizedBox(height: 20),
-                        const DealsImages(
-                          imageURL1: "assets/fries.png",
-                          imageURL2: "assets/pizza_fries.png",
-                          imageURL3: "assets/Burger.png",
-                        ),
+                        // const DealsImages(
+                        //   imageURL1: "assets/fries.png",
+                        //   imageURL2: "assets/pizza_fries.png",
+                        //   imageURL3: "assets/Burger.png",
+                        // ),
                       ],
                     ),
                   ),

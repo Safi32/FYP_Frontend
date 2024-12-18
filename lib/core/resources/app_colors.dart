@@ -20,8 +20,9 @@ class AppColors {
   static const Color brown = Color(0xFF5E4228);
   static const Color background = Color(0xFFF9FBFF);
   static const Color baige = Color(0xFFF1D693);
-  static const Color pink = Color(0xFFFFD6CF);
+
   static const Color blue = Color(0xFF94C5FF);
+  static const Color pink = Color(0xFFFED8CC);
 
   // Dark Mode Colors
   static const Color darkBackground = Color(0xFF121212);

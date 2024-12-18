@@ -5,6 +5,7 @@ import 'package:dine_deal/features/user_side/presentation/widgets/deal_card.dart
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/menu_description.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/window.dart';
+import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,9 @@ import 'about_page.dart';
 import 'review_page.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+  const MenuPage({super.key, required this.restaurant});
+
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,9 @@ class MenuPage extends StatelessWidget {
                               : Colors.black,
                           onPressed: () {
                             tabController.updateTab('About');
-                            Get.off(() => const AboutPage());
+                            Get.off(() => AboutPage(
+                                  restaurant: restaurant,
+                                ));
                           },
                         ),
                         InfoButtons(
@@ -111,7 +116,9 @@ class MenuPage extends StatelessWidget {
                               : Colors.black,
                           onPressed: () {
                             tabController.updateTab('Menu');
-                            Get.off(() => const MenuPage());
+                            Get.off(() => MenuPage(
+                                  restaurant: restaurant,
+                                ));
                           },
                         ),
                         InfoButtons(
@@ -124,7 +131,9 @@ class MenuPage extends StatelessWidget {
                               : Colors.black,
                           onPressed: () {
                             tabController.updateTab('Review');
-                            Get.off(() => const ReviewPage());
+                            Get.off(() => ReviewPage(
+                                  restaurant: restaurant,
+                                ));
                           },
                         ),
                       ],

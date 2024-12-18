@@ -86,8 +86,6 @@ class ReserverationPolicies extends StatelessWidget {
                                 onChanged: (value) {
                                   controller.toggleAcceptPolicies(value!);
                                 },
-                                contentPadding: EdgeInsets.zero,
-                                dense: true,
                               ),
                               RadioListTile<bool>(
                                 title: const Text("No"),
@@ -96,8 +94,6 @@ class ReserverationPolicies extends StatelessWidget {
                                 onChanged: (value) {
                                   controller.toggleAcceptPolicies(value!);
                                 },
-                                contentPadding: EdgeInsets.zero,
-                                dense: true,
                               ),
                               const SizedBox(height: 10),
                               if (controller.acceptPolicies.value)

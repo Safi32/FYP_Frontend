@@ -1,16 +1,16 @@
-import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RestaurantList extends StatelessWidget {
-  const RestaurantList(
-      {super.key,
-      required this.onPressed,
-      required TextStyle ratingTextStyle,
-      required this.restaurantName});
+  const RestaurantList({
+    super.key,
+    required this.onPressed,
+    required this.restaurant,
+  });
 
   final VoidCallback onPressed;
-  final String restaurantName;
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class RestaurantList extends StatelessWidget {
         GestureDetector(
           onTap: onPressed,
           child: Container(
-            height: Get.height * 0.23,
-            width: Get.width * 0.80,
+            height: Get.height * 0.3,
+            width: Get.width * 0.90,
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(10),
@@ -28,7 +28,8 @@ class RestaurantList extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                "assets/Restaurant.png",
+                // "assets/main_restaurant.png",
+                restaurant.image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -39,28 +40,27 @@ class RestaurantList extends StatelessWidget {
           left: 15,
           right: 15,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                height: 30,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset("assets/kid_star.png"),
-                    const Text(
-                      "4.8(1K+ Review)",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   height: 30,
+              //   width: 120,
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   child: Row(
+              //     children: [
+              //       Image.asset("assets/kid_star.png"),
+              //       const Text(
+              //         "4.8(1K+ Review)",
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Container(
                 height: 50,
                 width: 50,
@@ -84,10 +84,10 @@ class RestaurantList extends StatelessWidget {
             height: Get.height * 0.08,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -98,26 +98,67 @@ class RestaurantList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        restaurantName,
+                        // "Marriot Hotel Islamabad",
+                        restaurant.restaurantName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
-                      Text(
-                        "Open",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: AppColors.orange,
-                        ),
-                      ),
+                      // Text(
+                      //   "Open",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 15,
+                      //     color: AppColors.orange,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
-                Text(
-                  "500m away - 15+ deals",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          Image(
+                            image: AssetImage(
+                              "assets/truck-fast.png",
+                            ),
+                          ),
+                          Text(
+                            "20 + deals",
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Image(
+                            image: AssetImage(
+                              "assets/timer.png",
+                            ),
+                          ),
+                          Text(
+                            "40-50 mins",
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                          ),
+                          Text(
+                            "4.8",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

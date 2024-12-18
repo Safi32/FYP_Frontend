@@ -2,6 +2,7 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/review_rating.dart';
+import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,9 @@ import 'about_page.dart';
 import 'menu_page.dart';
 
 class ReviewPage extends StatelessWidget {
-  const ReviewPage({super.key});
+  const ReviewPage({super.key, required this.restaurant});
+
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,9 @@ class ReviewPage extends StatelessWidget {
                                       : Colors.black,
                               onPressed: () {
                                 tabController.updateTab('About');
-                                Get.off(() => const AboutPage());
+                                Get.off(() => AboutPage(
+                                      restaurant: restaurant,
+                                    ));
                               },
                             ),
                             InfoButtons(
@@ -94,7 +99,9 @@ class ReviewPage extends StatelessWidget {
                                       : Colors.black,
                               onPressed: () {
                                 tabController.updateTab('Menu');
-                                Get.off(() => const MenuPage());
+                                Get.off(() => MenuPage(
+                                      restaurant: restaurant,
+                                    ));
                               },
                             ),
                             InfoButtons(
@@ -108,7 +115,9 @@ class ReviewPage extends StatelessWidget {
                                       : Colors.black,
                               onPressed: () {
                                 tabController.updateTab('Review');
-                                Get.off(() => const ReviewPage());
+                                Get.off(() => ReviewPage(
+                                      restaurant: restaurant,
+                                    ));
                               },
                             ),
                           ],

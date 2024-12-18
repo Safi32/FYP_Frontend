@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/list_restaurant/social_media.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -17,7 +18,6 @@ class PersonalDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.orange,
         body: SingleChildScrollView(
           child: Column(
@@ -155,7 +155,39 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        // Email
+
+                        const Text(
+                          "Username",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          onChanged: (value) => controller
+                              .updateRestaurantField("username", value),
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            hintText: "Enter your username",
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           "Email",
                           style: TextStyle(
@@ -188,7 +220,6 @@ class PersonalDetails extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        // Password
                         const Text(
                           "Password",
                           style: TextStyle(
@@ -200,7 +231,7 @@ class PersonalDetails extends StatelessWidget {
                         TextFormField(
                           onChanged: (value) => controller
                               .updateRestaurantField("password", value),
-                          keyboardType: TextInputType.visiblePassword,
+                          keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Enter your password",
@@ -264,26 +295,31 @@ class PersonalDetails extends StatelessWidget {
                           textColor: Colors.white,
                         ),
                         const SizedBox(height: 10),
-                        Center(
-                          child: Text.rich(
-                            TextSpan(
-                              text: "Already have an account? ",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: fontName,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.black,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: "Login",
-                                  style: TextStyle(
-                                    fontFamily: fontName,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.orange,
-                                  ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => AdminLogin());
+                          },
+                          child: Center(
+                            child: Text.rich(
+                              TextSpan(
+                                text: "Already have an account? ",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: fontName,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.black,
                                 ),
-                              ],
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: "Login",
+                                    style: TextStyle(
+                                      fontFamily: fontName,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.orange,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

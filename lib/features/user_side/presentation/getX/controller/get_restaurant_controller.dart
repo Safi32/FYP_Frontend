@@ -2,42 +2,58 @@ import 'dart:convert';
 
 import 'package:dine_deal/config/app_config.dart';
 import 'package:dine_deal/core/constants/app_constant.dart';
+import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RestaurantController extends GetxController {
+  var restaurants = <Restaurant>[].obs;
   var isLoading = false.obs;
   var errorMessage = ''.obs;
-  var restaurants = <Map<String, dynamic>>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchRestaurants();
+  }
 
   Future<void> fetchRestaurants() async {
+    const String url = "${AppConfig.baseURL}${AppConstant.getRestaurant}";
+
     try {
       isLoading(true);
-      errorMessage.value = '';
+      errorMessage('');
 
-      final url = Uri.parse("${AppConfig.baseURL}${AppConstant.getRestaurant}");
-      print("Fetching restaurants from: $url");
-
-      final response = await http.get(
-        url,
-        headers: {"Content-Type": "application/json"},
-      );
+      final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        final responseBody = json.decode(response.body);
-        print("Response body: $responseBody");
+        final data = json.decode(response.body);
+        if (data['success']) {
+          var restaurantList = data['data'] as List;
+          print("Fetched Restaurants: $restaurantList");
+          restaurants.value =
+              restaurantList.map((e) => Restaurant.fromJson(e)).toList();
+        } else {
+          errorMessage(data['message'] ?? 'Failed to fetch restaurants');
+        }
       } else {
-        print("Error response: ${response.body}");
-        final responseBody = json.decode(response.body);
-        errorMessage.value = responseBody['message'] ?? 'Failed to fetch data.';
-        Get.snackbar('Error', errorMessage.value);
+        errorMessage('Error ${response.statusCode}: Unable to fetch data');
       }
     } catch (e) {
-      print("Exception: $e");
-      errorMessage.value = 'Failed to connect to the server. Please try again.';
-      Get.snackbar('Error', errorMessage.value);
+      errorMessage('An error occurred: $e');
     } finally {
       isLoading(false);
+    }
+  }
+
+  Future<void> saveRestaurantId(int restaurantId) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('restaurant_id', restaurantId);
+      print("Restaurant ID saved: $restaurantId");
+    } catch (e) {
+      print("Error saving restaurant ID: $e");
     }
   }
 }

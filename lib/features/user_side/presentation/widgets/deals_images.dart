@@ -1,35 +1,74 @@
+import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DealsImages extends StatelessWidget {
-  const DealsImages(
-      {super.key,
-      required this.imageURL1,
-      required this.imageURL2,
-      required this.imageURL3});
+  const DealsImages({
+    super.key,
+    required this.imagePath,
+    required this.title,
+    required this.subtitle,
+  });
 
-  final String imageURL1;
-  final String imageURL2;
-  final String imageURL3;
+  final String imagePath;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Wrap(
-            spacing: 10,
-            children: [
-              Image.asset(
-                imageURL1,
-              ),
-              Image.asset(
-                imageURL2,
-              ),
-              Image.asset(
-                imageURL3,
-              ),
-            ],
+          Container(
+            height: Get.height * 0.14,
+            width: Get.width * 0.32,
+            decoration: const BoxDecoration(
+              color: AppColors.pink,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            ),
+            child: Image.asset(
+              imagePath,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

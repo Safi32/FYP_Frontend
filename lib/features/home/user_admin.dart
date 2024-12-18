@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/list_restaurant/personal_details.dart';
-import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup.dart';
+import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/login.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,7 +51,7 @@ class _UserAdminState extends State<UserAdmin> {
                       textColor: Colors.white,
                       onPressed: () async {
                         await saveRole("Admin", 2);
-                        Get.to(() => PersonalDetails());
+                        Get.to(() => AdminLogin());
                       },
                     ),
                     const SizedBox(height: 10),
@@ -61,7 +61,7 @@ class _UserAdminState extends State<UserAdmin> {
                       textColor: Colors.white,
                       onPressed: () async {
                         await saveRole("User", 1);
-                        Get.to(() => SignUp());
+                        Get.to(() => LoginScreen());
                       },
                     ),
                   ],

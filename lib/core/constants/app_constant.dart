@@ -6,7 +6,7 @@ class AppConstant {
   static const String verifyOtpUri = "/verify";
 
   //Restaurant End-Points
-
+  static const String signInRestaurant = "/api/restaurant/create";
   static const String restaurantAdminLogin = "/api/restaurant/login";
   static const String addDeals = "/api/deals/add";
   static const String doneReservation = "/api/reservations/:reservationId/done";
@@ -14,7 +14,8 @@ class AppConstant {
       "/api/reservations/:reservationId/cancel";
   static const String seeAllReservation = "/api/reservation";
   static const String userLogout = "/api/restaurant/logout";
-  static const String reservation = "/reservation";
-  static const String getRestaurant = "/restaurants";
+  static const String reservation = "/api/reservation/create";
+  static const String getRestaurant = "/api/restaurant/get-restaurant";
   static const String assigningRoles = "/api/roles/get-roles";
+  static const String getAllReservations = "/api/reservation/get";
 }

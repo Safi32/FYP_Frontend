@@ -179,7 +179,7 @@ class ReservationPerson extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ReservationsController controller =
-        Get.find<ReservationsController>(); // Use the same controller
+        Get.find<ReservationsController>();
 
     return SafeArea(
       child: Scaffold(
@@ -263,14 +263,12 @@ class ReservationPerson extends StatelessWidget {
                   ),
                 ),
               ),
-              // Counter for number of persons
               Expanded(
                 child: Obx(
                   () => Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Decrease Button
                       GestureDetector(
                         onTap: () {
                           if (controller.numberOfPersons.value > 1) {
@@ -294,7 +292,6 @@ class ReservationPerson extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      // Number of Persons Display
                       Text(
                         "${controller.numberOfPersons.value}",
                         style: const TextStyle(
@@ -304,7 +301,6 @@ class ReservationPerson extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      // Increase Button
                       GestureDetector(
                         onTap: () {
                           controller.numberOfPersons.value++;
@@ -330,7 +326,7 @@ class ReservationPerson extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              // Next Button
+
               SizedBox(
                 width: Get.width * 0.5,
                 child: Button(

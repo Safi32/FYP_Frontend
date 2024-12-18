@@ -90,7 +90,7 @@ class SocialMedia extends StatelessWidget {
                             const SizedBox(height: 20),
                             TextFormField(
                               onChanged: (value) => controller
-                                  .updateRestaurantField("websiteURL", value),
+                                  .updateRestaurantField("websiteUrl", value),
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(

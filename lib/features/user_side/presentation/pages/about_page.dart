@@ -3,6 +3,7 @@ import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_co
 import 'package:dine_deal/features/user_side/presentation/widgets/about_page_description.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/window.dart';
+import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,9 @@ import 'menu_page.dart';
 import 'review_page.dart';
 
 class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+  const AboutPage({super.key, required this.restaurant});
+
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +98,7 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('About');
-                          Get.off(() => const AboutPage());
+                          Get.off(() => AboutPage(restaurant: restaurant));
                         },
                       ),
                       InfoButtons(
@@ -108,7 +111,9 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('Menu');
-                          Get.off(() => const MenuPage());
+                          Get.off(() => MenuPage(
+                                restaurant: restaurant,
+                              ));
                         },
                       ),
                       InfoButtons(
@@ -121,7 +126,9 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('Review');
-                          Get.off(() => const ReviewPage());
+                          Get.off(() => ReviewPage(
+                                restaurant: restaurant,
+                              ));
                         },
                       ),
                     ],
@@ -140,7 +147,7 @@ class AboutPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.33,
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
-                    child: const Column(
+                    child: Column(
                       children: [
                         Row(
                           children: [
@@ -153,48 +160,7 @@ class AboutPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        AboutPageDescription(
-                          title: "Restaurant Type : ",
-                          subTitle: "Fast Food",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        AboutPageDescription(
-                          title: "Location : ",
-                          subTitle: "Peshawar Road Golra-Mor",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        AboutPageDescription(
-                          title: "Operational Hours : ",
-                          subTitle: "09am-03am",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        AboutPageDescription(
-                          title: "Sitting : ",
-                          subTitle:
-                              "Basement,First Floor, Second Floor, Terrace",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        AboutPageDescription(
-                          title: "Reservation Policy : ",
-                          subTitle: "Accept Reservations",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        AboutPageDescription(restaurant: restaurant),
                         Row(
                           children: [
                             Text(

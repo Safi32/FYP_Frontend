@@ -1,63 +1,72 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:dine_deal/config/app_config.dart';
 import 'package:dine_deal/core/constants/app_constant.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ListRestaurantController extends GetxController {
   var restaurantData = {
-    "restaurantName": null,
-    "phoneNumber": null,
+    "username": null,
     "email": null,
     "password": null,
+    "roleId": null,
+    "userType": null,
+    "restaurantName": null,
     "restaurantAddress": null,
     "websiteUrl": null,
     "socialMediaLinks": [],
+    "phoneNumber": null,
     "restaurantType": [],
-    "operationDetails": null,
+    "operationHours": null,
     "minPriceRange": null,
     "maxPriceRange": null,
     "restaurantInfo": [],
-    "acceptsReservations": null,
+    "image": null,
     "advanceReservationPeriods": {"days": 0, "hours": 0},
     "features": [],
     "additionalNotes": null,
-    "role": null,
   }.obs;
 
   var selectedFeatures = <String>[].obs;
   var selectedRestaurantTypes = <String>[].obs;
   var selectedRestaurantInfo = <String>[].obs;
+
   var isLoading = false.obs;
   var errorMessage = "".obs;
   var acceptPolicies = false.obs;
   var reservationOption = 'Yes'.obs;
   var selectedImagePath = ''.obs;
   var role = "".obs;
+  var roleId = 0.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await loadRoleFromPreferences();
+    fetchRole();
   }
 
-  Future<void> loadRoleFromPreferences() async {
+  Future<void> fetchRole() async {
     final prefs = await SharedPreferences.getInstance();
-    role.value = prefs.getString("role") ?? "";
-    restaurantData["role"] = role.value;
-    update();
+    role.value = prefs.getString('user_role') ?? "";
+    roleId.value = prefs.getInt('role_id') ?? 0;
+
+    if (role.value.isEmpty || roleId.value == 0) {
+      print("Error: No role defined in SharedPreferences.");
+    } else {
+      print("Fetched role: ${role.value}, Role ID: ${roleId.value}");
+    }
   }
 
   void toggleAcceptPolicies(bool value) {
     acceptPolicies.value = value;
-    restaurantData["acceptPolicies"] = value ? "Yes" : "No";
+    restaurantData["acceptReservations"] = value ? "Yes" : "No";
     update();
   }
 
   void updateAdditionalInformation(String info) {
-    restaurantData["additionalInformation"] = info;
+    restaurantData["additionalNotes"] = info;
     update();
   }
 
@@ -67,21 +76,21 @@ class ListRestaurantController extends GetxController {
     } else {
       selectedFeatures.remove(feature);
     }
-    restaurantData["restaurantFeatures"] = selectedFeatures;
+    restaurantData["features"] = List<String>.from(selectedFeatures);
     update();
   }
 
-  void toggleSelection(String type, bool isSelected, String key) {
+  void toggleSelection(String item, bool isSelected, String key) {
     var selectedList = key == "restaurantType"
         ? selectedRestaurantTypes
         : selectedRestaurantInfo;
 
     if (isSelected) {
-      if (!selectedList.contains(type)) selectedList.add(type);
+      if (!selectedList.contains(item)) selectedList.add(item);
     } else {
-      selectedList.remove(type);
+      selectedList.remove(item);
     }
-    restaurantData[key] = List<String>.from(selectedList);
+    restaurantData[key] = selectedList.join(", ");
     update();
   }
 
@@ -97,8 +106,8 @@ class ListRestaurantController extends GetxController {
       current[keys.last] = value;
     } else {
       errorMessage.value = "Invalid field: $key";
-      update();
     }
+    update();
   }
 
   void addSocialMediaLinks(List<String> links) {
@@ -110,36 +119,63 @@ class ListRestaurantController extends GetxController {
     }
   }
 
-  Future<void> submitRestaurantData() async {
-    const String apiUrl = "${AppConfig.baseURL}${AppConstant.signUpUri}";
-    final headers = {'Content-Type': 'application/json'};
+  Future<void> submitRestaurantData(File imageFile) async {
+    const String apiUrl = "${AppConfig.baseURL}${AppConstant.signInRestaurant}";
+    final dio.Dio dioClient = dio.Dio();
 
     try {
       isLoading.value = true;
       errorMessage.value = "";
 
-      print("Payload to API: ${jsonEncode(restaurantData.value)}");
+      Map<String, dynamic> validData = {};
+      restaurantData.value.forEach((key, value) {
+        if (value != null && value.toString().isNotEmpty) {
+          validData[key] = value;
+        }
+      });
 
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: headers,
-        body: jsonEncode(restaurantData.value),
+      dio.FormData formData = dio.FormData.fromMap({
+        ...validData,
+        "image": await dio.MultipartFile.fromFile(
+          imageFile.path,
+          filename: imageFile.path.split('/').last,
+        ),
+      });
+
+      print("FormData Sent: ${formData.fields}");
+      print("Image Path: ${imageFile.path}");
+
+      // Send data using Dio
+      final response = await dioClient.post(
+        apiUrl,
+        data: formData,
+        options: dio.Options(headers: {"Content-Type": "multipart/form-data"}),
       );
 
       print("Response Status: ${response.statusCode}");
-      print("Response Body: ${response.body}");
+      print("Response Body: ${response.data}");
 
+      // Handle success
       if (response.statusCode == 201) {
-        Get.snackbar("Success", "Restaurant data submitted successfully");
+        final responseData = response.data;
+        final adminData = responseData['data']['admin'];
+        role.value = adminData['userType'];
+        roleId.value = adminData['roleId'];
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString("user_role", role.value);
+        await prefs.setInt("role_id", roleId.value);
+
+        Get.snackbar(
+            "Success", "Restaurant and user data submitted successfully.");
       } else {
-        final responseData = jsonDecode(response.body);
-        errorMessage.value = responseData['message'] ?? "Submission failed";
+        errorMessage.value = response.data['message'] ?? "Submission failed.";
         Get.snackbar("Error", errorMessage.value);
       }
     } catch (e) {
       errorMessage.value = "An error occurred: $e";
-      Get.snackbar("Error", errorMessage.value);
       print("Error: $e");
+      Get.snackbar("Error", errorMessage.value);
     } finally {
       isLoading.value = false;
     }

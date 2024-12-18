@@ -118,7 +118,7 @@ class OperationalDetails extends StatelessWidget {
                               TextFormField(
                                 onChanged: (value) =>
                                     controller.updateRestaurantField(
-                                        "minimumPriceRange", value),
+                                        "minPriceRange", value),
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -149,7 +149,7 @@ class OperationalDetails extends StatelessWidget {
                               TextFormField(
                                 onChanged: (value) =>
                                     controller.updateRestaurantField(
-                                        "maximumPriceRange", value),
+                                        "maxPriceRange", value),
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(

@@ -6,67 +6,52 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ReservationController extends GetxController {
-  var onGoingReservations = [].obs;
-  var pastReservations = [].obs;
+  var reservations = [].obs; // Store all reservations
   var isLoading = false.obs;
+  var errorMessage = ''.obs;
 
-  final String getAllReservationsURL =
-      "${AppConfig.baseURL}${AppConstant.seeAllReservation}";
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAllReservations(); // Fetch reservations when the controller is initialized
+  }
 
-  final String doneReservation =
-      "${AppConfig.baseURL}${AppConstant.doneReservation}";
-
-  final String cancelReservation =
-      "${AppConfig.baseURL}${AppConstant.cancelReservation}";
-
-  Future<void> fetchReservations() async {
-    isLoading.value = true;
+  Future<void> fetchAllReservations() async {
+    const String getAllReservationUrl =
+        "${AppConfig.baseURL}${AppConstant.getAllReservations}";
     try {
-      final response = await http.get(
-        Uri.parse(getAllReservationsURL),
-      );
+      isLoading(true);
+      errorMessage.value = '';
+
+      final response = await http.get(Uri.parse(getAllReservationUrl));
+
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        onGoingReservations.value = data['ongoingReservations'] ?? [];
+        final data = json.decode(response.body);
+        if (data['success'] && data['data'] is List) {
+          reservations.value = data['data'];
+          print("Fetched Reservations: ${reservations.length}");
+          // Print each reservation to the console
+          for (var reservation in reservations) {
+            print(
+                "Reservation -> Username: ${reservation['username']}, Table: ${reservation['tableNumber']}, "
+                "Date: ${reservation['reservationDate']}, Time: ${reservation['reservationTime']}, "
+                "Persons: ${reservation['numberOfPersons']}");
+          }
+        } else {
+          errorMessage.value =
+              data['message'] ?? "Failed to fetch reservations.";
+          print("Error: ${errorMessage.value}");
+        }
       } else {
-        Get.snackbar("Error", "Failed to fetch reservations");
+        errorMessage.value =
+            "Error ${response.statusCode}: Unable to fetch reservations.";
+        print("Error: ${errorMessage.value}");
       }
     } catch (e) {
-      Get.snackbar("Error", "An error occurred: $e");
+      errorMessage.value = "An error occurred: $e";
+      print("Error fetching reservations: $e");
     } finally {
-      isLoading.value = false;
-    }
-  }
-
-  Future<void> doneReservations(String reservationId) async {
-    try {
-      final response = await http.patch(
-        Uri.parse(doneReservation),
-      );
-      if (response.statusCode == 200) {
-        fetchReservations();
-        Get.snackbar("Success", "Your reservation have been accepted");
-      } else {
-        Get.snackbar("Error", "Your reservation have been rejected");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "An error occurred $e");
-    }
-  }
-
-  Future<void> cancelReservations(String reservationId) async {
-    try {
-      final response = await http.patch(
-        Uri.parse(cancelReservation),
-      );
-      if (response.statusCode == 200) {
-        fetchReservations();
-        Get.snackbar("Success", "Reservation Cancelled");
-      } else {
-        Get.snackbar("Error", "Failed to cancel reservation");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "An error occurred $e");
+      isLoading(false);
     }
   }
 }
