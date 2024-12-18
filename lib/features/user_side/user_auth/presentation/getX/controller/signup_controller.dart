@@ -56,19 +56,16 @@ class SignUpController extends GetxController {
       return;
     }
 
-    if (role.value.isEmpty || roleId.value == 0) {
-      errorMessage.value =
-          'Role not defined. Please go back and select a role.';
-      showErrorSnackbar(errorMessage.value);
-      return;
-    }
+    // Force userType to "User" and roleId to a predefined user role ID
+    role.value = "User";
+    roleId.value = 1; // Replace '1' with the actual Role ID for User
 
     final body = {
       "email": email,
       "username": username,
       "password": password,
-      "userType": role.value,
-      "roleId": roleId.value,
+      "userType": role.value, // Hardcoded as "User"
+      "roleId": roleId.value, // Role ID for "User"
     };
 
     try {
@@ -81,6 +78,20 @@ class SignUpController extends GetxController {
       );
 
       if (response.statusCode == 201) {
+        final responseBody = json.decode(response.body);
+
+        // Extract user data
+        final userData = responseBody['data'];
+        role.value = userData['userType'];
+        roleId.value = userData['roleId'];
+
+        // Save user role to SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user_role', role.value);
+        await prefs.setInt('role_id', roleId.value);
+
+        print("Role saved: ${role.value}, Role ID: ${roleId.value}");
+
         showSuccessSnackbar("User Signed Up Successfully");
         Get.offAllNamed('/login');
       } else {
@@ -96,6 +107,79 @@ class SignUpController extends GetxController {
       isLoading(false);
     }
   }
+
+  // Future<void> signUp({
+  //   required String email,
+  //   required String username,
+  //   required String password,
+  //   required String confirmPassword,
+  // }) async {
+  //   errorMessage.value = '';
+
+  //   if (password != confirmPassword) {
+  //     errorMessage.value = 'Passwords do not match. Try Again';
+  //     showErrorSnackbar(errorMessage.value);
+  //     return;
+  //   }
+
+  //   if (!selectedPrivacyOption.value) {
+  //     errorMessage.value = 'Please accept terms and privacy policy.';
+  //     showErrorSnackbar(errorMessage.value);
+  //     return;
+  //   }
+
+  //   if (role.value.isEmpty || roleId.value == 0) {
+  //     errorMessage.value =
+  //         'Role not defined. Please go back and select a role.';
+  //     showErrorSnackbar(errorMessage.value);
+  //     return;
+  //   }
+
+  //   final body = {
+  //     "email": email,
+  //     "username": username,
+  //     "password": password,
+  //     "userType": role.value,
+  //     "roleId": roleId.value,
+  //   };
+
+  //   try {
+  //     isLoading(true);
+
+  //     final response = await http.post(
+  //       Uri.parse("${AppConfig.baseURL}${AppConstant.signUpUri}"),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: json.encode(body),
+  //     );
+
+  //     if (response.statusCode == 201) {
+  //       // Decode response body
+  //       final responseBody = json.decode(response.body);
+
+  //       // Extract user data from the response
+  //       final userData = responseBody['data'];
+  //       role.value = userData['userType'];
+  //       roleId.value = userData['roleId'];
+
+  //       // Save role to SharedPreferences
+  //       final prefs = await SharedPreferences.getInstance();
+  //       await prefs.setString('user_role', role.value);
+  //       await prefs.setInt('role_id', roleId.value);
+
+  //       print("Role saved: ${role.value}, Role ID: ${roleId.value}");
+
+  //       showSuccessSnackbar("User Signed Up Successfully");
+  //       Get.offAllNamed('/login');
+  //     } else {
+  //       final responseBody = json.decode(response.body);
+  //       errorMessage.value = responseBody['message'] ?? 'Signup failed';
+  //       showErrorSnackbar(errorMessage.value);
+  //     }
+  //   } catch (e) {
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
   void showErrorSnackbar(String message) {
     Get.snackbar(

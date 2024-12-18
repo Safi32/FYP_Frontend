@@ -4,6 +4,7 @@ class AppConstant {
   static const String loginUri = "/api/users/login";
   static const String otpUri = "/otp";
   static const String verifyOtpUri = "/verify";
+  static const String getAllUser = "/api/users/users";
 
   //Restaurant End-Points
   static const String signInRestaurant = "/api/restaurant/create";

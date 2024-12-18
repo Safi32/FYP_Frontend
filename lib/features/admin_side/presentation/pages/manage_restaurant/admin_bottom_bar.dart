@@ -17,9 +17,9 @@ class _TestScreenState extends State<AdminBottomBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const AdminHomeScreen(),
+    AdminHomeScreen(),
     AddDealScreen(),
-    AdminReservation(),
+    const AdminReservation(),
     const AdminFavourite(),
   ];
 
