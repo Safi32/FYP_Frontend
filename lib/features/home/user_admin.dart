@@ -55,7 +55,6 @@ class _UserAdminState extends State<UserAdmin> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    // User Role Button
                     Button(
                       title: "User",
                       color: AppColors.orange,
