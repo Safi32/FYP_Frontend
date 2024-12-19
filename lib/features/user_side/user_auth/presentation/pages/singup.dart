@@ -8,9 +8,9 @@ import '../getX/controller/signup_controller.dart';
 import 'login.dart';
 
 class SignUp extends StatelessWidget {
-  SignUp({Key? key}) : super(key: key);
+  SignUp({super.key});
 
-  final String fontName = 'NunitoSans';
+  final formKey = GlobalKey<FormState>();
   final SignUpController controller = Get.put(SignUpController());
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
@@ -37,14 +37,13 @@ class SignUp extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Center(
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          fontFamily: fontName,
                           color: Colors.white,
                         ),
                       ),
@@ -53,7 +52,6 @@ class SignUp extends StatelessWidget {
                 ],
               ),
             ),
-            // Form Section
             Expanded(
                 child: Container(
               width: double.infinity,
@@ -66,205 +64,209 @@ class SignUp extends StatelessWidget {
                 ),
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    SignUpFields(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your email address.";
-                        } else if (!value.contains("@") ||
-                            !value.contains(".")) {
-                          return "Please enter a valid email address";
-                        } else if (!value.endsWith(".com")) {
-                          return "The email address must end with a valid domain, such as '.com'.";
-                        }
-                        return null;
-                      },
-                      controller: emailController,
-                      hintText: "example@gmail.com",
-                      tag: "Email",
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    SignUpFields(
-                      validator: (value) {
-                        if (value!.isEmpty || value.length <= 3) {
-                          return "Username must be at least 3 characters long.";
-                        } else if (value.length > 15) {
-                          return "Username cannot exceed 15 characters.";
-                        }
-                        return null;
-                      },
-                      controller: usernameController,
-                      hintText: "Enter your username",
-                      tag: "Username",
-                      keyboardType: TextInputType.name,
-                    ),
-                    SignUpFields(
-                      validator: (value) {
-                        if (value!.isEmpty || value.length < 6) {
-                          return "Password must contain more than 6 characters";
-                        }
-                        return null;
-                      },
-                      controller: passwordController,
-                      hintText: "Must be at least 8 characters",
-                      tag: "Create Password",
-                    ),
-                    SignUpFields(
-                      validator: (value) {
-                        if (value!.isEmpty || value.length < 6) {
-                          return "Password must contain more than 6 characters";
-                        }
-                        return null;
-                      },
-                      controller: confirmPasswordController,
-                      hintText: "Repeat password",
-                      tag: "Confirm Password",
-                    ),
-                    const SizedBox(height: 10),
-
-                    Obx(
-                      () => Row(
-                        children: [
-                          GestureDetector(
-                            onTap: controller.togglePrivacyOption,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: controller.selectedPrivacyOption.value
-                                      ? AppColors.orange
-                                      : Colors.black,
-                                ),
-                              ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your email address.";
+                          }
+                          final emailRegex =
+                              RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]+$");
+                          if (!emailRegex.hasMatch(value)) {
+                            return "Please enter a valid email address.";
+                          } else if (!value.contains("@") ||
+                              !value.contains(".")) {
+                            return "Please enter a valid email address";
+                          } else if (!value.endsWith("com")) {
+                            return "The email address must end with a valid domain, such as '.com'.";
+                          }
+                          return null;
+                        },
+                        controller: emailController,
+                        hintText: "example@gmail.com",
+                        tag: "Email",
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length <= 3) {
+                            return "Username must be at least 3 characters long.";
+                          } else if (value.length > 15) {
+                            return "Username cannot exceed 15 characters.";
+                          }
+                          return null;
+                        },
+                        controller: usernameController,
+                        hintText: "Enter your username",
+                        tag: "Username",
+                        keyboardType: TextInputType.name,
+                      ),
+                      SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 6) {
+                            return "Password must contain more than 6 characters";
+                          }
+                          return null;
+                        },
+                        controller: passwordController,
+                        hintText: "Must be at least 8 characters",
+                        tag: "Create Password",
+                      ),
+                      SignUpFields(
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 6) {
+                            return "Password must contain more than 6 characters";
+                          }
+                          return null;
+                        },
+                        controller: confirmPasswordController,
+                        hintText: "Repeat password",
+                        tag: "Confirm Password",
+                      ),
+                      const SizedBox(height: 10),
+                      Obx(
+                        () => Row(
+                          children: [
+                            GestureDetector(
+                              onTap: controller.togglePrivacyOption,
                               child: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: controller.selectedPrivacyOption.value
-                                      ? AppColors.orange
-                                      : Colors.transparent,
+                                  border: Border.all(
+                                    color:
+                                        controller.selectedPrivacyOption.value
+                                            ? AppColors.orange
+                                            : Colors.black,
+                                  ),
                                 ),
-                                width: 20,
-                                height: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                        controller.selectedPrivacyOption.value
+                                            ? AppColors.orange
+                                            : Colors.transparent,
+                                  ),
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              "I accept the terms and privacy policy",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Obx(
+                        () => SizedBox(
+                          width: Get.width,
+                          height: Get.height * 0.06,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              backgroundColor: AppColors.orange,
+                            ),
+                            onPressed: controller.isLoading.value
+                                ? null
+                                : () {
+                                    if (formKey.currentState!.validate()) {
+                                      controller.signUp(
+                                        email: emailController.text,
+                                        username: usernameController.text,
+                                        password: passwordController.text,
+                                        confirmPassword:
+                                            confirmPasswordController.text,
+                                      );
+                                    }
+                                  },
+                            child: controller.isLoading.value
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Text(
+                                    "Register",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      const Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Divider(thickness: 1, color: Colors.grey),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'or',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            "I accept the terms and privacy policy",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: fontName,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Expanded(
+                            child: Divider(thickness: 1, color: Colors.grey),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    // Sign Up Button
-                    Obx(
-                      () => SizedBox(
-                        width: Get.width,
-                        height: Get.height * 0.06,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: AppColors.orange,
+                      const SizedBox(height: 20),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SocialLogin(
+                            image: "assets/search.png",
+                            title: "Continue with Google",
                           ),
-                          onPressed: controller.isLoading.value
-                              ? null
-                              : () async {
-                                  await controller.signUp(
-                                    email: emailController.text,
-                                    username: usernameController.text,
-                                    password: passwordController.text,
-                                    confirmPassword:
-                                        confirmPasswordController.text,
-                                  );
-                                },
-                          child: controller.isLoading.value
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
-                              : Text(
-                                  "Sign Up",
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => LoginScreen());
+                          },
+                          child: const Text.rich(
+                            TextSpan(
+                              text: "Already have an account?",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: " Login",
                                   style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: fontName,
-                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.orange,
                                   ),
                                 ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    // Divider
-                    const Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Divider(thickness: 1, color: Colors.black),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Or',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              ],
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Divider(thickness: 1, color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    // Social Login Option
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SocialLogin(
-                          image: "assets/search.png",
-                          title: "Continue with Google",
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(() => LoginScreen());
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            text: "Already have an account?",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: fontName,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: " Login",
-                                style: TextStyle(
-                                  fontFamily: fontName,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.orange,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )),

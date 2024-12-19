@@ -21,14 +21,14 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height * 0.06,
+      height: Get.height * 0.07,
       width: Get.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor: color,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(50),
             side: borderColor != null
                 ? BorderSide(color: borderColor!)
                 : BorderSide.none,

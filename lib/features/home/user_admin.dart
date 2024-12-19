@@ -1,6 +1,6 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
-import 'package:dine_deal/features/user_side/user_auth/presentation/pages/login.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/accout_access.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,6 @@ class UserAdmin extends StatefulWidget {
 }
 
 class _UserAdminState extends State<UserAdmin> {
-  final String fontName = "NunitoSans";
   Future<void> saveRole(String role, int roleId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_role', role);
@@ -28,25 +27,27 @@ class _UserAdminState extends State<UserAdmin> {
       child: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
+                const Text(
                   "Who are You?",
                   style: TextStyle(
-                    fontFamily: fontName,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Column(
                   children: [
                     Button(
-                      title: "Be Partner",
+                      title: "Restaurant",
                       color: AppColors.orange,
                       textColor: Colors.white,
                       onPressed: () async {
@@ -61,8 +62,39 @@ class _UserAdminState extends State<UserAdmin> {
                       textColor: Colors.white,
                       onPressed: () async {
                         await saveRole("User", 1);
-                        Get.to(() => LoginScreen());
+                        Get.to(() => const AccountAccess());
                       },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: const Text.rich(
+                            TextSpan(
+                              text: "Explore as ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Guest",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.orange,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -10,12 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AccountAccess extends StatelessWidget {
   const AccountAccess({super.key});
 
-  // Method to get the stored role
   Future<String> _getRole() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String role = prefs.getString('role') ??
-        ''; // Get the stored role or empty string if not set
-    print("User role: $role"); // Print the role to the console
+    String role = prefs.getString('role') ?? '';
+    print("User role: $role");
     return role;
   }
 
@@ -24,8 +22,6 @@ class AccountAccess extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double fontSizeMultiplier = screenWidth / 400;
-
-    // Call _getRole() to print the user role
     _getRole();
 
     return SafeArea(
@@ -112,7 +108,7 @@ class AccountAccess extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: screenWidth * 0.025),
                                   child: Text(
-                                    'Register with',
+                                    'Or',
                                     style: TextStyle(
                                       fontSize: 18 * fontSizeMultiplier,
                                       fontWeight: FontWeight.bold,
@@ -145,7 +141,7 @@ class AccountAccess extends StatelessWidget {
                               },
                               child: Text.rich(
                                 TextSpan(
-                                  text: "or continue as",
+                                  text: "explore as",
                                   style: TextStyle(
                                     fontSize: 15 * fontSizeMultiplier,
                                     fontWeight: FontWeight.bold,

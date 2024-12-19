@@ -167,9 +167,10 @@ class MenuDescription extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        const SeeAllRow(
+                        SeeAllRow(
                           title: "Related Deals",
                           seeAll: "See All",
+                          onPressed: () {},
                           fontSize: 16,
                         ),
                         const SizedBox(height: 20),

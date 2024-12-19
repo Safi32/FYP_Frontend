@@ -18,12 +18,10 @@ class LoginScreen extends StatelessWidget {
     super.key,
   });
 
-  final String fontName = 'NunitoSans';
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController otpEmailController = TextEditingController();
-
   final LoginController loginController = Get.put(LoginController());
 
   void _userEmail(BuildContext context) {
@@ -133,7 +131,7 @@ class LoginScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.orange,
         body: Form(
-          key: _formKey,
+          key: formKey,
           child: Stack(
             children: [
               Column(
@@ -163,7 +161,6 @@ class LoginScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 25 * fontSizeMultipler,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: fontName,
                                 color: Colors.white,
                               ),
                             ),
@@ -195,6 +192,11 @@ class LoginScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Please enter your email address.";
+                                  }
+                                  final emailRegex = RegExp(
+                                      r"^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]+$");
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return "Please enter a valid email address.";
                                   } else if (!value.contains("@") ||
                                       !value.contains(".")) {
                                     return "Please enter a valid email address";
@@ -248,12 +250,11 @@ class LoginScreen extends StatelessWidget {
                                     onTap: () {
                                       _userEmail(context);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Forgot Password?",
                                       style: TextStyle(
                                         color: AppColors.black,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: fontName,
                                       ),
                                     ),
                                   ),
@@ -265,18 +266,28 @@ class LoginScreen extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: loginController.isLoading.value
                                         ? null
-                                        : () {
-                                            loginController.loginUser(
-                                              emailController.text.trim(),
-                                              passwordController.text.trim(),
-                                            );
+                                        : () async {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              await loginController.loginUser(
+                                                emailController.text.trim(),
+                                                passwordController.text.trim(),
+                                              );
+                                            } else {
+                                              Get.snackbar(
+                                                "Error",
+                                                "Please fill in all fields correctly.",
+                                                backgroundColor: Colors.red,
+                                                colorText: Colors.white,
+                                              );
+                                            }
                                           },
                                     child: Container(
                                       height: 50 * fontSizeMultipler,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         color: AppColors.orange,
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: loginController.isLoading.value
                                           ? const CircularProgressIndicator(
@@ -313,7 +324,6 @@ class LoginScreen extends StatelessWidget {
                                       'or',
                                       style: TextStyle(
                                         fontSize: 18 * fontSizeMultipler,
-                                        fontFamily: fontName,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.black,
                                       ),
@@ -359,7 +369,6 @@ class LoginScreen extends StatelessWidget {
                         text: "Don't have an account? ",
                         style: TextStyle(
                           fontSize: 15 * fontSizeMultipler,
-                          fontFamily: fontName,
                           fontWeight: FontWeight.bold,
                           color: AppColors.black,
                         ),
@@ -367,7 +376,6 @@ class LoginScreen extends StatelessWidget {
                           TextSpan(
                             text: "Signup",
                             style: TextStyle(
-                              fontFamily: fontName,
                               fontWeight: FontWeight.bold,
                               color: AppColors.orange,
                             ),

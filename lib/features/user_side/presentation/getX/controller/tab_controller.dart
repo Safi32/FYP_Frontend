@@ -7,6 +7,11 @@ class CustomTabController extends GetxController {
   var selectedDinner = ''.obs;
   var selectedHall = ''.obs;
   var isRestaurantSelected = true.obs;
+  RxInt selectTab = 0.obs;
+
+  void changeTab(int index) {
+    selectedTab.value = index as String;
+  }
 
   void updateTab(String tab) {
     selectedTab.value = tab;

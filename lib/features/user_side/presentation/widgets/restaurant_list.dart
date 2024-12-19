@@ -27,11 +27,11 @@ class RestaurantList extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                // "assets/main_restaurant.png",
-                restaurant.image,
-                fit: BoxFit.cover,
-              ),
+              // child: Image.asset(
+              //   // "assets/main_restaurant.png",
+              //   restaurant.image,
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
         ),
