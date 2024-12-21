@@ -2,7 +2,7 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/review_rating.dart';
-import 'package:dine_deal/models/get_restaurant_data_model.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,9 +10,7 @@ import 'about_page.dart';
 import 'menu_page.dart';
 
 class ReviewPage extends StatelessWidget {
-  const ReviewPage({super.key, required this.restaurant});
-
-  final Restaurant restaurant;
+  const ReviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,7 @@ class ReviewPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "Review Page",
+                        "Marriot Hotel Islamabad",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -51,7 +49,7 @@ class ReviewPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: Get.height * 0.3,
+                        height: Get.height * 0.25,
                         width: Get.width * 0.85,
                         decoration: BoxDecoration(
                           color: Colors.grey.shade300,
@@ -61,7 +59,7 @@ class ReviewPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: const Image(
                             image: AssetImage(
-                              "assets/deal.jpeg",
+                              "assets/main_restaurant.png",
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -70,7 +68,7 @@ class ReviewPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       Obx(() {
                         return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InfoButtons(
                               title: "About",
@@ -83,26 +81,28 @@ class ReviewPage extends StatelessWidget {
                                       : Colors.black,
                               onPressed: () {
                                 tabController.updateTab('About');
-                                Get.off(() => AboutPage(
-                                      restaurant: restaurant,
-                                    ));
+                                Get.off(() => AboutPage());
                               },
                             ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             InfoButtons(
-                              title: "Menu",
-                              color: tabController.selectedTab.value == 'Menu'
+                              title: "Deals",
+                              color: tabController.selectedTab.value == 'Deals'
                                   ? AppColors.orange
                                   : Colors.white,
                               textColor:
-                                  tabController.selectedTab.value == 'Menu'
+                                  tabController.selectedTab.value == 'Deals'
                                       ? Colors.white
                                       : Colors.black,
                               onPressed: () {
-                                tabController.updateTab('Menu');
-                                Get.off(() => MenuPage(
-                                      restaurant: restaurant,
-                                    ));
+                                tabController.updateTab('Deals');
+                                Get.off(() => MenuPage());
                               },
+                            ),
+                            const SizedBox(
+                              width: 10,
                             ),
                             InfoButtons(
                               title: "Review",
@@ -115,9 +115,7 @@ class ReviewPage extends StatelessWidget {
                                       : Colors.black,
                               onPressed: () {
                                 tabController.updateTab('Review');
-                                Get.off(() => ReviewPage(
-                                      restaurant: restaurant,
-                                    ));
+                                Get.off(() => ReviewPage());
                               },
                             ),
                           ],
@@ -126,47 +124,7 @@ class ReviewPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: "Write a review",
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Container(
-                              height: 50,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                color: AppColors.orange,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Post",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      StarRating(),
                       const SizedBox(height: 20),
                       const ReviewRating(),
                       const SizedBox(height: 10),

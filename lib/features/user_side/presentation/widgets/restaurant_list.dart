@@ -1,4 +1,3 @@
-import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,11 +5,11 @@ class RestaurantList extends StatelessWidget {
   const RestaurantList({
     super.key,
     required this.onPressed,
-    required this.restaurant,
+    // required this.restaurant,
   });
 
   final VoidCallback onPressed;
-  final Restaurant restaurant;
+  // final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +97,8 @@ class RestaurantList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        // "Marriot Hotel Islamabad",
-                        restaurant.restaurantName,
+                        "Marriot Hotel Islamabad",
+                        // restaurant.restaurantName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

@@ -89,7 +89,6 @@ class SignUpFields extends StatelessWidget {
     required this.validator,
   });
 
-  final fontName = 'NunitoSans';
   final String? hintText;
   final String? tag;
   final TextInputType? keyboardType;
@@ -107,7 +106,6 @@ class SignUpFields extends StatelessWidget {
           Text(
             tag!,
             style: TextStyle(
-              fontFamily: fontName,
               fontSize: 15,
               fontWeight: FontWeight.bold,
               color: AppColors.black,
@@ -123,7 +121,7 @@ class SignUpFields extends StatelessWidget {
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey, fontFamily: fontName),
+            hintStyle: TextStyle(color: Colors.grey),
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

@@ -2,7 +2,9 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/categories_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/deals_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/filter_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/reserve_table.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/restaurant_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deals_images.dart';
@@ -10,14 +12,9 @@ import 'package:dine_deal/features/user_side/presentation/widgets/restaurant_lis
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   final RestaurantController controller = Get.put(RestaurantController());
 
   @override
@@ -284,23 +281,28 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: AppColors.orange,
                           ),
                         ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Image(
-                              image: AssetImage(
-                                "assets/Live area.png",
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => ReserveTable());
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image(
+                                image: AssetImage(
+                                  "assets/Live area.png",
+                                ),
                               ),
-                            ),
-                            Text(
-                              "Reserve a table",
-                              style: TextStyle(
-                                color: AppColors.orange,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                              Text(
+                                "Reserve a table",
+                                style: TextStyle(
+                                  color: AppColors.orange,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Container(
@@ -313,8 +315,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: AppColors.orange,
                           ),
                         ),
-                        child: Center(
-                          child: Text(
+                        child: const Center(
+                          child: const Text(
                             "My Reservations",
                             style: TextStyle(
                               color: AppColors.orange,
@@ -375,11 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () async {
                         await controller.saveRestaurantId(restaurant.id);
                         print("Selected Restaurant ID: ${restaurant.id}");
-                        Get.to(() => AboutPage(
-                              restaurant: restaurant,
-                            ));
+                        Get.to(() => const AboutPage());
                       },
-                      restaurant: restaurant,
                     ),
                   );
                 },
@@ -398,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: "Deals",
           seeAll: "See All",
           onPressed: () {
-            Get.to(() => CategoriesScreen());
+            Get.to(() => DealsScreen());
           },
           fontSize: 18 * fontSizeMultiplier,
         ),

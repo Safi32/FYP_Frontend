@@ -16,12 +16,18 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const Reservation(),
-    const Favorite(),
-    const UserProfile(),
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      HomeScreen(),
+      const Reservation(),
+      const Favorite(),
+      const UserProfile(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,58 +41,25 @@ class _BottomBarState extends State<BottomBar> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
         height: 60,
-        items: <Widget>[
-          _buildNavItem(
-            imageURL: 'assets/home-Filled.png',
-            label: "Home",
-            isSelected: _selectedIndex == 0,
-          ),
-          _buildNavItem(
-            imageURL: 'assets/document-text.png',
-            label: "Reservation",
-            isSelected: _selectedIndex == 1,
-          ),
-          _buildNavItem(
-            imageURL: 'assets/heart.png',
-            label: "Favorite",
-            isSelected: _selectedIndex == 2,
-          ),
-          _buildNavItem(
-            imageURL: 'assets/frame.png',
-            label: "Account",
-            isSelected: _selectedIndex == 3,
-          ),
+        backgroundColor: Colors.transparent,
+        color: AppColors.orange,
+        animationDuration: const Duration(milliseconds: 300),
+        items: [
+          Icon(Icons.home,
+              size: 30,
+              color: _selectedIndex == 0 ? Colors.white : Colors.black),
+          Icon(Icons.receipt,
+              size: 30,
+              color: _selectedIndex == 1 ? Colors.white : Colors.black),
+          Icon(Icons.favorite,
+              size: 30,
+              color: _selectedIndex == 2 ? Colors.white : Colors.black),
+          Icon(Icons.account_circle,
+              size: 30,
+              color: _selectedIndex == 3 ? Colors.white : Colors.black),
         ],
         onTap: _onItemTapped,
       ),
-    );
-  }
-
-  Widget _buildNavItem({
-    String? imageURL,
-    required String label,
-    required bool isSelected,
-  }) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (imageURL != null)
-          Image(
-            image: AssetImage(imageURL),
-            height: 25,
-            width: 25,
-            color: isSelected ? AppColors.orange : Colors.grey,
-          ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: isSelected ? AppColors.orange : Colors.grey,
-          ),
-        ),
-      ],
     );
   }
 }

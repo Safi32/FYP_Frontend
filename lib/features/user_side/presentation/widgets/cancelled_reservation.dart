@@ -1,10 +1,10 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/past_reservation_details.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/cancel_reservation_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PastReservation extends StatelessWidget {
-  const PastReservation({super.key});
+class CancelledReservation extends StatelessWidget {
+  const CancelledReservation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class PastReservation extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 15),
           child: GestureDetector(
             onTap: () {
-              Get.to(() => const PastReservationDetails());
+              Get.to(() => const CancelReservationDetails());
             },
             child: Card(
               color: AppColors.surface,

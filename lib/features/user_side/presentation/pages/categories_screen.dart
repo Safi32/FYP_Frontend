@@ -17,7 +17,6 @@ class CategoriesScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             children: [
-              // Top Bar with Back Button and Title
               Row(
                 children: [
                   GestureDetector(
@@ -40,8 +39,6 @@ class CategoriesScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 30),
-
-              // Search and Filter Row
               Row(
                 children: [
                   Expanded(
@@ -74,8 +71,6 @@ class CategoriesScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Tabs for "All" and "Near Me"
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
@@ -145,13 +140,11 @@ class CategoriesScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Dynamic Widget Display
               Expanded(
                 child: Obx(() {
                   return controller.isRestaurantSelected.value
-                      ? const CategoriesWidget() // Show CategoriesWidget for "All"
-                      : const LocationWidget(); // Show LocationWidget for "Near Me"
+                      ? const CategoriesWidget()
+                      : const LocationWidget();
                 }),
               ),
             ],

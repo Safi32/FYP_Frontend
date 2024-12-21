@@ -193,9 +193,8 @@ class PaymentScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SizedBox(
-                  width: Get.width * 0.8,
                   child: Button(
-                    title: "Pay now",
+                    title: "Confirm Reservation",
                     color: AppColors.orange,
                     onPressed: () {
                       Get.to(() => const PaymentScreen());

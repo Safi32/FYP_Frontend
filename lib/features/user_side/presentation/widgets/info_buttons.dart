@@ -18,11 +18,11 @@ class InfoButtons extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 50,
-        width: 100,
+        height: 40,
+        width: 80,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(50),
         ),
         child: Center(
           child: Text(

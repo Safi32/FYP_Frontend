@@ -1,11 +1,9 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/detail_notes_textfield.dart';
-import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ReservationDetails extends StatelessWidget {
-  const ReservationDetails({
+class CancelReservationDetails extends StatelessWidget {
+  const CancelReservationDetails({
     super.key,
   });
 
@@ -47,7 +45,7 @@ class ReservationDetails extends StatelessWidget {
               ),
               const Image(
                 image: AssetImage(
-                  "assets/tick.png",
+                  "assets/cross.png",
                 ),
               ),
               Padding(
@@ -55,7 +53,7 @@ class ReservationDetails extends StatelessWidget {
                   horizontal: 20,
                 ),
                 child: SizedBox(
-                  height: Get.height * 0.15,
+                  height: Get.height * 0.1,
                   width: Get.width,
                   child: Card(
                     color: AppColors.surface,
@@ -63,58 +61,21 @@ class ReservationDetails extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Reserved",
+                          Text(
+                            "Cancelled",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 5,
-                          ),
-                          Container(
-                            height: 50,
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                              color: AppColors.surface,
-                              border: Border.all(
-                                color: Colors.grey,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image(
-                                    image: AssetImage(
-                                      "assets/Icon wrapper.png",
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "Please arrive before 13:15 or your \n reservation will be cancelled",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -311,189 +272,10 @@ class ReservationDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      "Add Deals (optional)",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: SizedBox(
-                  height: Get.height * 0.38,
-                  child: Card(
-                    elevation: 1,
-                    color: AppColors.surface,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 20,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Noodles",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Two Person Deal",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Image(
-                                    image: AssetImage(
-                                      "assets/_button.png",
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: const Image(
-                                      image: AssetImage(
-                                        "assets/+button.png",
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          child: Divider(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const DetailNotesTextField(),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Button(
-                  title: "Cancel Booking",
-                  color: Colors.white,
-                  onPressed: () {
-                    _showConfirmationDialog(context);
-                  },
-                  textColor: AppColors.orange,
-                  borderColor: AppColors.orange,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-void _showConfirmationDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible:
-        false, // Prevent dismissing the dialog by tapping outside
-    builder: (BuildContext context) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        title: const Text(
-          "Confirmation",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        content: const Text(
-          "Do you want to cancel this event?",
-          style: TextStyle(fontSize: 16),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Booking canceled successfully."),
-                ),
-              );
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: AppColors.orange,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 20,
-              ),
-            ),
-            child: const Text("Yes"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.orange,
-              backgroundColor: Colors.white,
-              side: const BorderSide(color: AppColors.orange),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 20,
-              ),
-            ),
-            child: const Text("No"),
-          ),
-        ],
-      );
-    },
-  );
 }

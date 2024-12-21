@@ -22,7 +22,7 @@ class ReviewRating extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CircleAvatar(
-                    foregroundImage: AssetImage("assets/Ellipse 1.png"),
+                    // foregroundImage: AssetImage("assets/Ellipse 1.png"),
                     radius: 30,
                   ),
                   const SizedBox(

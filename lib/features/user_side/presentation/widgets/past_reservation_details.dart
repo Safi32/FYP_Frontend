@@ -1,198 +1,334 @@
+import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/detail_notes_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class PastReservationDetails extends StatelessWidget {
-  final String tableNumber;
-  final int numberOfPersons;
-  final RxString status = "Not Checked-In".obs;
-
-  PastReservationDetails({
+  const PastReservationDetails({
     super.key,
-    required this.tableNumber,
-    required this.numberOfPersons,
   });
-
-  Color getStatusColor() {
-    switch (status.value) {
-      case "Review":
-        return Colors.green.shade100;
-      case "Cancelled":
-        return Colors.red.shade100;
-      case "Not Checked-In":
-        return Colors.orange.shade100;
-      default:
-        return Colors.grey.shade300;
-    }
-  }
-
-  Color getStatusTextColor() {
-    switch (status.value) {
-      case "Review":
-        return Colors.green;
-      case "Cancelled":
-        return Colors.red;
-      case "Not Checked-In":
-        return Colors.orange;
-      default:
-        return Colors.black;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final String formattedDate = DateFormat('dd MMM').format(DateTime.now());
-    final String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
-
-    return SizedBox(
-      height: Get.height * 0.18,
-      width: Get.width * 0.9,
-      child: Card(
-        elevation: 1,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Column(
             children: [
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    "assets/about_restaurant.png",
-                    height: 80,
-                    width: 80,
-                    fit: BoxFit.cover,
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
                 ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(
                   children: [
-                    const Text(
-                      "Cheezious",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.arrow_back_ios_new_sharp,
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Obx(() {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: getStatusColor(),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                    const Expanded(
+                      child: Center(
                         child: Text(
-                          status.value,
+                          "Reservation Details",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: getStatusTextColor(),
                           ),
                         ),
-                      );
-                    }),
-                  ],
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Image.asset("assets/Group 39341.png"),
-                        const SizedBox(width: 5),
-                        const Text(
-                          "(4.8)",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
-              Container(
-                height: Get.height * 0.03,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.grey.shade300,
+              const Image(
+                image: AssetImage(
+                  "assets/time.png",
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: SizedBox(
+                  height: Get.height * 0.1,
+                  width: Get.width,
+                  child: Card(
+                    color: AppColors.surface,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Past",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/calendar_month.png",
-                          height: 24,
-                          width: 24,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          formattedDate,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        const Image(
-                          image: AssetImage(
-                            "assets/clock.png",
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          formattedTime,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        Image.asset(
-                          "assets/table_bar.png",
-                          height: 24,
-                          width: 24,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          tableNumber,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        Image.asset(
-                          "assets/group.png",
-                          height: 24,
-                          width: 24,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          '$numberOfPersons ',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "Table Info",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ],
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                ),
+                child: Container(
+                  height: Get.width * 0.4,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: AssetImage(
+                                "assets/grey-prefix.png",
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                "Marriot Hotel Restaurant",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(height: 30, color: Colors.grey),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: AssetImage(
+                                "assets/grey-person.png",
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                "Table for 2",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(height: 30, color: Colors.grey),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: AssetImage(
+                                "assets/grey-clock.png",
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                "Today 21/12, 13:00",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      "Contact Info",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: SizedBox(
+                  height: Get.height * 0.15,
+                  child: Card(
+                    color: AppColors.surface,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Kamran Shah",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "DineDeal@gmail.com",
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Email remainder sent",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: SizedBox(
+                  height: Get.height * 0.38,
+                  child: const Card(
+                    elevation: 1,
+                    color: AppColors.surface,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Noodles",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Two Person Deal",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        DetailNotesTextField(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
             ],
           ),
