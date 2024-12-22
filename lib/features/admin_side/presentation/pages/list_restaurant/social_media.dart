@@ -19,241 +19,210 @@ class SocialMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.orange,
-        body: Column(
+        body: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 30,
-                    ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
                   ),
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        "Apply for Partnership",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  child: Column(
+                  child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Social Media",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Website URL",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              onChanged: (value) => controller
-                                  .updateRestaurantField("websiteUrl", value),
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Social Media Link",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: link1Controller,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Social Media Link",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: link2Controller,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Social Media Link",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: link3Controller,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 30,
                         ),
                       ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: Button(
-                          title: "Next",
-                          color: AppColors.orange,
-                          onPressed: () {
-                            List<String> links = [];
-
-                            if (link1Controller.text.isNotEmpty) {
-                              links.add(link1Controller.text);
-                            }
-                            if (link2Controller.text.isNotEmpty) {
-                              links.add(link2Controller.text);
-                            }
-                            if (link3Controller.text.isNotEmpty) {
-                              links.add(link3Controller.text);
-                            }
-                            controller.addSocialMediaLinks(links);
-                            Get.to(() => RestaurantType());
-                          },
-                          textColor: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Center(
-                        child: Text.rich(
-                          TextSpan(
-                            text: "Already have an account? ",
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            "Apply for Partnership",
                             style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
+                              color: Colors.white,
+                              fontSize: 25,
                             ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: "Login",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.orange,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
+                      )
                     ],
                   ),
                 ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Social Media",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Website URL",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            onChanged: (value) => controller
+                                .updateRestaurantField("websiteUrl", value),
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Social Media Link",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: link1Controller,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Social Media Link",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: link2Controller,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Social Media Link",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: link3Controller,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              left: 16,
+              right: 16,
+              child: Button(
+                title: "Next",
+                color: AppColors.orange,
+                onPressed: () {
+                  List<String> links = [];
+                  if (link1Controller.text.isNotEmpty) {
+                    links.add(link1Controller.text);
+                  }
+                  if (link2Controller.text.isNotEmpty) {
+                    links.add(link2Controller.text);
+                  }
+                  if (link3Controller.text.isNotEmpty) {
+                    links.add(link3Controller.text);
+                  }
+                  controller.addSocialMediaLinks(links);
+                  Get.to(() => RestaurantType());
+                },
+                textColor: Colors.white,
               ),
             ),
           ],

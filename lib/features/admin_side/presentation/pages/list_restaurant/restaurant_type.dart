@@ -13,11 +13,12 @@ class RestaurantType extends StatelessWidget {
       Get.put(ListRestaurantController());
 
   final List<String> restaurantTypes = [
-    "Vegan",
-    "Vegetarian",
-    "Flexitarian",
-    "Dessert",
+    "Brunch",
     "Fast Food",
+    "Vegetarian",
+    "Traditional Food (Desi)",
+    "Desert",
+    "Sea Food",
   ];
 
   @override
@@ -68,6 +69,7 @@ class RestaurantType extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
                       padding: EdgeInsets.symmetric(
@@ -82,26 +84,45 @@ class RestaurantType extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        "What kind of food you are offering",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: restaurantTypes.length,
-                        itemBuilder: (context, index) {
-                          final type = restaurantTypes[index];
-                          return Obx(
-                            () => RestaurantCheckbox(
-                              title: type,
-                              isChecked: controller.selectedRestaurantTypes
-                                  .contains(type),
-                              onChanged: (isSelected) {
-                                controller.toggleSelection(
-                                  type,
-                                  isSelected!,
-                                  ("restaurantType"),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: ListView.builder(
+                          itemCount: restaurantTypes.length,
+                          itemBuilder: (context, index) {
+                            final type = restaurantTypes[index];
+                            return Obx(
+                              () => RestaurantCheckbox(
+                                title: type,
+                                isChecked: controller.selectedRestaurantTypes
+                                    .contains(type),
+                                onChanged: (isSelected) {
+                                  controller.toggleSelection(
+                                    type,
+                                    isSelected!,
+                                    ("restaurantType"),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                     Padding(

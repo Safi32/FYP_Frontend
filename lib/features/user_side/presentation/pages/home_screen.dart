@@ -4,6 +4,7 @@ import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart'
 import 'package:dine_deal/features/user_side/presentation/pages/categories_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/deals_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/filter_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/reservation.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reserve_table.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/restaurant_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
@@ -305,23 +306,28 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 160,
-                        decoration: BoxDecoration(
-                          color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: AppColors.orange,
-                          ),
-                        ),
-                        child: const Center(
-                          child: const Text(
-                            "My Reservations",
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => const Reservation());
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
                               color: AppColors.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "My Reservations",
+                              style: TextStyle(
+                                color: AppColors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ),

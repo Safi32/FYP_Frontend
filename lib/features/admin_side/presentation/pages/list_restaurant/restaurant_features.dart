@@ -15,9 +15,11 @@ class RestaurantFeatures extends StatelessWidget {
   final List<String> restaurantInformation = [
     "Place for pray",
     "Kids friendly",
-    "Family style",
     "Parking",
-    "WiFi",
+    "Free WiFi",
+    "Rest Room",
+    "Live Music",
+    "Live Qawali",
   ];
 
   @override
@@ -76,41 +78,35 @@ class RestaurantFeatures extends StatelessWidget {
                         horizontal: 20,
                       ),
                       child: Text(
-                        "Restaurant and Features",
+                        "Additional Features",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: Text(
-                        "Features",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: restaurantInformation.length,
-                        itemBuilder: (context, index) {
-                          final feature = restaurantInformation[index];
-                          return Obx(
-                            () => RestaurantCheckbox(
-                              title: feature,
-                              isChecked:
-                                  controller.selectedFeatures.contains(feature),
-                              onChanged: (isSelected) {
-                                controller.toggleFeature(feature, isSelected!);
-                              },
-                            ),
-                          );
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: ListView.builder(
+                          itemCount: restaurantInformation.length,
+                          itemBuilder: (context, index) {
+                            final feature = restaurantInformation[index];
+                            return Obx(
+                              () => RestaurantCheckbox(
+                                title: feature,
+                                isChecked: controller.selectedFeatures
+                                    .contains(feature),
+                                onChanged: (isSelected) {
+                                  controller.toggleFeature(
+                                      feature, isSelected!);
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                     const Spacer(),

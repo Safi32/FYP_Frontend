@@ -22,315 +22,208 @@ class PersonalDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              // Header
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 30,
-                      ),
+                      child: const Icon(Icons.arrow_back,
+                          color: Colors.white, size: 30),
                     ),
                     const Expanded(
                       child: Center(
                         child: Text(
                           "Apply for Partnership",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 25),
                         ),
                       ),
                     )
                   ],
                 ),
               ),
-              SizedBox(
-                height: Get.height,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+              // Main Form Container
+              Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Personal Information",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        // Restaurant Name
-                        const Text(
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Personal Information",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 20),
+                      // Restaurant Name
+                      buildField(
                           "Restaurant Name",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          onChanged: (value) => controller
-                              .updateRestaurantField("restaurantName", value),
-                          decoration: InputDecoration(
-                            hintText: "Enter your restaurant name",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        // Phone Number
-                        const Text(
-                          "Phone Number",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            children: [
-                              const CountryCodePicker(
-                                onChanged: print,
-                                initialSelection: 'US',
-                                favorite: ['+1', 'US'],
-                                showCountryOnly: false,
-                                showOnlyCountryWhenClosed: false,
-                                alignLeft: false,
-                              ),
-                              const VerticalDivider(
-                                color: Colors.grey,
-                                width: 1,
-                                thickness: 1,
-                              ),
-                              Expanded(
-                                child: TextFormField(
-                                  onChanged: (value) =>
-                                      controller.updateRestaurantField(
-                                          "phoneNumber", value),
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 15),
-                                    border: InputBorder.none,
-                                    hintText: "Enter your phone number",
-                                  ),
-                                  keyboardType: TextInputType.phone,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        const Text(
+                          "Enter your restaurant name",
+                          (value) => controller.updateRestaurantField(
+                              "restaurantName", value)),
+                      const SizedBox(height: 20),
+                      // Phone Number
+                      const Text(
+                        "Phone Number",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10),
+                      buildPhoneNumberField(controller),
+                      const SizedBox(height: 20),
+                      // Username
+                      buildField(
                           "Username",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          onChanged: (value) => controller
-                              .updateRestaurantField("username", value),
-                          keyboardType: TextInputType.name,
-                          decoration: InputDecoration(
-                            hintText: "Enter your username",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
+                          "Enter your username",
+                          (value) => controller.updateRestaurantField(
+                              "username", value)),
+                      const SizedBox(height: 20),
+                      // Email
+                      buildField(
                           "Email",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          onChanged: (value) =>
-                              controller.updateRestaurantField("email", value),
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: "Enter your email",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
+                          "Enter your email",
+                          (value) =>
+                              controller.updateRestaurantField("email", value)),
+                      const SizedBox(height: 20),
+                      // Password
+                      buildField(
                           "Password",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          onChanged: (value) => controller
-                              .updateRestaurantField("password", value),
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: "Enter your password",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        // Restaurant Address
-                        const Text(
+                          "Enter your password",
+                          (value) => controller.updateRestaurantField(
+                              "password", value),
+                          isPassword: true),
+                      const SizedBox(height: 20),
+                      // Restaurant Address
+                      buildField(
                           "Restaurant Address",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          onChanged: (value) =>
-                              controller.updateRestaurantField(
-                                  "restaurantAddress", value),
-                          decoration: InputDecoration(
-                            hintText: "Enter your restaurant address",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                          "Enter your restaurant address",
+                          (value) => controller.updateRestaurantField(
+                              "restaurantAddress", value)),
+                      const SizedBox(height: 40),
+                      // Next Button
+                      Button(
+                        title: "Next",
+                        color: AppColors.orange,
+                        onPressed: () {
+                          Get.to(() => SocialMedia());
+                        },
+                        textColor: Colors.white,
+                      ),
+                      const SizedBox(height: 10),
+                      // Already Have an Account
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => AdminLogin());
+                        },
+                        child: Center(
+                          child: Text.rich(
+                            TextSpan(
+                              text: "Already have an account? ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: fontName,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        Button(
-                          title: "Next",
-                          color: AppColors.orange,
-                          onPressed: () {
-                            Get.to(() => SocialMedia());
-                          },
-                          textColor: Colors.white,
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => AdminLogin());
-                          },
-                          child: Center(
-                            child: Text.rich(
-                              TextSpan(
-                                text: "Already have an account? ",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: fontName,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.black,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "Login",
-                                    style: TextStyle(
-                                      fontFamily: fontName,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.orange,
-                                    ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Login",
+                                  style: TextStyle(
+                                    fontFamily: fontName,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.orange,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildField(String label, String hint, Function(String) onChanged,
+      {bool isPassword = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          onChanged: onChanged,
+          obscureText: isPassword,
+          decoration: InputDecoration(
+            hintText: hint,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPhoneNumberField(ListRestaurantController controller) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: [
+          const CountryCodePicker(
+            onChanged: print,
+            initialSelection: 'US',
+            favorite: ['+1', 'US'],
+            showCountryOnly: false,
+            showOnlyCountryWhenClosed: false,
+            alignLeft: false,
+          ),
+          const VerticalDivider(color: Colors.grey, width: 1, thickness: 1),
+          Expanded(
+            child: TextFormField(
+              onChanged: (value) =>
+                  controller.updateRestaurantField("phoneNumber", value),
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                border: InputBorder.none,
+                hintText: "Enter your phone number",
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+          ),
+        ],
       ),
     );
   }

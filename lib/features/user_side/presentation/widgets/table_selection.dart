@@ -8,6 +8,7 @@ class TableSelection extends StatelessWidget {
   TableSelection({
     Key? key,
     required this.tableTypes,
+    required Null Function(dynamic table) onTableSelected,
   }) : super(key: key);
 
   @override

@@ -50,12 +50,14 @@ class Data {
 }
 
 class User {
+  String? username;
   String? email;
   String? password;
   int? roleId;
   String? userType;
 
   User({
+    this.username,
     this.email,
     this.password,
     this.roleId,
@@ -63,6 +65,7 @@ class User {
   });
 
   factory User.fromMap(Map<String, dynamic> json) => User(
+        username: json["username"],
         email: json["email"],
         password: json["password"],
         roleId: json["roleId"],
@@ -70,6 +73,7 @@ class User {
       );
 
   Map<String, dynamic> toMap() => {
+        "username": username,
         "email": email,
         "password": password,
         "roleId": roleId,

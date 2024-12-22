@@ -8,6 +8,7 @@ class TimeSelection extends StatelessWidget {
   TimeSelection({
     Key? key,
     required this.times,
+    required Null Function(dynamic time) onTimeSelected,
   }) : super(key: key);
 
   @override

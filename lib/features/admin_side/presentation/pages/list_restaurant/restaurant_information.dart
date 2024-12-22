@@ -13,12 +13,16 @@ class RestaurantInformation extends StatelessWidget {
       Get.put(ListRestaurantController());
 
   final List<String> restaurantInformation = [
-    "Basement",
-    "Ground Floor",
-    "First Floor",
-    "Second Floor",
+    "inside",
+    "outside",
     "Terrace",
+    "Lawn",
     "Roof",
+    "Floor Seating (Traditional)",
+    "Event Space",
+    "Window View Seating",
+    "Kids Area",
+    "Pool Side",
   ];
 
   @override
@@ -72,7 +76,7 @@ class RestaurantInformation extends StatelessWidget {
                         horizontal: 25,
                       ),
                       child: Text(
-                        "Restaurant Information",
+                        "Restaurant Sitting Area Information",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -85,31 +89,38 @@ class RestaurantInformation extends StatelessWidget {
                         horizontal: 25,
                       ),
                       child: Text(
-                        "Area",
+                        "add sitting area of your restaurant",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: restaurantInformation.length,
-                        itemBuilder: (context, index) {
-                          final info = restaurantInformation[index];
-                          return Obx(
-                            () => RestaurantCheckbox(
-                              title: info,
-                              isChecked: controller.selectedRestaurantInfo
-                                  .contains(info),
-                              onChanged: (isSelected) {
-                                controller.toggleSelection(
-                                    info, isSelected!, "restaurantInfo");
-                              },
-                            ),
-                          );
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: ListView.builder(
+                          itemCount: restaurantInformation.length,
+                          itemBuilder: (context, index) {
+                            final info = restaurantInformation[index];
+                            return Obx(
+                              () => RestaurantCheckbox(
+                                title: info,
+                                isChecked: controller.selectedRestaurantInfo
+                                    .contains(info),
+                                onChanged: (isSelected) {
+                                  controller.toggleSelection(
+                                      info, isSelected!, "restaurantInfo");
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                     Column(

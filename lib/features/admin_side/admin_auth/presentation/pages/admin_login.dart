@@ -17,9 +17,7 @@ class _AdminLoginState extends State<AdminLogin> {
   final String fontName = 'NunitoSans';
 
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
   final AdminLoginController adminLoginController =
       Get.find<AdminLoginController>();
 
@@ -51,7 +49,7 @@ class _AdminLoginState extends State<AdminLogin> {
                           Navigator.pop(context);
                         },
                         child: Icon(
-                          Icons.arrow_back_rounded,
+                          Icons.arrow_back_ios_new_sharp,
                           size: 30 * fontSizeMultipler,
                           color: Colors.white,
                         ),
@@ -172,7 +170,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: AppColors.orange,
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: adminLoginController.isLoading.value
                                         ? const CircularProgressIndicator(
