@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 class OperationalDetails extends StatelessWidget {
   OperationalDetails({super.key});
 
-  final ListRestaurantController controller = Get.find();
+  final ListRestaurantController controller =
+      Get.find<ListRestaurantController>();
 
   @override
   Widget build(BuildContext context) {

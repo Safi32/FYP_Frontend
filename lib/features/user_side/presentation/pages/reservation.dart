@@ -11,7 +11,7 @@ class Reservation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CustomTabController controller = Get.put(CustomTabController());
+    final CustomTabController controller = Get.find<CustomTabController>();
 
     return SafeArea(
       child: Scaffold(
@@ -29,12 +29,12 @@ class Reservation extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios_new_sharp,
                       ),
                     ),
-                    Expanded(
-                      child: const Center(
+                    const Expanded(
+                      child: Center(
                         child: Text(
                           "Reservations",
                           style: TextStyle(

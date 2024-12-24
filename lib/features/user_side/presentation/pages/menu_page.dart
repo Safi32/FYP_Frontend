@@ -19,6 +19,8 @@ class MenuPage extends StatelessWidget {
     final CustomTabController tabController = Get.put(CustomTabController());
     tabController.updateTab('Deals');
 
+    String? selectedDeal;
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -112,7 +114,7 @@ class MenuPage extends StatelessWidget {
                   ],
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(

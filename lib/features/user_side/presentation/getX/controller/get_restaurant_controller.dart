@@ -5,12 +5,15 @@ import 'package:dine_deal/core/constants/app_constant.dart';
 import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RestaurantController extends GetxController {
-  var restaurants = <Restaurant>[].obs;
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
+  var restaurants = <Restaurant>[].obs; // All restaurants
+  var latestRestaurant = Rxn<Restaurant>();
+  var selectedRestaurant = Rxn<Restaurant>(); // Currently selected restaurant
+  var isLoading = false.obs; // Loading state
+  var errorMessage = ''.obs; // Error message state
+  RxString selectedDeal = ''.obs;
+  RxString additionalNotes = ''.obs; // Reactive variable for additional notes
 
   @override
   void onInit() {
@@ -18,42 +21,53 @@ class RestaurantController extends GetxController {
     fetchRestaurants();
   }
 
+  void updateSelectedDeal(String deal) {
+    selectedDeal.value = deal;
+  }
+
+  // Update additional notes
+  void updateAdditionalNotes(String notes) {
+    additionalNotes.value = notes;
+  }
+
+  // Fetch restaurants from API
   Future<void> fetchRestaurants() async {
     const String url = "${AppConfig.baseURL}${AppConstant.getRestaurant}";
 
     try {
       isLoading(true);
-      errorMessage('');
+      errorMessage(''); // Clear error message
 
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+
         if (data['success']) {
           var restaurantList = data['data'] as List;
-          print("Fetched Restaurants: $restaurantList");
           restaurants.value =
               restaurantList.map((e) => Restaurant.fromJson(e)).toList();
+
+          // Set the latest restaurant based on `createdAt`
+          if (restaurants.isNotEmpty) {
+            latestRestaurant.value =
+                restaurants.first; // Assuming API sorts descending
+          }
         } else {
-          errorMessage(data['message'] ?? 'Failed to fetch restaurants');
+          errorMessage.value = data['message'] ?? 'Failed to fetch restaurants';
         }
       } else {
-        errorMessage('Error ${response.statusCode}: Unable to fetch data');
+        errorMessage.value =
+            'Error ${response.statusCode}: Unable to fetch data';
       }
     } catch (e) {
-      errorMessage('An error occurred: $e');
+      errorMessage.value = 'An error occurred: $e';
     } finally {
       isLoading(false);
     }
   }
 
-  Future<void> saveRestaurantId(int restaurantId) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('restaurant_id', restaurantId);
-      print("Restaurant ID saved: $restaurantId");
-    } catch (e) {
-      print("Error saving restaurant ID: $e");
-    }
+  void setSelectedRestaurant(Restaurant restaurant) {
+    selectedRestaurant.value = restaurant; // Set globally
   }
 }

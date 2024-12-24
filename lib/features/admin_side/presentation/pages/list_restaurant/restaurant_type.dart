@@ -10,7 +10,7 @@ class RestaurantType extends StatelessWidget {
   RestaurantType({super.key});
 
   final ListRestaurantController controller =
-      Get.put(ListRestaurantController());
+      Get.find<ListRestaurantController>();
 
   final List<String> restaurantTypes = [
     "Brunch",

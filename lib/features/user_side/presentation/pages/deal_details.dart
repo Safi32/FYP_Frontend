@@ -1,6 +1,8 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/payment_screen.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DealDetails extends StatelessWidget {
   DealDetails({super.key});
@@ -247,7 +249,9 @@ class DealDetails extends StatelessWidget {
                   Button(
                     title: "Add In Reservation",
                     color: AppColors.orange,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const PaymentScreen());
+                    },
                     textColor: AppColors.surface,
                   ),
                 ],

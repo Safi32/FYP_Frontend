@@ -10,7 +10,7 @@ class RestaurantFeatures extends StatelessWidget {
   RestaurantFeatures({super.key});
 
   final ListRestaurantController controller =
-      Get.put(ListRestaurantController());
+      Get.find<ListRestaurantController>();
 
   final List<String> restaurantInformation = [
     "Place for pray",

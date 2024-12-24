@@ -1,14 +1,12 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/timer_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/menu_page.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/payment_screen.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/detail_notes_textfield.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/email_remainder.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/reservation_info.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewInformation extends StatelessWidget {
   final String restaurantName;
@@ -27,13 +25,9 @@ class ReviewInformation extends StatelessWidget {
   });
 
   Future<Map<String, String?>> getUserDetails() async {
-    const storage = FlutterSecureStorage();
-    final email = await storage.read(key: 'user_email');
-    final fullName = await storage.read(key: 'user_name');
-
-    print("Retrieved Email: $email");
-    print("Retrieved Username: $fullName");
-
+    final prefs = await SharedPreferences.getInstance();
+    final email = prefs.getString('user_email');
+    final fullName = prefs.getString('user_name');
     return {
       'email': email,
       'username': fullName,
@@ -47,6 +41,8 @@ class ReviewInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TimerController timerController = Get.find<TimerController>();
+    final ReservationController reservationController =
+        Get.find<ReservationController>();
 
     return SafeArea(
       child: Scaffold(
@@ -131,7 +127,6 @@ class ReviewInformation extends StatelessWidget {
                                 Text(
                                   "Full Name: $fullName",
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -139,14 +134,13 @@ class ReviewInformation extends StatelessWidget {
                                 Text(
                                   "Email Address: $email",
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                EmailReminder(
-                                  title: "Email Remainder",
-                                ),
+                                // EmailReminder(
+                                //   title: "Email Remainder",
+                                // ),
                               ],
                             ),
                           ),
@@ -168,7 +162,7 @@ class ReviewInformation extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: Get.height * 0.38,
+                  height: Get.height * 0.2,
                   child: Card(
                     elevation: 1,
                     color: AppColors.surface,
@@ -188,21 +182,18 @@ class ReviewInformation extends StatelessWidget {
                                   Text(
                                     "Explore deals",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                     ),
                                   ),
                                   Text(
                                     "Offering 20+ deals",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
+                                    style: TextStyle(),
                                   ),
                                 ],
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => const MenuPage());
+                                  Get.to(() => MenuPage());
                                 },
                                 child: const Icon(
                                   Icons.add_circle_outline_outlined,
@@ -213,25 +204,52 @@ class ReviewInformation extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Divider(color: Colors.grey),
-                        ),
-                        const DetailNotesTextField(),
+                        // const Padding(
+                        //   padding: EdgeInsets.symmetric(horizontal: 20),
+                        //   child: Divider(color: Colors.grey),
+                        // ),
+                        // const DetailNotesTextField(),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(
+                  height: 20,
+                ),
                 Button(
                   title: "Reserve",
                   color: AppColors.orange,
-                  onPressed: () {
-                    timerController.timeRemaining.value = 0;
-                    Get.to(() => const PaymentScreen());
+                  onPressed: () async {
+                    await reservationController.saveReservation(
+                      restaurant: restaurantName,
+                      persons: personCount,
+                      date: selectedDate,
+                      time: selectedTime,
+                      // table: selectedTable,
+                    );
+                    if (reservationController.errorMessage.value.isEmpty) {
+                      // Get.to(() => const PaymentScreen());
+                    }
                   },
                   textColor: AppColors.surface,
                 ),
+
+                // Button(
+                //   title: "Reserve",
+                //   color: AppColors.orange,
+                //   onPressed: () {
+                //     // timerController.timeRemaining.value = 0;
+                //     reservationController.saveReservation(
+                //       restaurant: restaurantName,
+                //       persons: personCount,
+                //       date: selectedDate,
+                //       time: selectedTime,
+                //       table: selectedTable,
+                //     );
+                //     // Get.to(() => const PaymentScreen());
+                //   },
+                //   textColor: AppColors.surface,
+                // ),
               ],
             ),
           ),

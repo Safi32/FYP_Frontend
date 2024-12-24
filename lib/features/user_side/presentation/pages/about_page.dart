@@ -1,4 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/about_page_description.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
@@ -14,6 +15,8 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final restaurantController = Get.find<RestaurantController>();
+    final restaurant = restaurantController.selectedRestaurant.value;
     final CustomTabController tabController = Get.put(CustomTabController());
     tabController.updateTab('About');
 
@@ -32,11 +35,11 @@ class AboutPage extends StatelessWidget {
                       },
                       child: const Icon(Icons.arrow_back_ios_new_sharp),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Center(
                         child: Text(
-                          "Marriot Hotel Islamabad",
-                          style: TextStyle(
+                          restaurant?.restaurantName ?? "Restaurant Name",
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -54,11 +57,13 @@ class AboutPage extends StatelessWidget {
                       color: Colors.grey.shade300,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: const Image(
-                          image: AssetImage(
-                            "assets/main_restaurant.png",
-                          ),
+                        child: Image.network(
+                          restaurant?.image ??
+                              "https://via.placeholder.com/150",
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.image_not_supported);
+                          },
                         ),
                       ),
                     ),
@@ -79,7 +84,7 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('About');
-                          Get.off(() => AboutPage());
+                          Get.off(() => const AboutPage());
                         },
                       ),
                       const SizedBox(
@@ -95,7 +100,7 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('Deals');
-                          Get.off(() => MenuPage());
+                          Get.off(() => const MenuPage());
                         },
                       ),
                       const SizedBox(
@@ -111,7 +116,7 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('Review');
-                          Get.off(() => ReviewPage());
+                          Get.off(() => const ReviewPage());
                         },
                       ),
                     ],
@@ -137,7 +142,16 @@ class AboutPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      AboutPageDescription(),
+                      AboutPageDescription(
+                        restaurantType: _formatList(restaurant?.restaurantType),
+                        location: restaurant?.restaurantAddress ?? "N/A",
+                        operationalHours: restaurant?.operationalHours ?? "N/A",
+                        sitting: _formatList(restaurant?.restaurantFeatures),
+                        reservationPolicy:
+                            restaurant?.acceptReservation == "Yes"
+                                ? "Accepting Reservations"
+                                : "No Reservations",
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -319,5 +333,12 @@ class AboutPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formatList(dynamic list) {
+    if (list is List<String>) {
+      return list.join(", ");
+    }
+    return list?.toString() ?? "N/A";
   }
 }

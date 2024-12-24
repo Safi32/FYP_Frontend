@@ -9,7 +9,7 @@ class ReserverationPolicies extends StatelessWidget {
   ReserverationPolicies({super.key});
 
   final ListRestaurantController controller =
-      Get.put(ListRestaurantController());
+      Get.find<ListRestaurantController>();
 
   @override
   Widget build(BuildContext context) {

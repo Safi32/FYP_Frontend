@@ -143,7 +143,7 @@ class RestaurantScreen extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   return controller.isRestaurantSelected.value
-                      ? const RestaurantWidget()
+                      ? RestaurantWidget()
                       : const LocationWidget();
                 }),
               ),

@@ -16,6 +16,7 @@ class AppConstant {
   static const String seeAllReservation = "/api/reservation";
   static const String userLogout = "/api/restaurant/logout";
   static const String reservation = "/api/reservation/create";
+
   static const String getRestaurant = "/api/restaurant/get-restaurant";
   static const String assigningRoles = "/api/roles/get-roles";
   static const String getAllReservations = "/api/reservation/get";

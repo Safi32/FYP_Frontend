@@ -11,7 +11,7 @@ class PersonalDetails extends StatelessWidget {
   PersonalDetails({super.key});
 
   final ListRestaurantController controller =
-      Get.put(ListRestaurantController());
+      Get.find<ListRestaurantController>();
   final String fontName = "NunitoSans";
 
   @override
@@ -117,6 +117,17 @@ class PersonalDetails extends StatelessWidget {
                         title: "Next",
                         color: AppColors.orange,
                         onPressed: () {
+                          if (controller.restaurantData["username"] == null ||
+                              controller.restaurantData["email"] == null ||
+                              controller.restaurantData["password"] == null ||
+                              controller.restaurantData["restaurantName"] ==
+                                  null) {
+                            Get.snackbar("Error", "All fields are required.");
+                            return;
+                          }
+
+                          // Debug captured data
+                          print("Captured Data: ${controller.restaurantData}");
                           Get.to(() => SocialMedia());
                         },
                         textColor: Colors.white,

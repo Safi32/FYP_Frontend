@@ -9,7 +9,7 @@ class SocialMedia extends StatelessWidget {
   SocialMedia({super.key});
 
   final ListRestaurantController controller =
-      Get.put(ListRestaurantController());
+      Get.find<ListRestaurantController>();
 
   final TextEditingController link1Controller = TextEditingController();
   final TextEditingController link2Controller = TextEditingController();
