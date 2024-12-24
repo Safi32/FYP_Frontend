@@ -248,7 +248,6 @@ class MediaGallery extends StatelessWidget {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      // Update the image path in the controller
       controller.updateRestaurantField("image", image.path);
       print("Selected Image Path: ${image.path}");
     } else {

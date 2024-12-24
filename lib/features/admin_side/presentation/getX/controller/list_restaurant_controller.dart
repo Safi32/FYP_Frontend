@@ -421,6 +421,7 @@ class ListRestaurantController extends GetxController {
   }
 
   Future<void> submitRestaurantData(File? imageFile) async {
+    print("IMage file $imageFile");
     const String apiUrl = "${AppConfig.baseURL}${AppConstant.signInRestaurant}";
 
     isLoading.value = true;
@@ -457,6 +458,7 @@ class ListRestaurantController extends GetxController {
       request.fields['restaurantData'] = jsonEncode(restaurantDataMap);
 
       // Attach the image file if provided
+      print("Image FIle $imageFile");
       if (imageFile != null && imageFile.existsSync()) {
         request.files.add(await http.MultipartFile.fromPath(
           'image',

@@ -1,9 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_deal.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_favourite.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_home_screen.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/admin_reservation.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class AdminBottomBar extends StatefulWidget {
@@ -33,29 +32,36 @@ class _TestScreenState extends State<AdminBottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: CurvedNavigationBar(
-        items: <Widget>[
-          _buildNavItem(
-              imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 0 ? "Home" : ""),
-          _buildNavItem(
-              imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 1 ? "Add Menu" : ""),
-          _buildNavItem(
-              imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 2 ? "Reservation" : ""),
-          _buildNavItem(
-              imageURL: 'assets/basic-needs.png',
-              label: _selectedIndex == 3 ? "Favorite" : ""),
-        ],
-        color: AppColors.orange,
-        buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.white,
-        animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 300),
-        index: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: CustomBottomBar(
+          selectedIndex: _selectedIndex,
+          indexSelectionCallback: (value) {
+            setState(() {
+              _selectedIndex = value;
+            });
+          }),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   items: <Widget>[
+      //     _buildNavItem(
+      //         imageURL: 'assets/basic-needs.png',
+      //         label: _selectedIndex == 0 ? "Home" : ""),
+      //     _buildNavItem(
+      //         imageURL: 'assets/basic-needs.png',
+      //         label: _selectedIndex == 1 ? "Add Menu" : ""),
+      //     _buildNavItem(
+      //         imageURL: 'assets/basic-needs.png',
+      //         label: _selectedIndex == 2 ? "Reservation" : ""),
+      //     _buildNavItem(
+      //         imageURL: 'assets/basic-needs.png',
+      //         label: _selectedIndex == 3 ? "Favorite" : ""),
+      //   ],
+      //   color: AppColors.orange,
+      //   buttonBackgroundColor: Colors.white,
+      //   backgroundColor: Colors.white,
+      //   animationCurve: Curves.easeInOut,
+      //   animationDuration: const Duration(milliseconds: 300),
+      //   index: _selectedIndex,
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 
