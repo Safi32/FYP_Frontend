@@ -1,4 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/get_deals_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/categories_screen.dart';
@@ -15,7 +16,8 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final RestaurantController controller = Get.put(RestaurantController());
+  final RestaurantController controller = Get.find<RestaurantController>();
+  final GetDealsController dealsController = Get.find<GetDealsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,8 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     _buildRestaurantsSection(fontSizeMultiplier),
                     SizedBox(height: screenHeight * 0.02),
-                    _buildDealsSection(screenHeight, fontSizeMultiplier),
+                    _buildDealsSection(
+                        screenHeight, fontSizeMultiplier, dealsController),
                     SizedBox(height: screenHeight * 0.01),
                   ],
                 ),
@@ -487,187 +490,88 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildRestaurantsSection(double fontSizeMultiplier) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       SeeAllRow(
-  //         title: "Restaurants",
-  //         seeAll: "See All",
-  //         onPressed: () {
-  //           Get.to(() => RestaurantScreen());
-  //         },
-  //         fontSize: 18 * fontSizeMultiplier,
-  //       ),
-  //       const SizedBox(height: 10),
-  //       SizedBox(
-  //         height: 220,
-  //         child: Obx(() {
-  //           if (controller.isLoading.value) {
-  //             return const Center(
-  //               child: CircularProgressIndicator(),
-  //             );
-  //           } else if (controller.errorMessage.value.isNotEmpty) {
-  //             return Center(
-  //               child: Text(controller.errorMessage.value),
-  //             );
-  //           } else if (controller.restaurants.isEmpty) {
-  //             return const Center(
-  //               child: Text("No restaurants available"),
-  //             );
-  //           } else {
-  //             final latestRestaurant =
-  //                 controller.restaurants.last; // Get the latest restaurant
-  //             return GestureDetector(
-  //               onTap: () {
-  //                 controller.setSelectedRestaurant(latestRestaurant);
-  //                 Get.to(() => const AboutPage());
-  //               },
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                   color: Colors.white,
-  //                   borderRadius: BorderRadius.circular(12),
-  //                   boxShadow: [
-  //                     BoxShadow(
-  //                       color: Colors.black.withOpacity(0.1),
-  //                       blurRadius: 8,
-  //                       offset: const Offset(0, 4),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     ClipRRect(
-  //                       borderRadius: const BorderRadius.only(
-  //                         topLeft: Radius.circular(12),
-  //                         topRight: Radius.circular(12),
-  //                       ),
-  //                       child: Container(
-  //                         height: 130,
-  //                         width: double.infinity,
-  //                         decoration: BoxDecoration(
-  //                           image: DecorationImage(
-  //                             image: NetworkImage(latestRestaurant.image),
-  //                             fit: BoxFit.cover,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     const SizedBox(height: 8),
-  //                     Padding(
-  //                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             latestRestaurant.restaurantName,
-  //                             style: const TextStyle(
-  //                               fontSize: 16,
-  //                               fontWeight: FontWeight.bold,
-  //                             ),
-  //                             maxLines: 1,
-  //                             overflow: TextOverflow.ellipsis,
-  //                           ),
-  //                           const SizedBox(height: 5),
-  //                           const Text(
-  //                             "Choose from a variety of bowl options and tas..", // Static subtitle
-  //                             style: TextStyle(
-  //                               fontSize: 14,
-  //                               color: Colors.grey,
-  //                             ),
-  //                             maxLines: 1,
-  //                             overflow: TextOverflow.ellipsis,
-  //                           ),
-  //                           const SizedBox(height: 8),
-  //                           const Row(
-  //                             children: [
-  //                               Row(
-  //                                 children: [
-  //                                   Icon(Icons.local_offer,
-  //                                       size: 16, color: Colors.orange),
-  //                                   SizedBox(width: 5),
-  //                                   Text(
-  //                                     "20+ deals",
-  //                                     style: TextStyle(fontSize: 14),
-  //                                   ),
-  //                                 ],
-  //                               ),
-  //                               SizedBox(width: 15),
-  //                               Row(
-  //                                 children: [
-  //                                   Icon(Icons.access_time,
-  //                                       size: 16, color: Colors.orange),
-  //                                   SizedBox(width: 5),
-  //                                   Text(
-  //                                     "40-50 mins",
-  //                                     style: TextStyle(fontSize: 14),
-  //                                   ),
-  //                                 ],
-  //                               ),
-  //                               SizedBox(width: 15),
-  //                               Row(
-  //                                 children: [
-  //                                   Icon(Icons.star,
-  //                                       size: 16, color: Colors.orange),
-  //                                   SizedBox(width: 5),
-  //                                   Text(
-  //                                     "4.9",
-  //                                     style: TextStyle(fontSize: 14),
-  //                                   ),
-  //                                 ],
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             );
-  //           }
-  //         }),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Widget _buildDealsSection(double screenHeight, double fontSizeMultiplier) {
+  Widget _buildDealsSection(double screenHeight, double fontSizeMultiplier,
+      GetDealsController dealsController) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SeeAllRow(
-          title: "Deals",
+          title: "Latest Deals",
           seeAll: "See All",
           onPressed: () {
-            Get.to(() => DealsScreen());
+            Get.to(() => DealsScreen()); // Navigate to See All Deals screen
           },
           fontSize: 18 * fontSizeMultiplier,
         ),
         SizedBox(height: screenHeight * 0.01),
-        const SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              DealsImages(
-                imagePath: "assets/Image.png",
-                subtitle: "94 Restaurants",
-                title: "Brunch",
+        Obx(() {
+          if (dealsController.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (dealsController.latestDeals.isEmpty) {
+            return const Center(
+              child: Text(
+                "No Latest Deals Available",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              DealsImages(
-                imagePath: "assets/pasta.png",
-                subtitle: "94 Restaurants",
-                title: "Seafood",
-              ),
-              DealsImages(
-                imagePath: "assets/Image.png",
-                subtitle: "94 Restaurants",
-                title: "Dessert",
-              ),
-            ],
-          ),
-        ),
+            );
+          }
+
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: dealsController.latestDeals.map((deal) {
+                return DealsImages(
+                  imagePath: deal["image"] ?? "",
+                  subtitle: deal["deal_details"] ?? "",
+                  title: deal["deal_name"] ?? "",
+                );
+              }).toList(),
+            ),
+          );
+        }),
       ],
     );
   }
+
+  // Widget _buildDealsSection(double screenHeight, double fontSizeMultiplier) {
+  //   return Column(
+  //     children: [
+  //       SeeAllRow(
+  //         title: "Deals",
+  //         seeAll: "See All",
+  //         onPressed: () {
+  //           Get.to(() => DealsScreen());
+  //         },
+  //         fontSize: 18 * fontSizeMultiplier,
+  //       ),
+  //       SizedBox(height: screenHeight * 0.01),
+  //       const SingleChildScrollView(
+  //         scrollDirection: Axis.horizontal,
+  //         child: Row(
+  //           children: [
+  //             DealsImages(
+  //               imagePath: "assets/Image.png",
+  //               subtitle: "94 Restaurants",
+  //               title: "Brunch",
+  //             ),
+  //             DealsImages(
+  //               imagePath: "assets/pasta.png",
+  //               subtitle: "94 Restaurants",
+  //               title: "Seafood",
+  //             ),
+  //             DealsImages(
+  //               imagePath: "assets/Image.png",
+  //               subtitle: "94 Restaurants",
+  //               title: "Dessert",
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

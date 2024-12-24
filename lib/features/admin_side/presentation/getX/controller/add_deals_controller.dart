@@ -23,10 +23,10 @@ class AddDealsController extends GetxController {
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(dealURL));
-      request.fields['name'] = dealName;
-      request.fields['category'] = dealCategory;
-      request.fields['price'] = dealPrice.toString();
-      request.fields['details'] = dealDetails;
+      request.fields['deal_name'] = dealName;
+      request.fields['deal_category'] = dealCategory;
+      request.fields['deal_price'] = dealPrice.toString();
+      request.fields['deal_details'] = dealDetails;
 
       if (mediaPath.isNotEmpty) {
         request.files

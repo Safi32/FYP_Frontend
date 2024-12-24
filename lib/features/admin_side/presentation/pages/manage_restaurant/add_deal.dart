@@ -1,7 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/add_deals_controller.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_sitting.dart';
-import 'package:dine_deal/features/admin_side/widgets/post_button.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/email_remainder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -178,30 +176,6 @@ class AddDealScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Row(
-                  children: [
-                    Text(
-                      "Discount",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: priceController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Enter deal discount",
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 20),
                 const Row(
                   children: [
@@ -277,55 +251,57 @@ class AddDealScreen extends StatelessWidget {
                   title: "Mark as deal for today",
                 ),
                 const SizedBox(height: 30),
-                PostButton(
-                  onPressed: () {
-                    Get.to(() => AddSitting());
-                  },
-                  title: "Post",
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: Obx(
+                        () => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: AppColors.orange,
+                          ),
+                          onPressed: addDealsController.isLoading.value
+                              ? null
+                              : () {
+                                  print(
+                                      "Deal Name: ${dealNameController.text.trim()}");
+                                  print(
+                                      "Deal Category: ${selectedCategory.value}");
+                                  print(
+                                      "Deal Price: ${priceController.text.trim()}");
+                                  print(
+                                      "Deal Details: ${dealDetailsController.text.trim()}");
+                                  print("Media Path: ${mediaPath.value}");
+                                  addDealsController.addDeals(
+                                    dealName: dealNameController.text.trim(),
+                                    dealCategory: selectedCategory.value.trim(),
+                                    dealPrice: double.tryParse(
+                                            priceController.text.trim()) ??
+                                        0.0,
+                                    dealDetails:
+                                        dealDetailsController.text.trim(),
+                                    mediaPath: mediaPath.value,
+                                  );
+                                },
+                          child: addDealsController.isLoading.value
+                              ? const CircularProgressIndicator(
+                                  color: AppColors.surface,
+                                )
+                              : const Text(
+                                  "Upload",
+                                  style: TextStyle(
+                                    color: AppColors.surface,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                // Row(
-                //   children: [
-                //     SizedBox(
-                //       width: MediaQuery.of(context).size.width * 0.4,
-                //       height: MediaQuery.of(context).size.height * 0.06,
-                //       child: Obx(
-                //         () => ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             shape: RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(10),
-                //             ),
-                //             backgroundColor: AppColors.orange,
-                //           ),
-                //           onPressed: addDealsController.isLoading.value
-                //               ? null
-                //               : () {
-                //                   addDealsController.addDeals(
-                //                     dealName: dealNameController.text.trim(),
-                //                     dealCategory:
-                //                         dealCategoryController.text.trim(),
-                //                     dealPrice: double.tryParse(
-                //                             priceController.text.trim()) ??
-                //                         0.0,
-                //                     dealDetails:
-                //                         dealDetailsController.text.trim(),
-                //                     mediaPath: mediaPath.value,
-                //                   );
-                //                 },
-                //           child: addDealsController.isLoading.value
-                //               ? const CircularProgressIndicator(
-                //                   color: AppColors.surface,
-                //                 )
-                //               : const Text(
-                //                   "Upload",
-                //                   style: TextStyle(
-                //                     color: AppColors.surface,
-                //                   ),
-                //                 ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),

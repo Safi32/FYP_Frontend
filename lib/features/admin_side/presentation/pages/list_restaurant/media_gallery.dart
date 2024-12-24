@@ -229,6 +229,7 @@
 import 'dart:io';
 
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/admin_auth/presentation/pages/admin_login.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -408,24 +409,29 @@ class MediaGallery extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Center(
-                      child: Text.rich(
-                        TextSpan(
-                          text: "Already have an account? ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "Login",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.orange,
-                              ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => AdminLogin());
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                            text: "Already have an account? ",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
                             ),
-                          ],
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Login",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.orange,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

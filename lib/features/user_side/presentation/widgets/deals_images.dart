@@ -10,12 +10,14 @@ class DealsImages extends StatelessWidget {
     required this.subtitle,
   });
 
-  final String imagePath;
+  final String imagePath; // Pass the dynamic URL here
   final String title;
   final String subtitle;
 
   @override
   Widget build(BuildContext context) {
+    print("Image Path: $imagePath"); // Debugging image path
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
@@ -40,8 +42,33 @@ class DealsImages extends StatelessWidget {
               color: AppColors.pink,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
             ),
-            child: Image.asset(
-              imagePath,
+            child: ClipRRect(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
+              child: imagePath.isNotEmpty
+                  ? Image.network(
+                      imagePath,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.broken_image,
+                          color: Colors.grey,
+                          size: 50,
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        "No Image Available",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
             ),
           ),
           Padding(
