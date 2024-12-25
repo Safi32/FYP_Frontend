@@ -1,6 +1,7 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_deals_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/get_type_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/categories_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/deals_screen.dart';
@@ -18,6 +19,8 @@ class HomeScreen extends StatelessWidget {
 
   final RestaurantController controller = Get.find<RestaurantController>();
   final GetDealsController dealsController = Get.find<GetDealsController>();
+  final GetCategoriesController categoriesController =
+      Get.find<GetCategoriesController>();
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +188,7 @@ class HomeScreen extends StatelessWidget {
   Widget _buildCategoriesSection(
       double screenHeight, double fontSizeMultiplier) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SeeAllRow(
           title: "Categories",
@@ -194,29 +198,41 @@ class HomeScreen extends StatelessWidget {
           },
           fontSize: 18 * fontSizeMultiplier,
         ),
-        SizedBox(height: screenHeight * 0.02),
-        const SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              DealsImages(
-                imagePath: "assets/Image.png",
-                subtitle: "94 Restaurants",
-                title: "Brunch",
+        SizedBox(height: screenHeight * 0.01),
+        Obx(() {
+          if (categoriesController.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (categoriesController.categoriesList.isEmpty) {
+            return const Center(
+              child: Text(
+                "No Categories Available",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              DealsImages(
-                imagePath: "assets/pasta.png",
-                subtitle: "94 Restaurants",
-                title: "Sea food",
-              ),
-              DealsImages(
-                imagePath: "assets/Image.png",
-                subtitle: "94 Restaurants",
-                title: "Dessert",
-              ),
-            ],
-          ),
-        ),
+            );
+          }
+
+          final rawTypes = categoriesController.categoriesList[0];
+          final cleanedTypes = rawTypes.replaceAll('"', '');
+          final categories =
+              cleanedTypes.split(',').map((type) => type.trim()).toList();
+
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: categories.map<Widget>((category) {
+                return DealsImages(
+                  imagePath: "",
+                  subtitle: "",
+                  title: category,
+                );
+              }).toList(),
+            ),
+          );
+        }),
       ],
     );
   }
@@ -261,8 +277,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Image(
                         image: AssetImage(
-                          "assets/table_booking.png",
+                          "assets/tick.png",
                         ),
+                        height: 80,
+                        width: 100,
                       ),
                     ],
                   ),
@@ -536,42 +554,4 @@ class HomeScreen extends StatelessWidget {
       ],
     );
   }
-
-  // Widget _buildDealsSection(double screenHeight, double fontSizeMultiplier) {
-  //   return Column(
-  //     children: [
-  //       SeeAllRow(
-  //         title: "Deals",
-  //         seeAll: "See All",
-  //         onPressed: () {
-  //           Get.to(() => DealsScreen());
-  //         },
-  //         fontSize: 18 * fontSizeMultiplier,
-  //       ),
-  //       SizedBox(height: screenHeight * 0.01),
-  //       const SingleChildScrollView(
-  //         scrollDirection: Axis.horizontal,
-  //         child: Row(
-  //           children: [
-  //             DealsImages(
-  //               imagePath: "assets/Image.png",
-  //               subtitle: "94 Restaurants",
-  //               title: "Brunch",
-  //             ),
-  //             DealsImages(
-  //               imagePath: "assets/pasta.png",
-  //               subtitle: "94 Restaurants",
-  //               title: "Seafood",
-  //             ),
-  //             DealsImages(
-  //               imagePath: "assets/Image.png",
-  //               subtitle: "94 Restaurants",
-  //               title: "Dessert",
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }

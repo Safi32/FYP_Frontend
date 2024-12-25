@@ -5,6 +5,7 @@ import 'package:dine_deal/features/admin_side/presentation/getX/controller/reser
 import 'package:dine_deal/features/home/controller/assigning_roles.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_deals_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/get_type_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/timer_controller.dart';
 import 'package:dine_deal/features/user_side/user_auth/presentation/getX/controller/signup_controller.dart';
@@ -22,6 +23,7 @@ class InitialBinding extends Bindings {
     Get.put(AssigningRoles(), permanent: true);
     Get.put(AdminLoginController(), permanent: true);
     Get.put(GetDealsController(), permanent: true);
+    Get.put(GetCategoriesController(), permanent: true);
     Get.put(RestaurantController(), permanent: true);
   }
 }

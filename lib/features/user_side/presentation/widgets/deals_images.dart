@@ -63,10 +63,9 @@ class DealsImages extends StatelessWidget {
                         );
                       },
                     )
-                  : const Center(
-                      child: Text(
-                        "No Image Available",
-                        style: TextStyle(color: Colors.grey),
+                  : Image(
+                      image: AssetImage(
+                        "assets/Image.png",
                       ),
                     ),
             ),
