@@ -2,8 +2,8 @@ class AppConstant {
   //User Side End-Points
   static const String signUpUri = "/api/users/register";
   static const String loginUri = "/api/users/login";
-  static const String otpUri = "/otp";
-  static const String verifyOtpUri = "/verify";
+  static const String sendOtp = "/api/users/send-otp";
+  static const String getOtp = "/api/users/verify-otp";
   static const String getAllUser = "/api/users/users";
 
   //Restaurant End-Points

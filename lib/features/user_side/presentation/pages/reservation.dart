@@ -19,21 +19,13 @@ class Reservation extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
+              const Padding(
+                padding: EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_ios_new_sharp,
-                      ),
-                    ),
-                    const Expanded(
+                    Expanded(
                       child: Center(
                         child: Text(
                           "Reservations",

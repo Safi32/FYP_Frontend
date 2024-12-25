@@ -126,14 +126,12 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the ReservationController instance
     final reservationController = Get.find<GetReservationController>();
 
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            // Header Section
             Container(
               height: MediaQuery.of(context).size.height * 0.22,
               width: MediaQuery.of(context).size.width,
@@ -223,10 +221,7 @@ class AdminHomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 10),
-
-            // Reservation List Section
             Expanded(
               child: Obx(() {
                 if (reservationController.reservations.isEmpty) {

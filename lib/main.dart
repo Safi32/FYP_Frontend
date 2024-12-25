@@ -1,5 +1,8 @@
 import 'package:dine_deal/binding.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/splash_screen.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/login.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/otp_screen.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/singup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +18,22 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: InitialBinding(),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      initialRoute: '/splash',
+      getPages: [
+        GetPage(
+          name: '/splash',
+          page: () => const SplashScreen(),
+        ),
+        GetPage(
+          name: '/signup',
+          page: () => SignUp(),
+        ),
+        GetPage(name: '/otp-verification', page: () => OtpScreen()),
+        GetPage(
+          name: '/login',
+          page: () => LoginScreen(),
+        ),
+      ],
     );
   }
 }

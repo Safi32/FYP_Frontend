@@ -27,12 +27,6 @@ class SignUpController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     role.value = prefs.getString('user_role') ?? 'user';
     roleId.value = prefs.getInt('role_id') ?? 1;
-
-    if (role.value.isEmpty || roleId.value == 0) {
-      print("No role stored. Defaulting to user role.");
-    } else {
-      print("Stored role: ${role.value}, Role ID: ${roleId.value}");
-    }
   }
 
   Future<void> saveSelectedRole(String selectedRole) async {
@@ -41,7 +35,6 @@ class SignUpController extends GetxController {
     roleId.value = selectedRole.toLowerCase() == 'admin' ? 2 : 1;
     await prefs.setString('user_role', role.value);
     await prefs.setInt('role_id', roleId.value);
-    print("Role saved: ${role.value}, Role ID: ${roleId.value}");
   }
 
   void togglePrivacyOption() {
@@ -54,7 +47,6 @@ class SignUpController extends GetxController {
     await prefs.setString('user_name', username);
     await prefs.setString('user_email', email);
     await _storage.write(key: 'user_name', value: username);
-    print("User details saved: $username, $email");
   }
 
   String _generateUsernameFromEmail(String email) {
@@ -79,6 +71,7 @@ class SignUpController extends GetxController {
       showErrorSnackbar(errorMessage.value);
       return;
     }
+
     final body = {
       "username": username,
       "email": email,
@@ -86,6 +79,8 @@ class SignUpController extends GetxController {
       "userType": role.value,
       "roleId": roleId.value,
     };
+
+    print("Email captured in signUp method: $email"); // Debugging print
 
     try {
       isLoading(true);
@@ -98,19 +93,14 @@ class SignUpController extends GetxController {
 
       if (response.statusCode == 201) {
         await saveUserDetails(email);
-        showSuccessSnackbar("User Signed Up Successfully");
-        Get.offAllNamed('/login');
+        sendOtp(email); // Trigger OTP sending
+        await Future.delayed(const Duration(seconds: 5)); // Optional delay
+        Get.toNamed('/otp-verification', arguments: {"email": email});
       } else if (response.statusCode == 400) {
         final responseBody = json.decode(response.body);
-        if (responseBody['message'] == 'Email already exists') {
-          errorMessage.value =
-              "Email already exists. Please use another email.";
-          showErrorSnackbar(errorMessage.value);
-        } else {
-          errorMessage.value =
-              responseBody['message'] ?? 'Signup failed. Try again.';
-          showErrorSnackbar(errorMessage.value);
-        }
+        errorMessage.value =
+            responseBody['message'] ?? 'Signup failed. Try again.';
+        showErrorSnackbar(errorMessage.value);
       } else {
         errorMessage.value = 'Signup failed. Please try again.';
         showErrorSnackbar(errorMessage.value);
@@ -124,14 +114,46 @@ class SignUpController extends GetxController {
     }
   }
 
-  void showErrorSnackbar(String message) {
-    Get.snackbar(
-      'Error',
-      message,
-      backgroundColor: Colors.red,
-      snackPosition: SnackPosition.TOP,
-    );
+  Future<void> sendOtp(String email) async {
+    print("Email captured in sendOtp method: $email"); // Debugging print
+    try {
+      final response = await http.post(
+        Uri.parse("${AppConfig.baseURL}${AppConstant.sendOtp}"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({"email": email}),
+      );
+
+      if (response.statusCode == 200) {
+        showSuccessSnackbar("OTP sent to $email.");
+      } else {
+        showErrorSnackbar("Failed to send OTP. Try again.");
+      }
+    } catch (e) {
+      showErrorSnackbar("Error sending OTP. Please try again later.");
+    }
   }
+
+  Future<void> verifyOtp(String email, String otp) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${AppConfig.baseURL}${AppConstant.getOtp}"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({"email": email, "otp": otp}),
+      );
+
+      if (response.statusCode == 200) {
+        showSuccessSnackbar("OTP Verified Successfully");
+        await Future.delayed(const Duration(seconds: 5));
+        Get.offAllNamed('/login');
+      } else {
+        showErrorSnackbar("Invalid or expired OTP. Please try again.");
+      }
+    } catch (e) {
+      showErrorSnackbar("Error verifying OTP. Please try again later.");
+    }
+  }
+
+  void showErrorSnackbar(String message) {}
 
   void showSuccessSnackbar(String message) {
     Get.snackbar(

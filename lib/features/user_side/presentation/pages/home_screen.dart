@@ -277,7 +277,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Image(
                         image: AssetImage(
-                          "assets/tick.png",
+                          "assets/remove-background-tick.png",
                         ),
                         height: 80,
                         width: 100,

@@ -2,7 +2,6 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/timer_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/menu_page.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/reservation_info.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,15 +71,26 @@ class ReviewInformation extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Obx(
-                  () => ReservationInfo(
-                    restaurantName: restaurantName,
-                    tableInfo: "Table for $personCount",
-                    dateTime: "$selectedDate, $selectedTime",
-                    timeRemaining: _formatTimeRemaining(
-                      timerController.timeRemaining.value,
+                  () => Text(
+                    "Time Remaining: ${timerController.timeRemaining.value}s",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.red,
                     ),
                   ),
                 ),
+
+                // Obx(
+                //   () => ReservationInfo(
+                //     restaurantName: restaurantName,
+                //     tableInfo: "Table for $personCount",
+                //     dateTime: "$selectedDate, $selectedTime",
+                //     timeRemaining: _formatTimeRemaining(
+                //       timerController.timeRemaining.value,
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 20),
                 const Row(
                   children: [

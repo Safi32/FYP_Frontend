@@ -22,7 +22,6 @@ class PersonalDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              // Header
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -46,7 +45,6 @@ class PersonalDetails extends StatelessWidget {
                   ],
                 ),
               ),
-              // Main Form Container
               Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
@@ -67,14 +65,14 @@ class PersonalDetails extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
-                      // Restaurant Name
+
                       buildField(
                           "Restaurant Name",
                           "Enter your restaurant name",
                           (value) => controller.updateRestaurantField(
                               "restaurantName", value)),
                       const SizedBox(height: 20),
-                      // Phone Number
+
                       const Text(
                         "Phone Number",
                         style: TextStyle(
@@ -83,21 +81,21 @@ class PersonalDetails extends StatelessWidget {
                       const SizedBox(height: 10),
                       buildPhoneNumberField(controller),
                       const SizedBox(height: 20),
-                      // Username
+
                       buildField(
                           "Username",
                           "Enter your username",
                           (value) => controller.updateRestaurantField(
                               "username", value)),
                       const SizedBox(height: 20),
-                      // Email
+
                       buildField(
                           "Email",
                           "Enter your email",
                           (value) =>
                               controller.updateRestaurantField("email", value)),
                       const SizedBox(height: 20),
-                      // Password
+
                       buildField(
                           "Password",
                           "Enter your password",
@@ -105,14 +103,14 @@ class PersonalDetails extends StatelessWidget {
                               "password", value),
                           isPassword: true),
                       const SizedBox(height: 20),
-                      // Restaurant Address
+
                       buildField(
                           "Restaurant Address",
                           "Enter your restaurant address",
                           (value) => controller.updateRestaurantField(
                               "restaurantAddress", value)),
                       const SizedBox(height: 40),
-                      // Next Button
+
                       Button(
                         title: "Next",
                         color: AppColors.orange,
@@ -126,7 +124,6 @@ class PersonalDetails extends StatelessWidget {
                             return;
                           }
 
-                          // Debug captured data
                           print("Captured Data: ${controller.restaurantData}");
                           Get.to(() => SocialMedia());
                         },
