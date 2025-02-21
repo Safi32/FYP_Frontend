@@ -33,7 +33,7 @@ class ReviewPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "Marriot Hotel Islamabad",
+                        "Pizza Hut",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -59,7 +59,7 @@ class ReviewPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: const Image(
                             image: AssetImage(
-                              "assets/main_restaurant.png",
+                              "assets/about_restaurant.png",
                             ),
                             fit: BoxFit.cover,
                           ),

@@ -148,9 +148,9 @@ class LoginScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Icon(
-                            Icons.arrow_back_rounded,
-                            size: 30 * fontSizeMultipler,
+                          child: const Icon(
+                            Icons.arrow_back_ios_new,
+                            size: 30,
                             color: Colors.white,
                           ),
                         ),
@@ -278,7 +278,6 @@ class LoginScreen extends StatelessWidget {
                                                 "Error",
                                                 "Please fill in all fields correctly.",
                                                 backgroundColor: Colors.red,
-                                                colorText: Colors.white,
                                               );
                                             }
                                           },

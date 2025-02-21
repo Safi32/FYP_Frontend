@@ -5,7 +5,8 @@ class AboutPageDescription extends StatelessWidget {
   final String location;
   final String operationalHours;
   final String sitting;
-  final String reservationPolicy;
+  final String? maxPriceRange;
+  final String? minPriceRange;
 
   const AboutPageDescription({
     super.key,
@@ -13,7 +14,8 @@ class AboutPageDescription extends StatelessWidget {
     required this.location,
     required this.operationalHours,
     required this.sitting,
-    required this.reservationPolicy,
+    this.maxPriceRange,
+    this.minPriceRange,
   });
 
   @override
@@ -25,7 +27,8 @@ class AboutPageDescription extends StatelessWidget {
         _buildInfoRow("Location:", location),
         _buildInfoRow("Operational Hours:", operationalHours),
         _buildInfoRow("Sitting:", sitting),
-        _buildInfoRow("Reservation Policy:", reservationPolicy),
+        if (minPriceRange != null && maxPriceRange != null)
+          _buildInfoRow("Price Range:", "${minPriceRange} - ${maxPriceRange}"),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/checkbox.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/payment_fields.dart';
 import 'package:dine_deal/widgets/button.dart';
@@ -6,10 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  final String restaurantName;
+  final int personCount;
+  final String selectedDate;
+  final String selectedTime;
+  final String selectedTable;
+
+  const PaymentScreen({
+    super.key,
+    required this.restaurantName,
+    required this.personCount,
+    required this.selectedDate,
+    required this.selectedTime,
+    required this.selectedTable,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final ReservationController reservationController =
+        Get.find<ReservationController>();
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -41,6 +58,7 @@ class PaymentScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
+              // Payment Form
               Column(
                 children: [
                   const Padding(
@@ -176,9 +194,7 @@ class PaymentScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: CheckboxWithText(
                       labelText: "Save card data for future payment",
                       initialValue: false,
@@ -190,14 +206,43 @@ class PaymentScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
+
+              // Confirm Reservation Button with Logic
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SizedBox(
                   child: Button(
                     title: "Confirm Reservation",
                     color: AppColors.orange,
-                    onPressed: () {
-                      Get.to(() => const PaymentScreen());
+                    onPressed: () async {
+                      // Save Reservation Logic
+                      await reservationController.saveReservation(
+                        restaurant: restaurantName,
+                        persons: personCount,
+                        date: selectedDate,
+                        time: selectedTime,
+                        // table: selectedTable,
+                      );
+
+                      // Check for errors
+                      if (reservationController.errorMessage.value.isEmpty) {
+                        Get.snackbar(
+                          "Success",
+                          "Your reservation has been successfully created!",
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                        );
+
+                        // Navigate to a confirmation page or home screen
+                        // Get.off(() => const ConfirmationScreen());
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          reservationController.errorMessage.value,
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
                     },
                     textColor: Colors.white,
                   ),

@@ -1,7 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/widgets/reservation_details.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class UpcomingReservations extends StatelessWidget {
   const UpcomingReservations({super.key});
@@ -49,98 +47,129 @@ class UpcomingReservations extends StatelessWidget {
       );
     }
 
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      itemCount: upcomingReservations.length,
-      itemBuilder: (context, index) {
-        final reservation = upcomingReservations[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: GestureDetector(
-            onTap: () {
-              Get.to(() => const ReservationDetails());
-            },
-            child: Card(
-              color: AppColors.surface,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      reservation['customerName'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        const Image(
-                          image: AssetImage(
-                            "assets/grey-prefix.png",
-                          ),
-                          height: 18,
-                          width: 18,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          reservation['restaurantName'],
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.chair,
-                                size: 18, color: Colors.grey),
-                            const SizedBox(width: 5),
-                            Text(
-                              reservation['tableInfo'],
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.access_time,
-                                size: 18, color: Colors.grey),
-                            const SizedBox(width: 5),
-                            Text(
-                              reservation['reservationDateTime'],
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Total Reservation",
+                style: TextStyle(
+                  color: AppColors.orange,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
+              Text(
+                "04",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: AppColors.orange,
+                ),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemCount: upcomingReservations.length,
+            itemBuilder: (context, index) {
+              final reservation = upcomingReservations[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: GestureDetector(
+                  onTap: () {
+                    // Get.to(() => const ReservationDetails());
+                  },
+                  child: Card(
+                    color: AppColors.surface,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            reservation['customerName'],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              const Image(
+                                image: AssetImage(
+                                  "assets/grey-prefix.png",
+                                ),
+                                height: 18,
+                                width: 18,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                reservation['restaurantName'],
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.chair,
+                                      size: 18, color: Colors.grey),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    reservation['tableInfo'],
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.access_time,
+                                      size: 18, color: Colors.grey),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    reservation['reservationDateTime'],
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

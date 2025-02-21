@@ -21,53 +21,58 @@ class DealsForToday extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            if (showRestaurants)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Deals",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+          ),
+          child: Column(
+            children: [
+              if (showRestaurants)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Deals",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: AppColors.pink,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "94 Restaurants",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: AppColors.orange,
+                    Container(
+                      height: 30,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: AppColors.pink,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "94 Restaurants",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: AppColors.orange,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: deals.length,
+                  itemBuilder: (context, index) {
+                    return _buildDealCard(
+                      deals[index]["name"]!,
+                      deals[index]["details"]!,
+                      deals[index]["price"]!,
+                    );
+                  },
+                ),
               ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: deals.length,
-                itemBuilder: (context, index) {
-                  return _buildDealCard(
-                    deals[index]["name"]!,
-                    deals[index]["details"]!,
-                    deals[index]["price"]!,
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

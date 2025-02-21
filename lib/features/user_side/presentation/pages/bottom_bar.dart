@@ -3,6 +3,7 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/favourite.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/home_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reservation.dart';
+import 'package:dine_deal/features/user_side/user_auth/presentation/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
@@ -24,7 +25,7 @@ class _BottomBarState extends State<BottomBar> {
       HomeScreen(),
       const Reservation(),
       const Favorite(),
-      // const UserProfile(),
+      const UserProfile(),
     ];
   }
 

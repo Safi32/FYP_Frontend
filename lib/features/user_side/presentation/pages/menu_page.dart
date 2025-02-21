@@ -1,6 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/deal_details.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deals_for_today.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/family_deals.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/info_buttons.dart';
@@ -19,8 +18,6 @@ class MenuPage extends StatelessWidget {
     final CustomTabController tabController = Get.put(CustomTabController());
     tabController.updateTab('Deals');
 
-    String? selectedDeal;
-
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -38,7 +35,7 @@ class MenuPage extends StatelessWidget {
                   const Expanded(
                     child: Center(
                       child: Text(
-                        "Marriot Hotel Islamabad",
+                        "Pizza Hut",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -53,12 +50,12 @@ class MenuPage extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 children: [
                   Container(
-                    height: Get.height * 0.25,
+                    width: Get.width,
                     color: Colors.grey.shade300,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: const Image(
-                        image: AssetImage("assets/main_restaurant.png"),
+                        image: AssetImage("assets/about_restaurant.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -155,7 +152,10 @@ class MenuPage extends StatelessWidget {
                   return tabController.selectedIndex.value == 0
                       ? DealsForToday(
                           onClick: () {
-                            Get.to(() => DealDetails());
+                            // Get.to(
+                            //   () => ReservationDetails(
+                            //   ),
+                            // );
                           },
                           buttonText: "Add",
                           showRestaurants: false,

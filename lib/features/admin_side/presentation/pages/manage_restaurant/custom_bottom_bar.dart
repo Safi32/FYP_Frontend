@@ -1,4 +1,6 @@
+import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_sitting.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomBottomBar extends StatefulWidget {
   CustomBottomBar(
@@ -121,29 +123,39 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     Positioned(
                       top: -100,
                       left: -4,
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/sitting.png',
-                              height: 20,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            const Text(
-                              "Sitting",
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.grey),
-                            )
-                          ],
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.to(
+                            () => const AddSitting(),
+                          );
+
+                          // widget.indexSelectionCallback(3);
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/sitting.png',
+                                height: 20,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              const Text(
+                                "Sitting",
+                                style:
+                                    TextStyle(fontSize: 10, color: Colors.grey),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -160,22 +172,26 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/details.png',
-                                  height: 20,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text(
-                                  "Details",
-                                  style: TextStyle(
-                                      fontSize: 10, color: Colors.grey),
-                                ),
-                              ]),
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => widget.indexSelectionCallback(1),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/details.png',
+                                    height: 20,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const Text(
+                                    "Deals",
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.grey),
+                                  ),
+                                ]),
+                          ),
                         ),
                       ),
                     ),
@@ -185,29 +201,36 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                       right: -40,
                       child: Transform.rotate(
                         angle: 51,
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/features.png',
-                                height: 20,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                "Features",
-                                style:
-                                    TextStyle(fontSize: 10, color: Colors.grey),
-                              ),
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              () => const AddSitting(),
+                            );
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/features.png',
+                                  height: 20,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "Features",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

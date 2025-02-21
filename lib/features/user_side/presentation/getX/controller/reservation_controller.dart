@@ -118,9 +118,9 @@ class ReservationsController extends GetxController {
   // Observable variables
   var selectedTime = ''.obs;
   var numberOfPersons = 1.obs;
-  var selectedTable = ''.obs;
+  var selectedTable = "".obs;
   var selectedDate = DateTime.now().obs;
-  var restaurantId = '1'.obs; // Temporarily hardcoded to "1"
+  var restaurantId = '1'.obs;
   var restaurantName = ''.obs;
   var userEmail = ''.obs;
   var userName = ''.obs;
@@ -154,7 +154,6 @@ class ReservationsController extends GetxController {
   }
 
   void fetchAvailableTimes(String currentTime) {
-    // Assuming operational hours are from 9AM to 9PM
     final operationalStart =
         DateTime.parse("${selectedDate.value.toIso8601String()} 09:00:00");
     final operationalEnd =

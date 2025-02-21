@@ -65,7 +65,11 @@ class RestaurantScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Icon(Icons.filter_alt, color: Colors.grey),
+                      child: const Image(
+                        image: AssetImage(
+                          "assets/filter.png",
+                        ),
+                      ),
                     ),
                   ),
                 ],

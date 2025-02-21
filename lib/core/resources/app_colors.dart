@@ -23,6 +23,7 @@ class AppColors {
   static const Color black = Color(0xFF1E1E1E);
   static const Color peach = Color(0xFFF1D693);
   static const Color yellow = Color(0xFFF6B931);
+  static const Color yellowishBrown = Color(0xFFFFE7CC);
   static const Color orange = Color(0xFFC75E28);
   static const Color brown = Color(0xFF5E4228);
   static const Color background = Color(0xFFF9FBFF);
@@ -31,7 +32,6 @@ class AppColors {
   static const Color blue = Color(0xFF94C5FF);
   static const Color pink = Color(0xFFFED8CC);
 
-  // Dark Mode Colors
   static const Color darkBackground = Color(0xFF121212);
   static const Color darkSurface = Color(0xFF1E1E1E);
   static const Color darkTextPrimary = Color(0xFFFFFFFF);

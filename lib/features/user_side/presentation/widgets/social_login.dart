@@ -14,12 +14,13 @@ class SocialLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      width: 250,
+      width: 350,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade300,
         border: Border.all(
           color: Colors.black.withOpacity(0.1),
         ),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

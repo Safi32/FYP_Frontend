@@ -1,5 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/user_side/presentation/pages/payment_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/review_information.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -250,7 +250,13 @@ class DealDetails extends StatelessWidget {
                     title: "Add In Reservation",
                     color: AppColors.orange,
                     onPressed: () {
-                      Get.to(() => const PaymentScreen());
+                      Get.to(() => const ReviewInformation(
+                            restaurantName: '',
+                            personCount: 0,
+                            selectedDate: '',
+                            selectedTime: '',
+                            selectedTable: '',
+                          ));
                     },
                     textColor: AppColors.surface,
                   ),

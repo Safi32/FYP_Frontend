@@ -58,19 +58,16 @@ class RestaurantWidget extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   }
-
                   if (controller.errorMessage.value.isNotEmpty) {
                     return Center(
                       child: Text(controller.errorMessage.value),
                     );
                   }
-
                   if (controller.restaurants.isEmpty) {
                     return const Center(
                       child: Text("No restaurants available"),
                     );
                   }
-
                   return ListView.builder(
                     itemCount: controller.restaurants.length,
                     itemBuilder: (context, index) {
@@ -147,7 +144,7 @@ class RestaurantWidget extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    "Features: ${restaurant.restaurantFeatures.join(", ")}",
+                                    "Features: ${restaurant.restaurantFeatures}",
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(height: 10),

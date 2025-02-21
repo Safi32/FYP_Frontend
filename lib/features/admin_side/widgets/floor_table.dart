@@ -1,8 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
-import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_area.dart';
-import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class FloorTable extends StatelessWidget {
   const FloorTable({super.key});
@@ -157,25 +154,6 @@ class FloorTable extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Button(
-                      color: AppColors.orange,
-                      onPressed: () {
-                        Get.to(() => const AddArea());
-                      },
-                      textColor: AppColors.surface,
-                      title: "Save",
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

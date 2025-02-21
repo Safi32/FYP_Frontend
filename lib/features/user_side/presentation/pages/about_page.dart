@@ -1,4 +1,5 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_sitting.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/about_page_description.dart';
@@ -17,15 +18,16 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final restaurantController = Get.find<RestaurantController>();
     final restaurant = restaurantController.selectedRestaurant.value;
-    final CustomTabController tabController = Get.put(CustomTabController());
+    final CustomTabController tabController = Get.find<CustomTabController>();
     tabController.updateTab('About');
 
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -38,7 +40,7 @@ class AboutPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          restaurant?.restaurantName ?? "Restaurant Name",
+                          restaurant?.restaurantName ?? "Pizza Hut",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -49,27 +51,24 @@ class AboutPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Container(
-                      height: Get.height * 0.25,
-                      color: Colors.grey.shade300,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          restaurant?.image ??
-                              "https://via.placeholder.com/150",
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.image_not_supported);
-                          },
-                        ),
-                      ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    height: Get.height * 0.25,
+                    width: double.infinity,
+                    color: Colors.grey.shade300,
+                    child: Image.network(
+                      restaurant?.image ?? "assets/about_restaurant.png",
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.image_not_supported);
+                      },
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 20),
+
+                // Tab Buttons
                 Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -84,12 +83,9 @@ class AboutPage extends StatelessWidget {
                             : Colors.black,
                         onPressed: () {
                           tabController.updateTab('About');
-                          Get.off(() => const AboutPage());
                         },
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       InfoButtons(
                         title: "Deals",
                         color: tabController.selectedTab.value == 'Deals'
@@ -103,9 +99,7 @@ class AboutPage extends StatelessWidget {
                           Get.off(() => const MenuPage());
                         },
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       InfoButtons(
                         title: "Review",
                         color: tabController.selectedTab.value == 'Review'
@@ -122,210 +116,136 @@ class AboutPage extends StatelessWidget {
                     ],
                   );
                 }),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.33,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      const Row(
-                        children: [
-                          Text(
-                            "Restaurant Information",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      AboutPageDescription(
-                        restaurantType: _formatList(restaurant?.restaurantType),
-                        location: restaurant?.restaurantAddress ?? "N/A",
-                        operationalHours: restaurant?.operationalHours ?? "N/A",
-                        sitting: _formatList(restaurant?.restaurantFeatures),
-                        reservationPolicy:
-                            restaurant?.acceptReservation == "Yes"
-                                ? "Accepting Reservations"
-                                : "No Reservations",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        children: [
-                          Text(
-                            "Follow us on",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Row(
-                        children: [
-                          Image(
-                            image: AssetImage(
-                              "assets/Facebook.png",
-                            ),
-                          ),
-                          Image(
-                            image: AssetImage(
-                              "assets/TwitterX.png",
-                            ),
-                          ),
-                          Image(
-                            image: AssetImage(
-                              "assets/Instagram.png",
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                const SizedBox(height: 20),
+
+                const Text(
+                  "Restaurant Information",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                const SizedBox(height: 10),
+                AboutPageDescription(
+                  restaurantType: _formatList(restaurant?.restaurantType),
+                  location: restaurant?.restaurantAddress ?? "N/A",
+                  operationalHours: restaurant?.operationalHours ?? "N/A",
+                  sitting: _formatList(
+                      restaurant?.restaurantInfo ?? ["Not Specified"]),
+                  minPriceRange: restaurant?.minPriceRange?.toString() ?? "N/A",
+                  maxPriceRange: restaurant?.maxPriceRange?.toString() ?? "N/A",
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
+
+                const SizedBox(height: 20),
+
+                const Text(
+                  "Follow us on",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
+                ),
+                const SizedBox(height: 10),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Text(
-                        "Additional Features",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      Image.asset("assets/Facebook.png", width: 40),
+                      const SizedBox(width: 10),
+                      Image.asset("assets/TwitterX.png", width: 40),
+                      const SizedBox(width: 10),
+                      Image.asset("assets/Instagram.png", width: 40),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                const SizedBox(height: 20),
+
+                // Additional Features Section
+                const Text(
+                  "Additional Features",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Column(
+                const SizedBox(height: 10),
+                Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(
-                                  "assets/truck-fast.png",
-                                ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset("assets/truck-fast.png", width: 30),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Parking",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
-                              SizedBox(
-                                width: 10,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Image.asset("assets/truck-fast.png", width: 30),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Live Music",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
-                              Text(
-                                "Parking",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(
-                                  "assets/truck-fast.png",
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Parking",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(
-                                  "assets/truck-fast.png",
-                                ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset("assets/truck-fast.png", width: 30),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Outdoor Seating",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
-                              SizedBox(
-                                width: 10,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Image.asset("assets/truck-fast.png", width: 30),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Live Music",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
-                              Text(
-                                "Parking",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image(
-                                image: AssetImage(
-                                  "assets/truck-fast.png",
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Parking",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  child: Button(
-                    title: "Reserve Now",
-                    color: AppColors.orange,
-                    onPressed: () {},
-                    textColor: Colors.white,
-                  ),
+                const SizedBox(height: 30),
+                Button(
+                  title: "Reserve Now",
+                  color: AppColors.orange,
+                  onPressed: () {
+                    Get.to(
+                      () => const AddSitting(),
+                    );
+                  },
+                  textColor: Colors.white,
                 ),
               ],
             ),

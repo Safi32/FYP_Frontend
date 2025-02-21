@@ -2,18 +2,16 @@ import 'dart:convert';
 
 import 'package:dine_deal/config/app_config.dart';
 import 'package:dine_deal/core/constants/app_constant.dart';
-import 'package:dine_deal/models/get_restaurant_data_model.dart';
+import 'package:dine_deal/features/models/get_restaurant_data_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class RestaurantController extends GetxController {
-  var restaurants = <Restaurant>[].obs; // All restaurants
+  var restaurants = <Restaurant>[].obs;
   var latestRestaurant = Rxn<Restaurant>();
-  var selectedRestaurant = Rxn<Restaurant>(); // Currently selected restaurant
-  var isLoading = false.obs; // Loading state
-  var errorMessage = ''.obs; // Error message state
-  RxString selectedDeal = ''.obs;
-  RxString additionalNotes = ''.obs; // Reactive variable for additional notes
+  var selectedRestaurant = Rxn<Restaurant>();
+  var isLoading = false.obs;
+  var errorMessage = ''.obs;
 
   @override
   void onInit() {
@@ -21,37 +19,24 @@ class RestaurantController extends GetxController {
     fetchRestaurants();
   }
 
-  void updateSelectedDeal(String deal) {
-    selectedDeal.value = deal;
-  }
-
-  // Update additional notes
-  void updateAdditionalNotes(String notes) {
-    additionalNotes.value = notes;
-  }
-
-  // Fetch restaurants from API
-  Future<void> fetchRestaurants() async {
+  Future<void> fetchRestaurants({int page = 1}) async {
     const String url = "${AppConfig.baseURL}${AppConstant.getRestaurant}";
 
     try {
-      isLoading(true);
-      errorMessage(''); // Clear error message
-
+      isLoading.value = true;
       final response = await http.get(Uri.parse(url));
+      isLoading.value = false;
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print("Restaurant Data: $data");
 
         if (data['success']) {
           var restaurantList = data['data'] as List;
-          restaurants.value =
-              restaurantList.map((e) => Restaurant.fromJson(e)).toList();
-
-          // Set the latest restaurant based on `createdAt`
-          if (restaurants.isNotEmpty) {
-            latestRestaurant.value =
-                restaurants.first; // Assuming API sorts descending
+          restaurants.addAll(
+              restaurantList.map((e) => Restaurant.fromJson(e)).toList());
+          if (restaurantList.isNotEmpty) {
+            latestRestaurant.value = Restaurant.fromJson(restaurantList.last);
           }
         } else {
           errorMessage.value = data['message'] ?? 'Failed to fetch restaurants';
@@ -61,13 +46,12 @@ class RestaurantController extends GetxController {
             'Error ${response.statusCode}: Unable to fetch data';
       }
     } catch (e) {
+      isLoading.value = false;
       errorMessage.value = 'An error occurred: $e';
-    } finally {
-      isLoading(false);
     }
   }
 
   void setSelectedRestaurant(Restaurant restaurant) {
-    selectedRestaurant.value = restaurant; // Set globally
+    selectedRestaurant.value = restaurant;
   }
 }

@@ -18,6 +18,9 @@ class TwoPerson extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,7 +70,6 @@ class TwoPerson extends StatelessWidget {
     );
   }
 
-  // Method to Build Each Deal Card
   Widget _buildDealCard(String name, String details, String price) {
     return SizedBox(
       height: Get.height * 0.2,

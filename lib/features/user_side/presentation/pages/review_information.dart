@@ -2,6 +2,7 @@ import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/reservation_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/timer_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/menu_page.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/reservation_info.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,26 +72,17 @@ class ReviewInformation extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Obx(
-                  () => Text(
-                    "Time Remaining: ${timerController.timeRemaining.value}s",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.red,
+                  () => ReservationInfo(
+                    restaurantName: restaurantName,
+                    tableInfo: "Table for $personCount",
+                    dateTime: "$selectedDate, $selectedTime",
+                    timeRemaining: _formatTimeRemaining(
+                      timerController.timeRemaining.value,
                     ),
+                    tableNumber: "Table number $selectedTable",
                   ),
                 ),
-
-                // Obx(
-                //   () => ReservationInfo(
-                //     restaurantName: restaurantName,
-                //     tableInfo: "Table for $personCount",
-                //     dateTime: "$selectedDate, $selectedTime",
-                //     timeRemaining: _formatTimeRemaining(
-                //       timerController.timeRemaining.value,
-                //     ),
-                //   ),
-                // ),
+                const SizedBox(height: 20),
                 const SizedBox(height: 20),
                 const Row(
                   children: [
@@ -148,9 +140,6 @@ class ReviewInformation extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                // EmailReminder(
-                                //   title: "Email Remainder",
-                                // ),
                               ],
                             ),
                           ),
@@ -203,7 +192,7 @@ class ReviewInformation extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => MenuPage());
+                                  Get.to(() => const MenuPage());
                                 },
                                 child: const Icon(
                                   Icons.add_circle_outline_outlined,
@@ -214,11 +203,6 @@ class ReviewInformation extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // const Padding(
-                        //   padding: EdgeInsets.symmetric(horizontal: 20),
-                        //   child: Divider(color: Colors.grey),
-                        // ),
-                        // const DetailNotesTextField(),
                       ],
                     ),
                   ),
@@ -243,23 +227,6 @@ class ReviewInformation extends StatelessWidget {
                   },
                   textColor: AppColors.surface,
                 ),
-
-                // Button(
-                //   title: "Reserve",
-                //   color: AppColors.orange,
-                //   onPressed: () {
-                //     // timerController.timeRemaining.value = 0;
-                //     reservationController.saveReservation(
-                //       restaurant: restaurantName,
-                //       persons: personCount,
-                //       date: selectedDate,
-                //       time: selectedTime,
-                //       table: selectedTable,
-                //     );
-                //     // Get.to(() => const PaymentScreen());
-                //   },
-                //   textColor: AppColors.surface,
-                // ),
               ],
             ),
           ),

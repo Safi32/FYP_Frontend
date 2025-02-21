@@ -26,26 +26,101 @@ class AccountAccess extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Stack(
+        body: Column(
           children: [
-            Positioned.fill(
-              child: Image.asset(
-                "assets/burger.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              top: 10,
-              left: 10,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_sharp,
-                  color: Colors.white,
+            Column(
+              children: [
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 150,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE1CCCC),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 90,
+                      left: 100,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.orange,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text(
+                          "Restaurant",
+                          style: TextStyle(
+                            color: AppColors.surface,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              ],
+            ),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: AppColors.yellowishBrown,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 90,
+                  left: 200,
+                  child: SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text(
+                        "User",
+                        style: TextStyle(
+                          color: AppColors.surface,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -68,13 +143,39 @@ class AccountAccess extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Do you have an account?",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.black,
-                                fontSize: 20 * fontSizeMultiplier,
-                              ),
+                            Container(
+                              height: 5,
+                              width: 200,
+                              color: AppColors.black,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Row(
+                              children: [
+                                Text(
+                                  "Let's Get Started !",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.orange,
+                                      fontSize: 20),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Row(
+                              children: [
+                                Text(
+                                  "Log In or register an account",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             Button(
@@ -88,7 +189,7 @@ class AccountAccess extends StatelessWidget {
                             SizedBox(height: screenHeight * 0.02),
                             Button(
                               title: "Register",
-                              color: Colors.white,
+                              color: Colors.grey.shade300,
                               onPressed: () {
                                 Get.to(() => SignUp());
                               },

@@ -46,7 +46,7 @@ class SignUpController extends GetxController {
     final username = _generateUsernameFromEmail(email);
     await prefs.setString('user_name', username);
     await prefs.setString('user_email', email);
-    await _storage.write(key: 'user_name', value: username);
+    // await _storage.write(key: 'user_name', value: username);
   }
 
   String _generateUsernameFromEmail(String email) {
@@ -80,7 +80,7 @@ class SignUpController extends GetxController {
       "roleId": roleId.value,
     };
 
-    print("Email captured in signUp method: $email"); // Debugging print
+    print("SignUp Request Body: $body");
 
     try {
       isLoading(true);
@@ -91,10 +91,15 @@ class SignUpController extends GetxController {
         body: json.encode(body),
       );
 
+      print("SignUp Response: ${response.statusCode} - ${response.body}");
+
       if (response.statusCode == 201) {
+        print("SignUp Successful, saving user details...");
         await saveUserDetails(email);
-        sendOtp(email); // Trigger OTP sending
-        await Future.delayed(const Duration(seconds: 5)); // Optional delay
+        print("User details saved. Sending OTP...");
+        await sendOtp(email);
+
+        print("Navigating to OTP screen...");
         Get.toNamed('/otp-verification', arguments: {"email": email});
       } else if (response.statusCode == 400) {
         final responseBody = json.decode(response.body);
@@ -106,6 +111,7 @@ class SignUpController extends GetxController {
         showErrorSnackbar(errorMessage.value);
       }
     } catch (e) {
+      print("SignUp Error: $e");
       errorMessage.value =
           "Failed to connect to server. Please try again later.";
       showErrorSnackbar(errorMessage.value);
@@ -115,7 +121,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> sendOtp(String email) async {
-    print("Email captured in sendOtp method: $email"); // Debugging print
+    print("Sending OTP to: $email");
     try {
       final response = await http.post(
         Uri.parse("${AppConfig.baseURL}${AppConstant.sendOtp}"),
@@ -123,15 +129,39 @@ class SignUpController extends GetxController {
         body: json.encode({"email": email}),
       );
 
+      print("SendOtp Response: ${response.statusCode} - ${response.body}");
+
       if (response.statusCode == 200) {
+        print("OTP sent successfully.");
         showSuccessSnackbar("OTP sent to $email.");
       } else {
+        print("Failed to send OTP: ${response.statusCode}");
         showErrorSnackbar("Failed to send OTP. Try again.");
       }
     } catch (e) {
+      print("SendOtp Error: $e");
       showErrorSnackbar("Error sending OTP. Please try again later.");
     }
   }
+
+  // Future<void> sendOtp(String email) async {
+  //   print("Email captured in sendOtp method: $email");
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse("${AppConfig.baseURL}${AppConstant.sendOtp}"),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: json.encode({"email": email}),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       showSuccessSnackbar("OTP sent to $email.");
+  //     } else {
+  //       showErrorSnackbar("Failed to send OTP. Try again.");
+  //     }
+  //   } catch (e) {
+  //     showErrorSnackbar("Error sending OTP. Please try again later.");
+  //   }
+  // }
 
   Future<void> verifyOtp(String email, String otp) async {
     try {
@@ -153,7 +183,14 @@ class SignUpController extends GetxController {
     }
   }
 
-  void showErrorSnackbar(String message) {}
+  void showErrorSnackbar(String message) {
+    Get.snackbar(
+      "Failed",
+      message,
+      backgroundColor: Colors.red,
+      snackPosition: SnackPosition.TOP,
+    );
+  }
 
   void showSuccessSnackbar(String message) {
     Get.snackbar(
