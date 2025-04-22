@@ -115,7 +115,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                 return SignUpFields(
                                   validator: (value) {
                                     if (value!.isEmpty || value.length < 6) {
-                                      return "Password must contain more than 6 characters";
+                                      return "Password must be 6 characters long";
                                     }
                                     return null;
                                   },

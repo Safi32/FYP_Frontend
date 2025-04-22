@@ -1,4 +1,7 @@
+import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/tab_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/favourite_deals.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/favourite_restaurants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +29,66 @@ class Favorite extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 70),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: Get.width * 0.75,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.search,
+                            color: Colors.grey,
+                          ),
+                          hintText: "Search",
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                              color: AppColors.surface,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                              color: AppColors.surface,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 55,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Image(
+                        image: AssetImage(
+                          "assets/filter.png",
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -43,7 +105,7 @@ class Favorite extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 color: controller.isRestaurantSelected.value
-                                    ? Colors.orange
+                                    ? AppColors.orange
                                     : Colors.grey,
                               ),
                               child: const Text("Restaurant"),
@@ -56,7 +118,7 @@ class Favorite extends StatelessWidget {
                               height: 2,
                               width: 80,
                               color: controller.isRestaurantSelected.value
-                                  ? Colors.orange
+                                  ? AppColors.orange
                                   : Colors.transparent,
                             );
                           }),
@@ -77,7 +139,7 @@ class Favorite extends StatelessWidget {
                                 fontSize: 18,
                                 color: controller.isRestaurantSelected.value
                                     ? Colors.grey
-                                    : Colors.orange,
+                                    : AppColors.orange,
                               ),
                               child: const Text("Deals"),
                             );
@@ -90,7 +152,7 @@ class Favorite extends StatelessWidget {
                               width: 80,
                               color: controller.isRestaurantSelected.value
                                   ? Colors.transparent
-                                  : Colors.orange,
+                                  : AppColors.orange,
                             );
                           }),
                         ],
@@ -100,31 +162,13 @@ class Favorite extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Obx(() {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: Image(
-                          key: ValueKey(controller.isRestaurantSelected.value),
-                          image: AssetImage(
-                            controller.isRestaurantSelected.value
-                                ? "assets/fav_table.png"
-                                : "assets/fav_table 2.png",
-                          ),
-                          height: 150,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        controller.isRestaurantSelected.value
-                            ? "No Restaurant in favorite"
-                            : "No Deals in favorite",
-                      ),
-                    ],
-                  );
-                }),
+                child: Obx(
+                  () {
+                    return controller.isRestaurantSelected.value
+                        ? const FavouriteRestaurants()
+                        : const FavouriteDeals();
+                  },
+                ),
               ),
             ],
           ),

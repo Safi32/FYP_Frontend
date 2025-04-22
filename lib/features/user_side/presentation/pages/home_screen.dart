@@ -6,10 +6,12 @@ import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart'
 import 'package:dine_deal/features/user_side/presentation/pages/categories_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/deals_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/filter_screen.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/location_selection_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reservation.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/reserve_table.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/restaurant_screen.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/See_all_row.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/categories.dart';
 import 'package:dine_deal/features/user_side/presentation/widgets/deals_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -103,22 +105,27 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Icon(Icons.location_on,
-                      color: Colors.white, size: 18 * fontSizeMultiplier),
-                  SizedBox(width: screenWidth * 0.02),
-                  Text(
-                    "I-14 Islamabad",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15 * fontSizeMultiplier,
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const LocationSelectionScreen());
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.location_on,
+                        color: Colors.white, size: 18 * fontSizeMultiplier),
+                    SizedBox(width: screenWidth * 0.02),
+                    Text(
+                      "I-14 Islamabad",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15 * fontSizeMultiplier,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const Icon(Icons.keyboard_arrow_down_rounded,
-                      color: Colors.yellow),
-                ],
+                    const Icon(Icons.keyboard_arrow_down_rounded,
+                        color: Colors.yellow),
+                  ],
+                ),
               ),
             ],
           ),
@@ -165,7 +172,7 @@ class HomeScreen extends StatelessWidget {
           ),
           SizedBox(width: screenWidth * 0.03),
           GestureDetector(
-            onTap: () => Get.to(() => const FilterScreen()),
+            onTap: () => Get.to(() => FilterScreen()),
             child: Container(
               height: screenHeight * 0.06,
               width: screenWidth * 0.13,
@@ -207,10 +214,26 @@ class HomeScreen extends StatelessWidget {
           }
 
           if (categoriesController.categoriesList.isEmpty) {
-            return const Center(
-              child: Text(
-                "No Categories Available",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            return const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Categories(
+                    imagePath: "assets/Image.png",
+                    subtitle: "97 Restaurant",
+                    title: "Brunch",
+                  ),
+                  Categories(
+                    imagePath: "assets/pasta.png",
+                    subtitle: " 43 Restaurant",
+                    title: "Sea Food",
+                  ),
+                  Categories(
+                    imagePath: "assets/Image block.png",
+                    subtitle: "31 Restaurant",
+                    title: "Desert",
+                  ),
+                ],
               ),
             );
           }
@@ -225,8 +248,8 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               children: categories.map<Widget>((category) {
                 return DealsImages(
-                  imagePath: "",
-                  subtitle: "",
+                  imagePath: "assets/Image.png",
+                  subtitle: "Brunch",
                   title: category,
                 );
               }).toList(),
@@ -378,6 +401,7 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(height: 10),
         SizedBox(
           height: 220,
+          width: double.infinity,
           child: Obx(() {
             if (controller.isLoading.value) {
               return const Center(
@@ -392,13 +416,15 @@ class HomeScreen extends StatelessWidget {
                 child: Text("No restaurants available"),
               );
             } else {
-              final latestRestaurant = controller.latestRestaurant.value!;
+              final restaurant = controller.latestRestaurant.value!;
               return GestureDetector(
                 onTap: () {
-                  controller.setSelectedRestaurant(latestRestaurant);
+                  controller.setSelectedRestaurant(restaurant);
                   Get.to(() => const AboutPage());
                 },
                 child: Container(
+                  width: 250,
+                  margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -423,7 +449,7 @@ class HomeScreen extends StatelessWidget {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(latestRestaurant.image),
+                              image: NetworkImage(restaurant.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -436,7 +462,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              latestRestaurant.restaurantName,
+                              restaurant.restaurantName,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -446,7 +472,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 5),
                             const Text(
-                              "Choose from a variety of bowl options and tas..", // Static subtitle
+                              "Delicious food and amazing ambiance.",
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -457,41 +483,14 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: 8),
                             const Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.local_offer,
-                                        size: 16, color: Colors.orange),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "20+ deals",
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
+                                Icon(Icons.local_offer,
+                                    size: 16, color: AppColors.orange),
+                                SizedBox(width: 5),
+                                Text(
+                                  "deals",
+                                  style: TextStyle(fontSize: 14),
                                 ),
                                 SizedBox(width: 15),
-                                Row(
-                                  children: [
-                                    Icon(Icons.access_time,
-                                        size: 16, color: Colors.orange),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "40-50 mins",
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 15),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star,
-                                        size: 16, color: Colors.orange),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "4.9",
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
                               ],
                             ),
                           ],
@@ -517,7 +516,7 @@ class HomeScreen extends StatelessWidget {
           title: "Latest Deals",
           seeAll: "See All",
           onPressed: () {
-            Get.to(() => DealsScreen()); // Navigate to See All Deals screen
+            Get.to(() => DealsScreen());
           },
           fontSize: 18 * fontSizeMultiplier,
         ),

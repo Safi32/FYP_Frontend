@@ -1,29 +1,35 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
 import 'package:dine_deal/features/admin_side/presentation/getX/controller/list_restaurant_controller.dart';
 import 'package:dine_deal/features/admin_side/presentation/pages/manage_restaurant/add_additional_features.dart';
+import 'package:dine_deal/features/admin_side/widgets/floor_table.dart';
 import 'package:dine_deal/features/admin_side/widgets/post_button.dart';
-import 'package:dine_deal/features/admin_side/widgets/restaurant_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddSitting extends StatelessWidget {
-  AddSitting({super.key});
+class AddSitting extends StatefulWidget {
+  const AddSitting({super.key});
 
+  @override
+  _AddSittingState createState() => _AddSittingState();
+}
+
+class _AddSittingState extends State<AddSitting>
+    with SingleTickerProviderStateMixin {
   final ListRestaurantController controller =
       Get.put(ListRestaurantController());
+  late TabController _tabController;
 
-  final List<String> restaurantInformation = [
-    "Inside",
-    "Outside",
-    "Terrace",
-    "Lawn",
-    "Roof",
-    "Floor Seating (Traditional)",
-    "Event Space",
-    "Window View Seating",
-    "Kids Area",
-    "Pool Side",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,86 +82,59 @@ class AddSitting extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   const Text(
-                    "List Your Restaurant Deals here.",
+                    "Arrange tables according to restaurant.",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
+            const SizedBox(height: 20),
+            TabBar(
+              controller: _tabController,
+              labelColor: AppColors.orange,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: AppColors.orange,
+              indicatorWeight: 3.0,
+              tabs: const [
+                Tab(
+                  text: "First Floor",
+                ),
+                Tab(
+                  text: "Terrace",
+                ),
+                Tab(
+                  text: "Roof",
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.add,
+                    color: AppColors.orange,
+                  ),
+                )
+              ],
             ),
+            const SizedBox(height: 20),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 25,
-                    ),
-                    child: Text(
-                      "Restaurant Information",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 25,
-                    ),
-                    child: Text(
-                      "Area",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: ListView.builder(
-                        itemCount: restaurantInformation.length,
-                        itemBuilder: (context, index) {
-                          final info = restaurantInformation[index];
-                          return Obx(
-                            () => RestaurantCheckbox(
-                              title: info,
-                              isChecked: controller.selectedRestaurantInfo
-                                  .contains(info),
-                              onChanged: (isSelected) {
-                                controller.toggleSelection(
-                                    info, isSelected!, "restaurantInfo");
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+              child: TabBarView(
+                controller: _tabController,
+                children: const [
+                  FloorTable(),
+                  Center(child: Text("Terrace Tab Content")),
+                  Center(child: Text("Roof Tab Content")),
                 ],
               ),
             ),
+            const SizedBox(height: 20),
             PostButton(
               onPressed: () {
                 Get.to(() => AddAdditionalFeatures());
               },
               title: "Update",
             ),
-            SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
           ],
         ),
       ),

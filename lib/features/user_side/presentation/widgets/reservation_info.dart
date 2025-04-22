@@ -7,6 +7,7 @@ class ReservationInfo extends StatelessWidget {
   final String tableInfo;
   final String dateTime;
   final String timeRemaining;
+  final String tableNumber;
 
   const ReservationInfo({
     super.key,
@@ -14,12 +15,13 @@ class ReservationInfo extends StatelessWidget {
     required this.tableInfo,
     required this.dateTime,
     required this.timeRemaining,
+    required this.tableNumber,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.width * 0.6,
+      height: Get.width * 0.7,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -127,6 +129,31 @@ class ReservationInfo extends StatelessWidget {
                 Expanded(
                   child: Text(
                     dateTime,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 30, color: Colors.grey),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Row(
+              children: [
+                const Image(
+                  image: AssetImage(
+                    "assets/table_bar.png",
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    tableNumber,
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,

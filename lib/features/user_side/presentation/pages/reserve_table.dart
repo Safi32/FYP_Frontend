@@ -1,5 +1,8 @@
 import 'package:dine_deal/core/resources/app_colors.dart';
+import 'package:dine_deal/features/user_side/presentation/getX/controller/reservation_controller.dart';
+import 'package:dine_deal/features/user_side/presentation/pages/restaurant_name.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/review_information.dart';
+import 'package:dine_deal/features/user_side/presentation/widgets/window.dart';
 import 'package:dine_deal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,17 +15,10 @@ class ReserveTable extends StatelessWidget {
   final ValueNotifier<String> selectedTime = ValueNotifier<String>("");
   final ValueNotifier<String> selectedTable = ValueNotifier<String>("");
   final ValueNotifier<String> restaurantName = ValueNotifier<String>(
-    "Marriot Hotel Islamabad",
+    "",
   );
 
   final List<String> timeSlots = ["12:00", "13:30", "14:00", "15:30"];
-  final List<String> seatingAreas = [
-    "Inside",
-    "Terrace",
-    "Family",
-    "Roof",
-    "Lawn"
-  ];
 
   ReserveTable({super.key});
 
@@ -91,58 +87,7 @@ class ReserveTable extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade300),
-                        ),
-                        child: const Row(
-                          children: [
-                            SizedBox(width: 10),
-                            Image(
-                              image: AssetImage(
-                                "assets/prefix.png",
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Marriot Hotel Islamabad",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  "Agha Khan Rd, F-5/1 F-5, Islamabad",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    const RestaurantName(),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,7 +162,7 @@ class ReserveTable extends StatelessWidget {
                                 showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
-                                  firstDate: DateTime(2020),
+                                  firstDate: DateTime.now(),
                                   lastDate: DateTime(2030),
                                 ).then((pickedDate) {
                                   if (pickedDate != null) {
@@ -332,49 +277,387 @@ class ReserveTable extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: ValueListenableBuilder<String>(
-                            valueListenable: selectedTable,
-                            builder: (context, table, child) {
-                              return Row(
-                                children: seatingAreas.map((area) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      selectedTable.value = area;
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                        horizontal: 20,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: selectedTable.value == area
-                                            ? AppColors.orange
-                                            : Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                          color: selectedTable.value == area
-                                              ? AppColors.orange
-                                              : Colors.grey,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        area,
-                                        style: TextStyle(
-                                          color: selectedTable.value == area
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                        Container(
+                          height: Get.height * 0.55,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 20,
+                                  horizontal: 20,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Any Where",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                  );
-                                }).toList(),
-                              );
-                            },
+                                    Text(
+                                      "First Floor",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Terrace",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Roof",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 1.0,
+                                color: Colors.grey,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 20,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 10,
+                                          width: 10,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade400,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "Available",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.grey.shade400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 10,
+                                          width: 10,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.orange,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const Text(
+                                          "Selected",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: AppColors.orange,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 10,
+                                          width: 10,
+                                          decoration: BoxDecoration(
+                                            color: Colors.yellow,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        const Text(
+                                          "Reserved",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.yellow,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Window(
+                                            image: "assets/table_number_01.png",
+                                            tableNumber: "1",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "1";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_02.png",
+                                            tableNumber: "2",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "2";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_03.png",
+                                            tableNumber: "3",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "3";
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Window(
+                                            image: "assets/table_number_04.png",
+                                            tableNumber: "4",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "4";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 30,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_05.png",
+                                            tableNumber: "5",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "5";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 40,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_06.png",
+                                            tableNumber: "6",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "6";
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Window(
+                                            image: "assets/table_number_07.png",
+                                            tableNumber: "7",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "7";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_08.png",
+                                            tableNumber: "8",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "8";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_09.png",
+                                            tableNumber: "9",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "9";
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Window(
+                                            image: "assets/table_number_10.png",
+                                            tableNumber: "10",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "10";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_11.png",
+                                            tableNumber: "11",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "11";
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Window(
+                                            image: "assets/table_number_12.png",
+                                            tableNumber: "12",
+                                            onPressed: () {
+                                              final reservationsController =
+                                                  Get.put(
+                                                      ReservationsController());
+                                              reservationsController
+                                                  .selectedTable.value = "12";
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 50,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 110,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.black,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                        ),
+                                        child: const Center(
+                                          child: RotatedBox(
+                                            quarterTurns: 9,
+                                            child: Text(
+                                              "Window",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      Container(
+                                        height: 110,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.black,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                        ),
+                                        child: const Center(
+                                          child: RotatedBox(
+                                            quarterTurns: 9,
+                                            child: Text(
+                                              "Window",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -384,19 +667,35 @@ class ReserveTable extends StatelessWidget {
                       title: "Reserve This Table",
                       color: AppColors.orange,
                       onPressed: () {
-                        print("Reservation Details:");
-                        print("Restaurant Name: ${restaurantName.value}");
-                        print("Person Count: ${personCount.value}");
-                        print("Selected Date: ${selectedDate.value}");
-                        print("Selected Time: ${selectedTime.value}");
-                        print("Selected Table: ${selectedTable.value}");
-                        Get.to(() => ReviewInformation(
-                              restaurantName: restaurantName.value,
+                        final reservationsController =
+                            Get.put(ReservationsController());
+
+                        if (reservationsController
+                            .selectedTable.value.isEmpty) {
+                          Get.snackbar(
+                            "No Table Selected",
+                            "Please select a table before proceeding.",
+                            snackPosition: SnackPosition.TOP,
+                            duration: const Duration(seconds: 2),
+                          );
+                        } else {
+                          Get.snackbar(
+                            "Reservation Confirmed",
+                            "Table ${reservationsController.selectedTable.value} has been reserved.",
+                            snackPosition: SnackPosition.TOP,
+                            duration: const Duration(seconds: 2),
+                          );
+                          Get.to(
+                            () => ReviewInformation(
+                              restaurantName: selectedRestaurantName.value,
                               personCount: personCount.value,
                               selectedDate: selectedDate.value,
                               selectedTime: selectedTime.value,
-                              selectedTable: selectedTable.value,
-                            ));
+                              selectedTable:
+                                  reservationsController.selectedTable.value,
+                            ),
+                          );
+                        }
                       },
                       textColor: AppColors.surface,
                     ),

@@ -47,6 +47,7 @@ class PersonalDetails extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
+                height: Get.height,
                 decoration: const BoxDecoration(
                   color: AppColors.background,
                   borderRadius: BorderRadius.only(

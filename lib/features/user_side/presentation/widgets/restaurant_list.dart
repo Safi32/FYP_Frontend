@@ -166,9 +166,9 @@
 //     );
 //   }
 // }
+import 'package:dine_deal/features/models/get_restaurant_data_model.dart';
 import 'package:dine_deal/features/user_side/presentation/getX/controller/get_restaurant_controller.dart';
 import 'package:dine_deal/features/user_side/presentation/pages/about_page.dart';
-import 'package:dine_deal/models/get_restaurant_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -206,7 +206,7 @@ class RestaurantList extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                restaurant.image,
+                "",
                 height: 180,
                 width: double.infinity,
                 fit: BoxFit.cover,
