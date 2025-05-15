@@ -179,6 +179,7 @@ class ListRestaurantController extends GetxController {
       print('Username: "${username.value}"');
       print('Restaurant Types: ${restaurantType.toList()}');
       print('Restaurant Features: ${restaurantFeatures.toList()}');
+      print('Restaurant Info: ${restaurantInfo.toList()}'); 
 
       if (username.value.trim().isEmpty) {
         _showError('Please enter username');
