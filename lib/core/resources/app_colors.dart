@@ -26,7 +26,7 @@ class AppColors {
   static const Color yellowishBrown = Color(0xFFFFE7CC);
   static const Color orange = Color(0xFFC75E28);
   static const Color brown = Color(0xFF5E4228);
-  static const Color background = Color(0xFFF9FBFB);
+  static const Color background = Color(0xFFF9FBFF);
   static const Color baige = Color(0xFFF1D693);
 
   static const Color blue = Color(0xFF94C5FF);
